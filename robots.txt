@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://haine-cpu7.github.io/shozai-lab/sitemap.xml

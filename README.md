@@ -71,3 +71,29 @@
 - ガチ研究ページの検証終了後に「すごくわかりやすい結果」を表示。
 - H1〜H5を「1万円は戻った？」「教材なしより強い？」「同じ1,000時間なら？」「人脈は？」「記事量産は？」という普通の言葉へ自動変換。
 - 選択中の環境・教材効果・Seedに応じて文章を自動生成し、専門用語を読まなくても検証結果の意味が分かるようにした。
+
+
+## SEO / 検索インデックス対応（v1.9）
+
+検索エンジン向けに以下を追加しています。
+
+- 各ページ固有の `<title>` / meta description
+- canonical URL
+- robots meta（index / follow）
+- Open Graph / X Card
+- Schema.org JSON-LD（WebSite / WebPage / WebApplication / FAQPage）
+- 検索意図に沿った静的な説明文とFAQ
+- `robots.txt`
+- `sitemap.xml`
+- 検索結果用 favicon (`favicon.png`)
+- SNS共有用 OGP画像 (`og-card.png`)
+- ゲーム ↔ ガチ研究の内部リンク強化
+
+公開URL:
+- https://haine-cpu7.github.io/shozai-lab/
+- https://haine-cpu7.github.io/shozai-lab/hypothesis.html
+
+### 公開後にやること
+
+Google Search Consoleへ `https://haine-cpu7.github.io/shozai-lab/sitemap.xml` を送信し、トップページと `hypothesis.html` をURL検査してください。
+検索順位は保証できません。Googleは役に立つ独自コンテンツ、クロール可能性、ページ体験など多数の要素で検索結果を決めます。
