@@ -3,179 +3,198 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仮説検証室 | 商材実験室</title>
-<meta name="description" content="商材実験室 No.001 の事前仮説を条件統制し、100世界線で検証するページ">
+<title>ガチ研究 | 商材実験室</title>
+<meta name="description" content="商材実験室 No.001 を事前仮説、外部ベンチマーク、感度分析、固定Seedの100世界線で検証する研究ページ">
 <style>
-:root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#2563eb;--ok:#166534;--ng:#991b1b;--mid:#92400e;--course:#2563eb;--control:#65a30d;--network:#0f766e;--writer:#7c3aed}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2rem,5vw,3.6rem)}h2{font-size:1.35rem}.muted,.small{color:var(--muted)}.small{font-size:.84rem}.kpi{font-size:1.3rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.note{border-left:3px solid var(--accent);padding-left:12px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.controls,.navrow,.liftrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.navrow{margin-top:14px}.navbtn,button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:0 14px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.primary,.navbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.hypothesis{display:grid;gap:10px}.hhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hid{font-size:.72rem;letter-spacing:.08em;color:var(--muted)}.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:800;border:1px solid var(--border)}.status.pending{color:var(--muted)}.status.support{color:var(--ok);border-color:#86efac;background:#f0fdf4}.status.reject{color:var(--ng);border-color:#fecaca;background:#fef2f2}.status.unclear{color:var(--mid);border-color:#fde68a;background:#fffbeb}.criteria{font-size:.8rem;color:var(--muted);background:var(--card);padding:9px 10px;border-radius:10px}.resultgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.metric{background:var(--card);border-radius:11px;padding:10px}.metric .small{display:block}.metric b{font-size:1.04rem}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent);transition:width .2s}.liftbtn.active{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}.question{font-size:clamp(2.7rem,8vw,5.5rem);letter-spacing:-.05em;line-height:1;margin:4px 0 10px}.summarybox{border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff}.legend{display:flex;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:999px;display:inline-block;margin-right:5px}.hidden{display:none!important}.foot{font-size:.8rem;color:var(--muted)}
-@media(max-width:900px){.g3,.resultgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.wrap{padding:15px}.g2,.g3,.resultgrid{grid-template-columns:1fr}.section-title,.hhead{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
+:root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#111827;--blue:#2563eb;--ok:#166534;--ng:#991b1b;--mid:#92400e;--warn:#b45309}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1180px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2.2rem,5vw,4rem)}h2{font-size:1.4rem}.muted,.small{color:var(--muted)}.small{font-size:.84rem}.tiny{font-size:.76rem;color:var(--muted)}.kpi{font-size:1.3rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.note{border-left:3px solid var(--blue);padding-left:12px}.warning{border-left:3px solid var(--warn);padding-left:12px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.controls,.navrow,.liftrow,.envrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.navrow{margin-top:14px}.navbtn,button,input{min-height:44px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:0 14px;font:inherit}.navbtn,button{display:inline-flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;text-decoration:none}.primary,.navbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.secondary{background:#fff}.hypothesis{display:grid;gap:10px}.hhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hid{font-size:.72rem;letter-spacing:.08em;color:var(--muted)}.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:800;border:1px solid var(--border)}.status.pending{color:var(--muted)}.status.support{color:var(--ok);border-color:#86efac;background:#f0fdf4}.status.reject{color:var(--ng);border-color:#fecaca;background:#fef2f2}.status.unclear{color:var(--mid);border-color:#fde68a;background:#fffbeb}.criteria{font-size:.8rem;color:var(--muted);background:var(--card);padding:9px 10px;border-radius:10px}.resultgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.metric{background:var(--card);border-radius:11px;padding:10px}.metric .small{display:block}.metric b{font-size:1.04rem}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent);transition:width .2s}.choice.active{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}.question{font-size:clamp(2.7rem,8vw,5.5rem);letter-spacing:-.05em;line-height:1;margin:4px 0 10px}.summarybox{border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff}.hidden{display:none!important}.foot{font-size:.8rem;color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{border-bottom:1px solid var(--border);padding:10px 8px;text-align:left;vertical-align:top}th{font-size:.76rem;color:var(--muted);letter-spacing:.03em}.source-tag{display:inline-block;border-radius:999px;padding:2px 7px;font-size:.7rem;font-weight:700}.external{background:#eff6ff;color:#1d4ed8}.game{background:#fff7ed;color:#9a3412}.course{background:#f0fdf4;color:#166534}.mixed{background:#f5f3ff;color:#6d28d9}.source-link{color:#1d4ed8;text-decoration:none}.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}.r-robust{color:var(--ok);font-weight:800}.r-sensitive{color:var(--warn);font-weight:800}.r-unclear{color:var(--mid);font-weight:800}.research-badge{font-weight:900;letter-spacing:.08em}.seedbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.seedbox input{width:150px}.scenario-card{height:100%;text-align:left}.scenario-card b{display:block}.scenario-card.active{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+@media(max-width:950px){.g4,.g3,.resultgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tablewrap{overflow:auto}table{min-width:760px}}@media(max-width:640px){.wrap{padding:15px}.g2,.g3,.g4,.resultgrid{grid-template-columns:1fr}.section-title,.hhead{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
 </style>
 </head>
 <body>
 <main class="wrap stack">
 <section>
-  <div class="eyebrow">INFORMATION PRODUCT LAB / HYPOTHESIS TEST</div>
-  <h1>仮説検証室</h1>
-  <p class="muted">メインページで観察してから仮説を作るのではなく、<b>先に仮説と判定条件を宣言し、その条件だけを100世界線で検証</b>します。</p>
-  <div class="navrow"><a class="navbtn" href="index.html">← 探索シミュレーションへ戻る</a><span class="pill">No.001 専用</span></div>
+  <div class="eyebrow">INFORMATION PRODUCT LAB / RESEARCH MODE</div>
+  <h1>ガチ研究</h1>
+  <p class="muted">1ページ目はゲーム。ここは、<b>「その結論、仮定を変えても残るの？」</b>を調べる2ページ目です。事前仮説、対照群、出典、固定Seed、感度分析、100世界線を分けて扱います。</p>
+  <div class="navrow"><a class="navbtn" href="index.html">← 1ページ目：ゲーム</a><span class="pill research-badge">2ページ目：ガチ研究</span><span class="pill">No.001</span></div>
 </section>
 
 <section class="panel stack">
-  <div class="section-title"><div><div class="eyebrow">WHY THIS PAGE EXISTS</div><h2>探索と検証を分ける</h2></div><span class="pill">事前仮説</span></div>
-  <div class="grid g2">
-    <div class="soft"><b>探索ページ</b><div class="small">教材の主張をゲーム内の補正へ変換し、「何が起きるか」を眺める。結果から新しい仮説を作る場所。</div></div>
-    <div class="soft"><b>この検証ページ</b><div class="small">結果を見る前にH1〜H5を固定。教材に自動の品質バフを与えず、比較条件をそろえて判定する場所。</div></div>
+  <div class="section-title"><div><div class="eyebrow">RESEARCH DISCIPLINE</div><h2>このページで守るルール</h2></div><span class="pill">モデル内部の検証</span></div>
+  <div class="grid g4">
+    <div class="soft"><b>事前仮説</b><div class="small">結果を見る前にH1〜H5と判定規則を固定。結果を見てからゴールポストを動かしません。</div></div>
+    <div class="soft"><b>教材の自動バフ 0%</b><div class="small">標準では「教材だから高品質」という性能差を入れません。効果を入れる場合は感度分析として明示します。</div></div>
+    <div class="soft"><b>固定Seed</b><div class="small">同じSeed・同じ条件なら同じ結果を再現。BOT比較では同じSeedを使い、可能な範囲で同じ乱数世界線を通します。</div></div>
+    <div class="soft"><b>不確実性を表示</b><div class="small">勝率だけでなく95% Wilson区間を表示。これは実世界の統計的有意性ではなく、Monte Carlo誤差の目安です。</div></div>
+  </div>
+  <p class="small warning"><b>できること / できないこと：</b> このページは「設定したモデルの中で、どの戦略がどの仮定に依存して勝つか」を検証します。現実世界で教材の因果効果を証明するRCTではありません。</p>
+  <p class="foot">計算上、研究ページは720日終了時点の総量を比較するため、記事のSEO流入は「登録→成熟→減衰」の日次曲線を積分して記事ごとの累積PVへ変換します。ゲームページの日次演出とは計算方法を分離しています。</p>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">EVIDENCE LEDGER</div><h2>この数字、どこから来た？</h2></div><span class="pill">出典と仮定を分離</span></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>変数</th><th>標準値</th><th>分類</th><th>根拠 / 限界</th><th>感度分析</th></tr></thead>
+    <tbody>
+      <tr><td>クロール・登録待ち</td><td>14〜45日</td><td><span class="source-tag mixed">外部根拠＋ゲーム化</span></td><td>Googleはクロールに「数日〜数週間」かかる場合があり、クロール・インデックス時期は保証できないと説明。14〜45日はその記述をゲーム用の分布へ変換した値。<br><a class="source-link" href="https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl?hl=ja" target="_blank" rel="noopener">Google Search Central</a></td><td>悲観21〜60 / 標準14〜45 / 楽観3〜21日</td></tr>
+      <tr><td>SEO成長速度</td><td>約110日</td><td><span class="source-tag game">ゲーム仮定</span></td><td>Ahrefs 2025では新規ページが1年以内にTop10へ入る割合は全体1.74%、英語の非空ページ抽出で6.11%。ただし「110日成熟」を直接示す統計ではないため、成長曲線自体はゲーム仮定。<br><a class="source-link" href="https://ahrefs.com/blog/how-long-does-it-take-to-rank-in-google-and-how-old-are-top-ranking-pages/" target="_blank" rel="noopener">Ahrefs 2025 study</a></td><td>悲観180 / 標準110 / 楽観60日</td></tr>
+      <tr><td>記事の当たり分布</td><td>70%ほぼ0 / 22%小 / 7%中 / 1%当たり</td><td><span class="source-tag game">ゲーム仮定</span></td><td>「大半が大きく伸びない」という形を再現するための離散分布。AhrefsのTop10到達率は参考になるが、PV分布へ直接変換できないため統計値とは呼ばない。</td><td>悲観80/15/4/1・標準70/22/7/1・楽観60/28/10/2</td></tr>
+      <tr><td>収益リンクCTR</td><td>0.5〜1.0%</td><td><span class="source-tag external">外部ベンチマーク</span></td><td>Shopifyの「2026向けAffiliate Marketing Metrics」は、アフィリエイトリンクCTRのベースラインを0.5%、1%超を非常に良好な水準として紹介。媒体・配置・商品で大きく変わる。<br><a class="source-link" href="https://www.shopify.com/uk/blog/affiliate-marketing-metrics" target="_blank" rel="noopener">Shopify（2026向け指標）</a></td><td>悲観0.25〜0.5 / 標準0.5〜1.0 / 楽観0.8〜1.5%</td></tr>
+      <tr><td>クリック→購入CVR</td><td>1〜3%</td><td><span class="source-tag external">外部ベンチマーク</span></td><td>Shopifyがimpact.comの見解として購入型アフィリエイトの平均的なCVRを1〜3%と紹介。商品単価・検討期間・流入品質で大幅に変動。<br><a class="source-link" href="https://www.shopify.com/ng/blog/affiliate-marketing-conversion-rates" target="_blank" rel="noopener">Shopify / impact.com</a></td><td>悲観0.5〜1 / 標準1〜3 / 楽観2〜5%</td></tr>
+      <tr><td>成果報酬</td><td>600〜1,200円</td><td><span class="source-tag game">ゲーム仮定</span></td><td>案件依存が強く一般化できないため、No.001の収益モデル用に置いた価格帯。現実の普遍値ではない。</td><td>悲観300〜800 / 標準600〜1,200 / 楽観900〜1,800円</td></tr>
+      <tr><td>Xのバズ率・フォロー転換</td><td>バズ0.10% / 転換0.065%</td><td><span class="source-tag game">ゲーム仮定</span></td><td>直接対応する公開統計がない。Rival IQ 2024ではブランドのX投稿エンゲージメント中央値0.029%、上位25%で0.08%だが、これはバズ率やフォロー転換率とは別指標。よって直接校正しない。<br><a class="source-link" href="https://www.rivaliq.com/blog/good-engagement-rate-twitter/" target="_blank" rel="noopener">Rival IQ</a></td><td>悲観0.05%/0.04%・標準0.10%/0.065%・楽観0.15%/0.09%</td></tr>
+      <tr><td>記事寿命・減衰</td><td>180日後から減衰</td><td><span class="source-tag game">ゲーム仮定</span></td><td>検索流入を永続資産にしないためのモデル上の減衰。記事ジャンルごとの差を無視している。</td><td>悲観150日 / 標準180日 / 楽観240日</td></tr>
+      <tr><td>教材のライティング効果</td><td>0%</td><td><span class="source-tag course">検証対象</span></td><td>検索意図・不安解消・体験談などは教材由来だが、現実に平均何%効くかは不明。標準は0%。効果量そのものを感度分析する。</td><td>0 / +10 / +25 / +50%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="foot">外部ベンチマークは日本の個人ブログ専用データではありません。英語圏・ブランド・複数業種を含むため、ここでは「正解値」ではなく、ゲーム仮定が極端に外れていないかを見る境界情報として使います。出典確認日：2026-10-04。</p>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">ENVIRONMENT SENSITIVITY</div><h2>まず、世界そのものを選ぶ</h2></div><span id="envPill" class="pill">標準環境</span></div>
+  <p class="small">教材とは無関係な外部環境をまとめて動かします。SEO、CTR、CVR、成果単価、SNS成長などが不利 / 標準 / 有利な世界です。</p>
+  <div class="grid g3 envrow" style="display:grid">
+    <button class="scenario-card choice" data-env="pessimistic"><b>悲観環境</b><span class="small">登録・SEOが遅い / CTR・CVR・単価・SNS成長が弱い</span></button>
+    <button class="scenario-card choice active" data-env="baseline"><b>標準環境</b><span class="small">現在の基準モデル。外部ベンチマークとゲーム仮定の中間設定</span></button>
+    <button class="scenario-card choice" data-env="optimistic"><b>楽観環境</b><span class="small">登録・SEOが速い / CTR・CVR・単価・SNS成長が強い</span></button>
   </div>
 </section>
 
 <section class="panel stack">
-  <div class="section-title"><div><div class="eyebrow">TEST PROTOCOL</div><h2>今回の検証ルール</h2></div><span class="pill">100世界線 × 5仮説</span></div>
-  <div class="grid g3">
-    <div class="soft"><b>教材の自動バフ：標準0%</b><div class="small">記事の当たり分布、CTR、CVR、フォロー転換の基礎値は教材あり・なしで共通。教材だから高品質、とは最初から決めません。</div></div>
-    <div class="soft"><b>違うのは明示的な行動</b><div class="small">投稿頻度、リンクを出す頻度、記事本数、人脈、作業時間、教材代1万円など、実際に設定した行動差だけを残します。</div></div>
-    <div class="soft"><b>同作業時間は実時間</b><div class="small">作業ごとに時間を積み上げ、1,000時間を超える新規作業は行いません。表示だけ1,000hへ丸める方式は使いません。</div></div>
-  </div>
-  <p class="small note"><b>重要：</b>これは現実の因果効果を証明する実験ではありません。公開統計とゲーム仮定を使った「モデル内部の検証」です。特に教材施策が現実に記事品質を何%改善するかは不明なので、標準では0%に置き、下の感度分析でのみ明示的に仮定します。</p>
-</section>
-
-<section class="panel stack">
-  <div class="section-title"><div><div class="eyebrow">SENSITIVITY ANALYSIS</div><h2>教材の記事施策に、どれだけ効果があると仮定する？</h2></div><span id="liftPill" class="pill">標準：0%</span></div>
-  <p class="small">教材の「検索意図・不安解消・体験談・FAB/BAF」などが、記事の検索流入ポテンシャルを平均で何%押し上げるかという<b>ゲーム仮定</b>です。フォロー率やCVRには自動補正をかけません。</p>
+  <div class="section-title"><div><div class="eyebrow">COURSE EFFECT SENSITIVITY</div><h2>教材そのものに、何%の効果があると仮定する？</h2></div><span id="liftPill" class="pill">標準：0%</span></div>
+  <p class="small">教材の「検索意図・不安解消・体験談・FAB/BAF」が記事の検索流入ポテンシャルを平均で何%押し上げるかという<b>別軸</b>の仮定です。CTR・CVR・フォロー率には教材専用バフを足しません。</p>
   <div class="liftrow">
-    <button class="liftbtn active" data-lift="0">0%（自動バフなし）</button>
-    <button class="liftbtn" data-lift="0.10">+10%</button>
-    <button class="liftbtn" data-lift="0.25">+25%</button>
-    <button class="liftbtn" data-lift="0.50">+50%</button>
+    <button class="choice liftbtn active" data-lift="0">0%（自動バフなし）</button>
+    <button class="choice liftbtn" data-lift="0.10">+10%</button>
+    <button class="choice liftbtn" data-lift="0.25">+25%</button>
+    <button class="choice liftbtn" data-lift="0.50">+50%</button>
   </div>
 </section>
 
 <section class="panel stack">
-  <div class="section-title"><div><div class="eyebrow">PRE-REGISTERED HYPOTHESES</div><h2>走らせる前に、判定条件を固定</h2></div><span class="pill">後出し禁止</span></div>
+  <div class="section-title"><div><div class="eyebrow">REPRODUCIBILITY</div><h2>乱数Seedを固定する</h2></div><span class="pill">再現可能</span></div>
+  <div class="seedbox"><label for="seed"><b>Seed</b></label><input id="seed" type="number" value="20261004" step="1"><span class="small">同じSeed・環境・教材効果なら、同じ100世界線を再現します。</span></div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">PRE-REGISTERED HYPOTHESES</div><h2>結果を見る前に、仮説と判定規則を固定</h2></div><span class="pill">95% Wilson区間</span></div>
   <div id="hypotheses" class="grid g2">
-    <div class="card hypothesis" data-h="h1"><div class="hhead"><div><div class="hid">H1</div><b>教材を実践すれば、2年で教材代1万円を回収できる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOTを現実運用で720日。100世界線のうち、売上が1万円以上になった割合を見る。</div><div class="criteria">支持：回収率60%以上 / 支持されず：40%以下 / 41〜59%：判定困難</div><div class="result"></div></div>
-    <div class="card hypothesis" data-h="h2"><div class="hhead"><div><div class="hid">H2</div><b>教材には、教材なし運用より追加の経済価値がある</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。両方144記事。記事基礎性能・CTR・CVR・フォロー転換は同じ。教材代1万円を含む損益で比較。</div><div class="criteria">支持：商材BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
-    <div class="card hypothesis" data-h="h3"><div class="hhead"><div><div class="hid">H3</div><b>同じ1,000時間なら、教材運用の方が効率よく利益を残せる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。720日間、実作業時間を積算し、各BOTは1,000時間を上限に新規作業を行います。損益で比較。</div><div class="criteria">支持：商材BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
-    <div class="card hypothesis" data-h="h4"><div class="hhead"><div><div class="hid">H4</div><b>人脈は、同じ教材運用の成果を増幅する</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 人脈BOT。教材条件は同じ。人脈BOTだけ60人の相互応援と維持時間を追加。</div><div class="criteria">支持：人脈BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
-    <div class="card hypothesis" data-h="h5"><div class="hhead"><div><div class="hid">H5</div><b>教材より、単純な記事量の方が総利益では強い可能性がある</b></div><span class="status pending">未検証</span></div><div class="small">現実運用の商材BOT（5日に1記事） vs 記事BOT（毎日1記事）。記事の基礎性能は共通。損益で比較。</div><div class="criteria">支持：記事BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h1"><div class="hhead"><div><div class="hid">H1</div><b>教材を実践すれば、2年で教材代1万円を回収できる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOTを現実運用で720日。100世界線で「売上 ≥ 1万円」の割合を見る。</div><div class="criteria">支持：回収率の95%区間が50%を上回る / 支持されず：95%区間が50%を下回る / それ以外：判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h2"><div class="hhead"><div><div class="hid">H2</div><b>教材には、教材なし運用より追加の現金損益価値がある</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。両方144記事。教材代1万円を含む損益で比較。時間価値はH3で別に統制。</div><div class="criteria">支持：商材BOT勝率の95%区間が50%超かつ損益差中央値&gt;0 / 逆なら支持されず / その他は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h3"><div class="hhead"><div><div class="hid">H3</div><b>同じ1,000時間なら、教材運用の方が利益を残せる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。作業時間を実際に積算し、各BOTは1,000時間を上限に新規作業を停止。</div><div class="criteria">支持：商材BOT勝率の95%区間が50%超かつ損益差中央値&gt;0 / 逆なら支持されず / その他は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h4"><div class="hhead"><div><div class="hid">H4</div><b>人脈は、同じ教材運用の成果を増幅する</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 人脈BOT。教材条件は同じ。人脈BOTだけ60人の相互応援と維持時間を追加。</div><div class="criteria">支持：人脈BOT勝率の95%区間が50%超かつ損益差中央値&gt;0 / 逆なら支持されず / その他は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h5"><div class="hhead"><div><div class="hid">H5</div><b>教材より、単純な記事量の方が総利益では強い</b></div><span class="status pending">未検証</span></div><div class="small">現実運用の商材BOT（5日に1記事） vs 記事BOT（毎日1記事）。総損益で比較。</div><div class="criteria">支持：記事BOT勝率の95%区間が50%超かつ損益差中央値&gt;0 / 逆なら支持されず / その他は判定困難</div><div class="result"></div></div>
   </div>
 </section>
 
 <section class="panel stack">
-  <div class="section-title"><div><div class="eyebrow">RUN TEST</div><h2>100世界線 × 5仮説を一括検証</h2></div><span id="runState" class="pill">停止中</span></div>
-  <div class="controls"><button id="runAll" class="primary">検証を開始</button><button id="reset">結果をリセット</button></div>
+  <div class="section-title"><div><div class="eyebrow">PRIMARY TEST</div><h2>選択中の条件で 100世界線 × 5仮説</h2></div><span id="runState" class="pill">停止中</span></div>
+  <div class="controls"><button id="runAll" class="primary">この条件で検証</button><button id="reset">結果をリセット</button></div>
   <div class="progress"><div id="bar"></div></div>
-  <div id="runNote" class="small">結果を見る前に、上のH1〜H5と判定条件が固定されています。</div>
+  <div id="runNote" class="small">標準：Seed 20261004 / 標準環境 / 教材効果0%。</div>
 </section>
 
 <section id="summary" class="panel stack hidden">
-  <div><div class="eyebrow">WHAT WAS THE COURSE?</div><h2 class="question">教材とは？</h2><p class="small">事前に固定した5つの仮説を、100世界線ずつ走らせた結果からまとめます。</p></div>
+  <div><div class="eyebrow">WHAT WAS THE COURSE?</div><h2 class="question">教材とは？</h2><p class="small">事前仮説を固定し、100世界線のMonte Carlo結果と区間推定からまとめます。</p></div>
   <div id="bigSummary" class="summarybox"></div>
   <div class="grid g3" id="statusSummary"></div>
   <div class="soft"><b>この検証から新しく生まれる仮説</b><div id="newHypotheses" class="small" style="margin-top:6px"></div></div>
-  <p class="foot">※「支持」は、このゲームモデルと選択中の効果仮定の中で判定条件を満たした、という意味です。現実世界で教材の有効性が証明されたという意味ではありません。</p>
+  <p class="foot">※「支持」は、選択中のモデル条件で事前判定規則を満たしたという意味です。現実の教材効果を証明した意味ではありません。</p>
 </section>
 
-<section class="panel"><b>モデル上の共通値</b><div class="small" style="margin-top:6px">720日 / SEO登録14〜45日 / SEO成熟約110日 / 記事当たり分布 70%ほぼ0・22%小・7%中・1%当たり / CTR 0.5〜1.0% / CVR 1〜3% / 成果報酬600〜1,200円。これらは公開ベンチマークを参考にしたものを含むゲーム仮定です。</div></section>
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">ROBUSTNESS CHECK</div><h2>結論は、外部環境を変えても残る？</h2></div><span id="robustState" class="pill">未実行</span></div>
+  <p class="small">選択中の<b>教材効果%</b>とSeedを固定したまま、悲観・標準・楽観の3環境をそれぞれ100世界線で走らせます。3環境で同じ判定が残るほど、結論は外部仮定に対して相対的に頑健です。</p>
+  <div class="controls"><button id="runRobust" class="primary">3環境を一括検証</button></div>
+  <div class="progress"><div id="robustBar"></div></div>
+  <div id="robustResult" class="hidden"></div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">INTERPRETATION</div><h2>研究ページの読み方</h2></div><span class="pill">勝敗より頑健性</span></div>
+  <div class="grid g3">
+    <div class="soft"><b>1環境だけで勝つ</b><div class="small">その環境仮定に依存している可能性が高い。「教材が効く」とは言いにくい。</div></div>
+    <div class="soft"><b>3環境で同じ</b><div class="small">少なくとも今回動かした外部仮定の範囲では、結論が反転しにくい。</div></div>
+    <div class="soft"><b>教材効果0%でも残る</b><div class="small">教材専用の性能バフではなく、行動設計・頻度・費用などの差で説明できる可能性が高い。</div></div>
+  </div>
+  <p class="small note"><b>さらに厳密にするなら：</b> 実際の運用ログ（投稿、PV、クリック、CV、作業時間）を集めてこのモデルを再校正する必要があります。今の研究ページの強みは「仮定を隠さず、結論がどの仮定に依存するかを見える化すること」です。</p>
+</section>
 </main>
 <script>
 (()=>{
 const N=720,WORLDS=100,TIME_BUDGET=1000;
-let lift=0,running=false;
+let lift=0,envKey='baseline',running=false,robustRunning=false;
+let randFn=Math.random;
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const rnd=(a,b)=>a+Math.random()*(b-a),ch=p=>Math.random()<Math.max(0,Math.min(1,p));
-function poi(l){if(l<=0)return 0;if(l>25)return Math.max(0,Math.round(l+Math.sqrt(l)*(Math.random()*2-1)));let L=Math.exp(-l),k=0,p=1;do{k++;p*=Math.random()}while(p>L);return k-1}
-function stochastic(mean){let n=Math.floor(mean),f=mean-n;return n+(ch(f)?1:0)}
-function med(a){let x=a.slice().sort((a,b)=>a-b),n=x.length;return n%2?x[(n-1)/2]:(x[n/2-1]+x[n/2])/2}
-function yen(n){return (n<0?'−':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
-function signedYen(n){return (n>0?'+':n<0?'−':'±')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
-function pct(n){return Math.round(n)+'%'}
+const ENV={
+  pessimistic:{name:'悲観環境',index:[21,61],maturity:180,dist:[.80,.95,.99],pots:[[0,.5],[1,8],[10,40],[50,250]],ctr:[.0025,.005],cvr:[.005,.01],payout:[300,800],viral:.0005,follow:.0004,decayStart:150,decayFloor:.35,decayRate:.0035,siteStart:.05,siteMax:.55,siteRamp:300},
+  baseline:{name:'標準環境',index:[14,46],maturity:110,dist:[.70,.92,.99],pots:[[0,.8],[2,15],[20,80],[100,500]],ctr:[.005,.01],cvr:[.01,.03],payout:[600,1200],viral:.001,follow:.00065,decayStart:180,decayFloor:.48,decayRate:.0025,siteStart:.08,siteMax:.72,siteRamp:240},
+  optimistic:{name:'楽観環境',index:[3,22],maturity:60,dist:[.60,.88,.98],pots:[[0,1.2],[3,20],[30,120],[150,800]],ctr:[.008,.015],cvr:[.02,.05],payout:[900,1800],viral:.0015,follow:.0009,decayStart:240,decayFloor:.65,decayRate:.0015,siteStart:.12,siteMax:.85,siteRamp:180}
+};
 const DEF={manual:{cost:10000},network:{cost:10000},diary:{cost:0},writer:{cost:0}};
 const EXPECT={manual:1.73,diary:.6636};
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function seedOf(base,tag,i){let h=(Number(base)||20261004)>>>0;for(const c of tag)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;return(h+Math.imul(i+1,2654435761))>>>0}
+function withSeed(seed,fn){const old=randFn;randFn=mulberry32(seed>>>0);try{return fn()}finally{randFn=old}}
+const rnd=(a,b)=>a+randFn()*(b-a),ch=p=>randFn()<Math.max(0,Math.min(1,p));
+function poi(l){if(l<=0)return 0;if(l>25)return Math.max(0,Math.round(l+Math.sqrt(l)*(randFn()*2-1)));let L=Math.exp(-l),k=0,p=1;do{k++;p*=randFn()}while(p>L);return k-1}
+function stochastic(mean){let n=Math.floor(mean),f=mean-n;return n+(ch(f)?1:0)}
+function med(a){let x=a.slice().sort((a,b)=>a-b),n=x.length;return n%2?x[(n-1)/2]:(x[n/2-1]+x[n/2])/2}
+function yen(n){return(n<0?'−':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
+function signedYen(n){return(n>0?'+':n<0?'−':'±')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
+function pct(n,d=0){return Number(n).toFixed(d)+'%'}
+function wilson(k,n,z=1.96){if(!n)return[0,1];let p=k/n,z2=z*z,den=1+z2/n,ctr=(p+z2/(2*n))/den,half=z*Math.sqrt((p*(1-p)+z2/(4*n))/n)/den;return[Math.max(0,ctr-half),Math.min(1,ctr+half)]}
+function ciText(k,n){let [lo,hi]=wilson(k,n);return pct(lo*100,1)+'–'+pct(hi*100,1)}
+function env(){return ENV[envKey]}
 function mk(k){return{k,rev:0,profit:-DEF[k].cost,followers:0,pv:0,hours:0,articles:[],sales:0,clicks:0,network:k==='network'?60:0,supports:0,articleCredit:0,stopped:false}}
-function baseArticle(day,k){let r=Math.random(),m=r<.70?rnd(0,.8):r<.92?rnd(2,15):r<.99?rnd(20,80):rnd(100,500);if((k==='manual'||k==='network')&&lift>0)m*=1+lift;return{index:day+Math.floor(rnd(14,46)),pot:m}}
+function baseArticle(day,k){let e=env(),r=randFn(),d=e.dist,idx=r<d[0]?0:r<d[1]?1:r<d[2]?2:3,pr=e.pots[idx],m=rnd(pr[0],pr[1]);if((k==='manual'||k==='network')&&lift>0)m*=1+lift;return{index:day+Math.floor(rnd(e.index[0],e.index[1])),pot:m}}
 function articleHours(k){if(k==='manual'||k==='network')return rnd(2.8,4.5);if(k==='writer')return rnd(2.4,4.0);return rnd(2.2,3.5)}
 function spend(b,h,budget){if(budget==null){b.hours+=h;return true}if(b.hours+h>budget){b.stopped=true;return false}b.hours+=h;return true}
-function money(b,pv){b.pv+=pv;let clicks=poi(pv*rnd(.005,.01));b.clicks+=clicks;let buys=poi(clicks*rnd(.01,.03));b.sales+=buys;for(let i=0;i<buys;i++){let x=rnd(600,1200);b.rev+=x;b.profit+=x}}
+function money(b,pv){let e=env();b.pv+=pv;let clicks=poi(pv*rnd(e.ctr[0],e.ctr[1]));b.clicks+=clicks;let buys=poi(clicks*rnd(e.cvr[0],e.cvr[1]));b.sales+=buys;for(let i=0;i<buys;i++){let x=rnd(e.payout[0],e.payout[1]);b.rev+=x;b.profit+=x}}
 function networkSupport(b,canLink){let supporters=Math.min(b.network,poi(b.network*rnd(.15,.30)));b.supports+=supporters;let reposts=poi(supporters*rnd(.08,.18));let extraImp=supporters*rnd(6,14)+reposts*rnd(25,80);if(canLink&&ch(.35))b.pv+=supporters*rnd(.015,.05);if(ch(.025)&&b.network<150)b.network+=Math.floor(rnd(1,4));return extraImp}
 function postsFor(k,mode){if(mode==='time'){let base=k==='manual'?1:.78;let scale=(TIME_BUDGET/N)/EXPECT[k];return stochastic(base*scale)}if(k==='manual'||k==='network')return 1;if(k==='diary')return ch(.78)?1:0;if(k==='writer')return ch(.22)?1:0;return 0}
 function shouldArticle(b,day,mode){if(mode==='real'||mode==='equalArticles')return b.k==='writer'||day%5===0;if(mode==='time'){let rate=.2*((TIME_BUDGET/N)/EXPECT[b.k]);b.articleCredit+=rate;if(b.articleCredit>=1){b.articleCredit-=1;return true}return false}return false}
 function socialTime(k){if(k==='manual'||k==='network')return rnd(.7,1.3);if(k==='diary')return rnd(.08,.16);return .08}
-function dayBot(b,day,mode,budget=null){
-  if(!b.stopped){
-    let posts=postsFor(b.k,mode);
-    let link=(b.k==='manual'||b.k==='network')?.35:b.k==='diary'?.03:.40;
-    // 検証ページでは教材あり/なしでバズ率・フォロー転換率を共通にする。
-    let viral=.001,followConv=.00065;
-    for(let i=0;i<posts;i++){
-      let th=socialTime(b.k);if(!spend(b,th,budget))break;
-      let imp=(18+b.followers*rnd(.18,.42))*Math.exp(rnd(-.7,.7));
-      if(ch(viral))imp*=rnd(15,70);
-      let canLink=b.articles.length>0&&ch(link);
-      if(b.k==='network')imp+=networkSupport(b,canLink);
-      b.followers+=imp*followConv*rnd(.55,1.3);
-      if(canLink)money(b,imp*rnd(.0005,.002));
-    }
-    if(!b.stopped&&b.k==='network')spend(b,rnd(.25,.5),budget);
-    if(!b.stopped&&shouldArticle(b,day,mode)){
-      let ah=articleHours(b.k);
-      if(spend(b,ah,budget))b.articles.push(baseArticle(day,b.k));
-    }
-  }
-  // 作業停止後も既存記事の検索流入は続く。
-  for(const a of b.articles){
-    if(day<a.index)continue;
-    let age=day-a.index,mat=Math.min(1,Math.max(.02,(age+1)/110)),site=day<90?.08:Math.min(.72,.08+(day-90)/240),dec=age>180?Math.max(.48,1-(age-180)*.0025):1;
-    money(b,a.pot*mat*site*dec/30*rnd(.65,1.35));
-  }
-}
-function simOne(k,mode,budget=null){let b=mk(k);for(let day=1;day<=N;day++)dayBot(b,day,mode,budget);return b}
-function simPair(a,b,mode,budget=null){return{a:simOne(a,mode,budget),b:simOne(b,mode,budget)}}
-function decision(winRate,delta){if(winRate>=60&&delta>0)return'support';if(winRate<=40&&delta<=0)return'reject';return'unclear'}
+function dayBot(b,day,mode,budget=null){let e=env();if(!b.stopped){let posts=postsFor(b.k,mode);let link=(b.k==='manual'||b.k==='network')?.35:b.k==='diary'?.03:.40;for(let i=0;i<posts;i++){let th=socialTime(b.k);if(!spend(b,th,budget))break;let imp=(18+b.followers*rnd(.18,.42))*Math.exp(rnd(-.7,.7));if(ch(e.viral))imp*=rnd(15,70);let canLink=b.articles.length>0&&ch(link);if(b.k==='network')imp+=networkSupport(b,canLink);b.followers+=imp*e.follow*rnd(.55,1.3);if(canLink)money(b,imp*rnd(.0005,.002))}if(!b.stopped&&b.k==='network')spend(b,rnd(.25,.5),budget);if(!b.stopped&&shouldArticle(b,day,mode)){let ah=articleHours(b.k);if(spend(b,ah,budget))b.articles.push(baseArticle(day,b.k))}}}
+const trafficCache={};
+function trafficFactor(indexDay){let key=envKey+':'+indexDay;if(trafficCache[key]!=null)return trafficCache[key];let e=env(),sum=0;for(let day=Math.max(1,indexDay);day<=N;day++){let age=day-indexDay,mat=Math.min(1,Math.max(.02,(age+1)/e.maturity)),site=day<90?e.siteStart:Math.min(e.siteMax,e.siteStart+(day-90)/e.siteRamp),dec=age>e.decayStart?Math.max(e.decayFloor,1-(age-e.decayStart)*e.decayRate):1;sum+=mat*site*dec/30}return trafficCache[key]=sum}
+function finalizeSearch(b){for(const a of b.articles){if(a.index>N)continue;let lifetimePV=a.pot*trafficFactor(a.index)*rnd(.75,1.25);money(b,lifetimePV)}}
+function simOne(k,mode,budget=null,seed=1){return withSeed(seed,()=>{let b=mk(k);for(let day=1;day<=N;day++)dayBot(b,day,mode,budget);finalizeSearch(b);return b})}
+function simPair(a,b,mode,budget=null,seed=1){return{a:simOne(a,mode,budget,seed),b:simOne(b,mode,budget,seed)}}
+function propDecision(k,n,delta=null){let[lo,hi]=wilson(k,n);if(lo>.5&&(delta===null||delta>0))return'support';if(hi<.5&&(delta===null||delta<=0))return'reject';return'unclear'}
 function label(s){return s==='support'?'支持':s==='reject'?'支持されず':'判定困難'}
-function setCard(id,status,html){let c=$('[data-h="'+id+'"]');let st=c.querySelector('.status');st.className='status '+status;st.textContent=label(status);c.querySelector('.result').innerHTML=html}
-function pairStats(rows,side='a'){
-  let a=rows.map(r=>r.a),b=rows.map(r=>r.b),wins=rows.filter(r=>side==='a'?r.a.profit>r.b.profit:r.b.profit>r.a.profit).length;
-  let delta=med(rows.map(r=>side==='a'?r.a.profit-r.b.profit:r.b.profit-r.a.profit));
-  let x=side==='a'?a:b,y=side==='a'?b:a;
-  return{wins,delta,xProfit:med(x.map(v=>v.profit)),yProfit:med(y.map(v=>v.profit)),xRev:med(x.map(v=>v.rev)),yRev:med(y.map(v=>v.rev)),xHours:med(x.map(v=>v.hours)),yHours:med(y.map(v=>v.hours)),xArticles:med(x.map(v=>v.articles.length)),yArticles:med(y.map(v=>v.articles.length)),xPV:med(x.map(v=>v.pv)),yPV:med(y.map(v=>v.pv)),xFollowers:med(x.map(v=>v.followers)),yFollowers:med(y.map(v=>v.followers))}
-}
-function metrics(items){return '<div class="grid resultgrid">'+items.map(x=>'<div class="metric"><span class="small">'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')+'</div>'}
-function testH1(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simOne('manual','real'));let rate=rows.filter(b=>b.rev>=10000).length;let status=rate>=60?'support':rate<=40?'reject':'unclear';return{status,rate,medRev:med(rows.map(b=>b.rev)),medProfit:med(rows.map(b=>b.profit)),medHours:med(rows.map(b=>b.hours)),medArticles:med(rows.map(b=>b.articles.length))}}
-function testH2(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','diary','equalArticles'));let s=pairStats(rows,'a');return{status:decision(s.wins,s.delta),...s}}
-function testH3(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','diary','time',TIME_BUDGET));let s=pairStats(rows,'a');return{status:decision(s.wins,s.delta),...s}}
-function testH4(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','network','real'));let s=pairStats(rows,'b');return{status:decision(s.wins,s.delta),...s}}
-function testH5(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','writer','real'));let s=pairStats(rows,'b');return{status:decision(s.wins,s.delta),...s}}
+function setCard(id,status,html){let c=$('[data-h="'+id+'"]'),st=c.querySelector('.status');st.className='status '+status;st.textContent=label(status);c.querySelector('.result').innerHTML=html}
+function pairStats(rows,side='a'){let a=rows.map(r=>r.a),b=rows.map(r=>r.b),wins=rows.filter(r=>side==='a'?r.a.profit>r.b.profit:r.b.profit>r.a.profit).length,delta=med(rows.map(r=>side==='a'?r.a.profit-r.b.profit:r.b.profit-r.a.profit)),x=side==='a'?a:b,y=side==='a'?b:a;return{wins,ci:ciText(wins,rows.length),delta,xProfit:med(x.map(v=>v.profit)),yProfit:med(y.map(v=>v.profit)),xRev:med(x.map(v=>v.rev)),yRev:med(y.map(v=>v.rev)),xHours:med(x.map(v=>v.hours)),yHours:med(y.map(v=>v.hours)),xArticles:med(x.map(v=>v.articles.length)),yArticles:med(y.map(v=>v.articles.length)),xPV:med(x.map(v=>v.pv)),yPV:med(y.map(v=>v.pv)),xFollowers:med(x.map(v=>v.followers)),yFollowers:med(y.map(v=>v.followers))}}
+function metrics(items){return'<div class="grid resultgrid">'+items.map(x=>'<div class="metric"><span class="small">'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')+'</div>'}
+function baseSeed(){return Number($('#seed').value)||20261004}
+function testH1(){let rows=[],base=baseSeed();for(let i=0;i<WORLDS;i++)rows.push(simOne('manual','real',null,seedOf(base,'h1',i)));let k=rows.filter(b=>b.rev>=10000).length;return{status:propDecision(k,WORLDS),rate:k,ci:ciText(k,WORLDS),medRev:med(rows.map(b=>b.rev)),medProfit:med(rows.map(b=>b.profit)),medHours:med(rows.map(b=>b.hours)),medArticles:med(rows.map(b=>b.articles.length))}}
+function testPair(a,b,mode,side,tag,budget=null){let rows=[],base=baseSeed();for(let i=0;i<WORLDS;i++)rows.push(simPair(a,b,mode,budget,seedOf(base,tag,i)));let s=pairStats(rows,side);return{status:propDecision(s.wins,WORLDS,s.delta),...s}}
+function testH2(){return testPair('manual','diary','equalArticles','a','h2')}
+function testH3(){return testPair('manual','diary','time','a','h3',TIME_BUDGET)}
+function testH4(){return testPair('manual','network','real','b','h4')}
+function testH5(){return testPair('manual','writer','real','b','h5')}
+function runTests(){return{h1:testH1(),h2:testH2(),h3:testH3(),h4:testH4(),h5:testH5()}}
 function render(r){
-  setCard('h1',r.h1.status,metrics([['1万円回収率',pct(r.h1.rate)],['売上中央値',yen(r.h1.medRev)],['損益中央値',yen(r.h1.medProfit)],['作業時間中央値',Math.round(r.h1.medHours)+'h']])+'<div class="small" style="margin-top:7px">記事中央値 '+Math.round(r.h1.medArticles)+'本。</div>');
-  setCard('h2',r.h2.status,metrics([['商材BOT勝率（損益）',r.h2.wins+'/100'],['損益差中央値',signedYen(r.h2.delta)],['売上差（各中央値）',signedYen(r.h2.xRev-r.h2.yRev)],['商材 / 日記 損益',yen(r.h2.xProfit)+' / '+yen(r.h2.yProfit)]])+'<div class="small" style="margin-top:7px">売上中央値 '+yen(r.h2.xRev)+' vs '+yen(r.h2.yRev)+'。記事中央値 '+Math.round(r.h2.xArticles)+'本 vs '+Math.round(r.h2.yArticles)+'本 / 作業 '+Math.round(r.h2.xHours)+'h vs '+Math.round(r.h2.yHours)+'h。<b>売上が増えても、教材代1万円を超えなければ損益上の追加価値は支持されません。</b></div>');
-  setCard('h3',r.h3.status,metrics([['商材BOT勝率（損益）',r.h3.wins+'/100'],['損益差中央値',signedYen(r.h3.delta)],['売上差（各中央値）',signedYen(r.h3.xRev-r.h3.yRev)],['商材 / 日記 損益',yen(r.h3.xProfit)+' / '+yen(r.h3.yProfit)]])+'<div class="small" style="margin-top:7px">実作業中央値 '+Math.round(r.h3.xHours)+'h vs '+Math.round(r.h3.yHours)+'h / 記事 '+Math.round(r.h3.xArticles)+'本 vs '+Math.round(r.h3.yArticles)+'本。1,000時間は上限なので、次の作業が収まらない時点で停止します。</div>');
-  setCard('h4',r.h4.status,metrics([['人脈BOT勝率',r.h4.wins+'/100'],['損益差中央値',signedYen(r.h4.delta)],['商材BOT損益中央値',yen(r.h4.yProfit)],['人脈BOT損益中央値',yen(r.h4.xProfit)]])+'<div class="small" style="margin-top:7px">人脈BOTのPV中央値 '+Math.round(r.h4.xPV).toLocaleString('ja-JP')+' / 商材BOT '+Math.round(r.h4.yPV).toLocaleString('ja-JP')+'。</div>');
-  setCard('h5',r.h5.status,metrics([['記事BOT勝率',r.h5.wins+'/100'],['損益差中央値',signedYen(r.h5.delta)],['商材BOT損益中央値',yen(r.h5.yProfit)],['記事BOT損益中央値',yen(r.h5.xProfit)]])+'<div class="small" style="margin-top:7px">記事中央値 '+Math.round(r.h5.yArticles)+'本 vs '+Math.round(r.h5.xArticles)+'本 / 作業 '+Math.round(r.h5.yHours)+'h vs '+Math.round(r.h5.xHours)+'h。</div>');
-  let vals=[r.h1.status,r.h2.status,r.h3.status,r.h4.status,r.h5.status],sup=vals.filter(x=>x==='support').length,rej=vals.filter(x=>x==='reject').length,unc=5-sup-rej;
-  $('#statusSummary').innerHTML='<div class="soft"><div class="small">支持</div><div class="kpi">'+sup+' / 5</div></div><div class="soft"><div class="small">支持されず</div><div class="kpi">'+rej+' / 5</div></div><div class="soft"><div class="small">判定困難</div><div class="kpi">'+unc+' / 5</div></div>';
-  let text='';
-  if(r.h2.status==='support'&&r.h3.status==='support')text='このモデルでは、教材は「教材なしより高い経済価値」と「同じ時間での効率」の両方で支持されました。';
-  else if(r.h2.status==='reject'&&r.h3.status==='reject')text='このモデルでは、教材は行動手順を与えますが、価格と時間を含めた追加の経済価値は確認できませんでした。';
-  else if(r.h2.status==='support'&&r.h3.status!=='support')text='このモデルでは教材による上積みは観測されましたが、その上積みが時間効率まで改善するとは言い切れませんでした。';
-  else if(r.h2.status!=='support'&&r.h3.status==='support')text='総損益では明確な追加価値を確認しにくい一方、同じ時間条件では教材運用が有利になる可能性が観測されました。';
-  else text='教材の追加価値は、今回のモデルでは一方向に決まりませんでした。条件やランダム性に左右される余地が残っています。';
-  let fee=r.h1.status==='support'?' 教材代1万円の回収仮説は支持されました。':r.h1.status==='reject'?' 教材代1万円の回収仮説は支持されませんでした。':' 教材代1万円の回収は判定困難でした。';
-  $('#bigSummary').innerHTML='<b>この条件での結論</b><div style="margin-top:7px">'+text+fee+'</div><div class="small" style="margin-top:8px">現在の教材記事効果仮定：<b>+'+Math.round(lift*100)+'%</b>。0%の場合、教材だから高品質になるという自動バフは入っていません。</div>';
-  let nh=[];
-  if(r.h4.status==='support')nh.push('・人脈は露出だけでなく損益まで押し上げる条件があるかもしれない。次は「何人から効き始めるか」を閾値検証できる。');
-  if(r.h4.status==='reject')nh.push('・人脈維持コストが増幅効果を食い潰す可能性がある。コミュニティ人数と維持時間を分離して検証できる。');
-  if(r.h5.status==='support')nh.push('・総利益では教材の精緻な運用より記事量が強い可能性がある。次は「同時間」で量戦略と教材戦略を比較すると切り分けられる。');
-  if(r.h5.status==='reject')nh.push('・単純な記事量だけでは教材運用を上回らない可能性がある。記事本数の損益分岐点を探せる。');
-  if(r.h2.status==='unclear'||r.h3.status==='unclear')nh.push('・教材効果は小さいとランダム性に埋もれる可能性がある。世界線数を増やす、または効果量の感度分析を細かくする余地がある。');
-  if(!nh.length)nh.push('・今回の判定は比較的明確。次は仮定値を1つずつ動かし、結論が反転する境界を探すとよい。');
-  $('#newHypotheses').innerHTML=nh.join('<br>');
-  $('#summary').classList.remove('hidden');
-}
-function resetResults(){['h1','h2','h3','h4','h5'].forEach(id=>{let c=$('[data-h="'+id+'"]');let st=c.querySelector('.status');st.className='status pending';st.textContent='未検証';c.querySelector('.result').innerHTML=''});$('#summary').classList.add('hidden');$('#bar').style.width='0%';$('#runState').textContent='停止中';$('#runNote').textContent='結果を見る前に、上のH1〜H5と判定条件が固定されています。'}
+ setCard('h1',r.h1.status,metrics([['1万円回収',r.h1.rate+'/100'],['95%区間',r.h1.ci],['売上中央値',yen(r.h1.medRev)],['損益中央値',yen(r.h1.medProfit)]])+'<div class="small" style="margin-top:7px">作業中央値 '+Math.round(r.h1.medHours)+'h / 記事 '+Math.round(r.h1.medArticles)+'本。</div>');
+ setCard('h2',r.h2.status,metrics([['商材BOT勝率',r.h2.wins+'/100'],['95%区間',r.h2.ci],['損益差中央値',signedYen(r.h2.delta)],['商材 / 日記 損益',yen(r.h2.xProfit)+' / '+yen(r.h2.yProfit)]])+'<div class="small" style="margin-top:7px">記事 '+Math.round(r.h2.xArticles)+'本 vs '+Math.round(r.h2.yArticles)+'本 / 作業 '+Math.round(r.h2.xHours)+'h vs '+Math.round(r.h2.yHours)+'h。</div>');
+ setCard('h3',r.h3.status,metrics([['商材BOT勝率',r.h3.wins+'/100'],['95%区間',r.h3.ci],['損益差中央値',signedYen(r.h3.delta)],['商材 / 日記 損益',yen(r.h3.xProfit)+' / '+yen(r.h3.yProfit)]])+'<div class="small" style="margin-top:7px">実作業 '+Math.round(r.h3.xHours)+'h vs '+Math.round(r.h3.yHours)+'h / 記事 '+Math.round(r.h3.xArticles)+'本 vs '+Math.round(r.h3.yArticles)+'本。</div>');
+ setCard('h4',r.h4.status,metrics([['人脈BOT勝率',r.h4.wins+'/100'],['95%区間',r.h4.ci],['損益差中央値',signedYen(r.h4.delta)],['人脈 / 商材 損益',yen(r.h4.xProfit)+' / '+yen(r.h4.yProfit)]])+'<div class="small" style="margin-top:7px">人脈BOT PV中央値 '+Math.round(r.h4.xPV).toLocaleString('ja-JP')+' / 商材 '+Math.round(r.h4.yPV).toLocaleString('ja-JP')+'。</div>');
+ setCard('h5',r.h5.status,metrics([['記事BOT勝率',r.h5.wins+'/100'],['95%区間',r.h5.ci],['損益差中央値',signedYen(r.h5.delta)],['記事 / 商材 損益',yen(r.h5.xProfit)+' / '+yen(r.h5.yProfit)]])+'<div class="small" style="margin-top:7px">記事 '+Math.round(r.h5.xArticles)+'本 vs '+Math.round(r.h5.yArticles)+'本 / 作業 '+Math.round(r.h5.xHours)+'h vs '+Math.round(r.h5.yHours)+'h。</div>');
+ let vals=[r.h1.status,r.h2.status,r.h3.status,r.h4.status,r.h5.status],sup=vals.filter(x=>x==='support').length,rej=vals.filter(x=>x==='reject').length,unc=5-sup-rej;
+ $('#statusSummary').innerHTML='<div class="soft"><div class="small">支持</div><div class="kpi">'+sup+' / 5</div></div><div class="soft"><div class="small">支持されず</div><div class="kpi">'+rej+' / 5</div></div><div class="soft"><div class="small">判定困難</div><div class="kpi">'+unc+' / 5</div></div>';
+ let text='';if(r.h2.status==='support'&&r.h3.status==='support')text='教材は、教材なし比較群に対する現金損益と、同一時間条件の両方で優位性が残りました。';else if(r.h2.status==='reject'&&r.h3.status==='reject')text='教材は行動手順を与えますが、この条件では価格と時間を含めた追加の経済優位性は残りませんでした。';else if(r.h2.status==='support'&&r.h3.status!=='support')text='現金損益の上積みは観測されましたが、その上積みが時間効率まで改善するとは言い切れません。';else if(r.h2.status!=='support'&&r.h3.status==='support')text='総損益の追加価値は明確でない一方、同じ時間を使う条件では教材運用が有利になる可能性が残りました。';else text='教材の追加価値は一方向に決まりませんでした。外部環境またはランダム性への依存が残っています。';
+ $('#bigSummary').innerHTML='<b>この条件での結論</b><div style="margin-top:7px">'+text+'</div><div class="small" style="margin-top:8px">環境：<b>'+env().name+'</b> / 教材記事効果：<b>+'+Math.round(lift*100)+'%</b> / Seed：<b>'+baseSeed()+'</b></div>';
+ let nh=[];if(r.h4.status==='support')nh.push('・人脈の増幅効果が残った。次は人数と維持時間を別々に振り、損益分岐点を探せる。');if(r.h4.status==='reject')nh.push('・人脈維持コストが増幅効果を食い潰す可能性。人数と維持時間を分離して検証できる。');if(r.h5.status==='support')nh.push('・総利益では精緻な運用より記事量が強い可能性。次は記事BOTも同1,000時間に固定して量戦略そのものを比較できる。');if(r.h2.status==='unclear'||r.h3.status==='unclear')nh.push('・教材効果が小さくMonte Carlo誤差に埋もれている可能性。世界線数を増やすか、実データで分散を再校正する余地がある。');if(!nh.length)nh.push('・次は3環境頑健性チェックで、結論が外部仮定を変えても残るか確認する。');$('#newHypotheses').innerHTML=nh.join('<br>');$('#summary').classList.remove('hidden')}
+function resetResults(){['h1','h2','h3','h4','h5'].forEach(id=>{let c=$('[data-h="'+id+'"]'),st=c.querySelector('.status');st.className='status pending';st.textContent='未検証';c.querySelector('.result').innerHTML=''});$('#summary').classList.add('hidden');$('#bar').style.width='0%';$('#runState').textContent='停止中';$('#runNote').textContent='Seed '+baseSeed()+' / '+env().name+' / 教材効果 +'+Math.round(lift*100)+'%。'}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-async function runAll(){if(running)return;running=true;resetResults();$('#runState').textContent='検証中';$('#runAll').disabled=true;$('#runNote').textContent='100世界線ずつ計算中…';let r={};await wait(30);r.h1=testH1();$('#bar').style.width='20%';$('#runNote').textContent='H1 完了。H2を検証中…';await wait(20);r.h2=testH2();$('#bar').style.width='40%';$('#runNote').textContent='H2 完了。H3を検証中…';await wait(20);r.h3=testH3();$('#bar').style.width='60%';$('#runNote').textContent='H3 完了。H4を検証中…';await wait(20);r.h4=testH4();$('#bar').style.width='80%';$('#runNote').textContent='H4 完了。H5を検証中…';await wait(20);r.h5=testH5();$('#bar').style.width='100%';render(r);$('#runState').textContent='完了';$('#runNote').textContent='5仮説 × 100世界線の検証が完了しました。';$('#runAll').disabled=false;running=false;}
-$$('.liftbtn').forEach(b=>b.addEventListener('click',()=>{if(running)return;lift=Number(b.dataset.lift);$$('.liftbtn').forEach(x=>x.classList.toggle('active',x===b));$('#liftPill').textContent=(lift===0?'標準：0%':'仮定：+'+Math.round(lift*100)+'%');resetResults()}));
-$('#runAll').addEventListener('click',runAll);$('#reset').addEventListener('click',resetResults);resetResults();
+async function runAll(){if(running||robustRunning)return;running=true;resetResults();$('#runState').textContent='検証中';$('#runAll').disabled=true;$('#runNote').textContent='100世界線ずつ計算中…';let r={};await wait(20);r.h1=testH1();$('#bar').style.width='20%';await wait(15);r.h2=testH2();$('#bar').style.width='40%';await wait(15);r.h3=testH3();$('#bar').style.width='60%';await wait(15);r.h4=testH4();$('#bar').style.width='80%';await wait(15);r.h5=testH5();$('#bar').style.width='100%';render(r);$('#runState').textContent='完了';$('#runNote').textContent='5仮説 × 100世界線完了。次は3環境頑健性チェックで結論の依存性を確認できます。';$('#runAll').disabled=false;running=false}
+function robustnessLabel(vals){let uniq=[...new Set(vals)];if(uniq.length===1&&vals[0]!=='unclear')return['頑健', 'r-robust'];if(uniq.length===1)return['3環境とも不確実','r-unclear'];return['環境依存','r-sensitive']}
+async function runRobust(){if(running||robustRunning)return;robustRunning=true;$('#runRobust').disabled=true;$('#robustState').textContent='検証中';$('#robustResult').classList.add('hidden');$('#robustBar').style.width='0%';let saved=envKey,rows={},keys=['pessimistic','baseline','optimistic'];for(let j=0;j<keys.length;j++){envKey=keys[j];await wait(20);rows[keys[j]]=runTests();$('#robustBar').style.width=((j+1)/3*100)+'%'}envKey=saved;let hs=['h1','h2','h3','h4','h5'],names={h1:'H1 教材代回収',h2:'H2 追加現金価値',h3:'H3 同時間効率',h4:'H4 人脈効果',h5:'H5 記事量優位'};let body='';for(const h of hs){let vals=keys.map(k=>rows[k][h].status),[lab,cls]=robustnessLabel(vals);body+='<tr><td><b>'+names[h]+'</b></td>'+vals.map(v=>'<td>'+label(v)+'</td>').join('')+'<td class="'+cls+'">'+lab+'</td></tr>'}$('#robustResult').innerHTML='<div class="tablewrap"><table class="matrix"><thead><tr><th>仮説</th><th>悲観</th><th>標準</th><th>楽観</th><th>頑健性</th></tr></thead><tbody>'+body+'</tbody></table></div><p class="small note" style="margin-top:12px"><b>読み方：</b> 3環境で同じ「支持 / 支持されず」が残れば、その結論は今回動かした外部仮定には比較的頑健です。環境で反転するなら、教材そのものよりSEO・CVR・単価などの前提に結論が依存しています。教材効果は現在の +'+Math.round(lift*100)+'% で固定しています。</p>';$('#robustResult').classList.remove('hidden');$('#robustState').textContent='完了';$('#runRobust').disabled=false;robustRunning=false;resetResults()}
+$$('[data-env]').forEach(b=>b.addEventListener('click',()=>{if(running||robustRunning)return;envKey=b.dataset.env;$$('[data-env]').forEach(x=>x.classList.toggle('active',x===b));$('#envPill').textContent=env().name;resetResults();$('#robustResult').classList.add('hidden');$('#robustState').textContent='未実行';$('#robustBar').style.width='0%'}));
+$$('.liftbtn').forEach(b=>b.addEventListener('click',()=>{if(running||robustRunning)return;lift=Number(b.dataset.lift);$$('.liftbtn').forEach(x=>x.classList.toggle('active',x===b));$('#liftPill').textContent=lift===0?'標準：0%':'仮定：+'+Math.round(lift*100)+'%';resetResults();$('#robustResult').classList.add('hidden');$('#robustState').textContent='未実行';$('#robustBar').style.width='0%'}));
+$('#seed').addEventListener('change',()=>{if(running||robustRunning)return;resetResults();$('#robustResult').classList.add('hidden');$('#robustState').textContent='未実行';$('#robustBar').style.width='0%'});
+$('#runAll').addEventListener('click',runAll);$('#reset').addEventListener('click',resetResults);$('#runRobust').addEventListener('click',runRobust);resetResults();
 })();
 </script>
 </body>
