@@ -9,6 +9,8 @@
 :root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#111827;--blue:#2563eb;--ok:#166534;--ng:#991b1b;--mid:#92400e;--warn:#b45309}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1180px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2.2rem,5vw,4rem)}h2{font-size:1.4rem}.muted,.small{color:var(--muted)}.small{font-size:.84rem}.tiny{font-size:.76rem;color:var(--muted)}.kpi{font-size:1.3rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.note{border-left:3px solid var(--blue);padding-left:12px}.warning{border-left:3px solid var(--warn);padding-left:12px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.controls,.navrow,.liftrow,.envrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.navrow{margin-top:14px}.navbtn,button,input{min-height:44px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:0 14px;font:inherit}.navbtn,button{display:inline-flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;text-decoration:none}.primary,.navbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.secondary{background:#fff}.hypothesis{display:grid;gap:10px}.hhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hid{font-size:.72rem;letter-spacing:.08em;color:var(--muted)}.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:800;border:1px solid var(--border)}.status.pending{color:var(--muted)}.status.support{color:var(--ok);border-color:#86efac;background:#f0fdf4}.status.reject{color:var(--ng);border-color:#fecaca;background:#fef2f2}.status.unclear{color:var(--mid);border-color:#fde68a;background:#fffbeb}.criteria{font-size:.8rem;color:var(--muted);background:var(--card);padding:9px 10px;border-radius:10px}.resultgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.metric{background:var(--card);border-radius:11px;padding:10px}.metric .small{display:block}.metric b{font-size:1.04rem}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent);transition:width .2s}.choice.active{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}.question{font-size:clamp(2.7rem,8vw,5.5rem);letter-spacing:-.05em;line-height:1;margin:4px 0 10px}.summarybox{border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff}.hidden{display:none!important}.foot{font-size:.8rem;color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{border-bottom:1px solid var(--border);padding:10px 8px;text-align:left;vertical-align:top}th{font-size:.76rem;color:var(--muted);letter-spacing:.03em}.source-tag{display:inline-block;border-radius:999px;padding:2px 7px;font-size:.7rem;font-weight:700}.external{background:#eff6ff;color:#1d4ed8}.game{background:#fff7ed;color:#9a3412}.course{background:#f0fdf4;color:#166534}.mixed{background:#f5f3ff;color:#6d28d9}.source-link{color:#1d4ed8;text-decoration:none}.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}.r-robust{color:var(--ok);font-weight:800}.r-sensitive{color:var(--warn);font-weight:800}.r-unclear{color:var(--mid);font-weight:800}.research-badge{font-weight:900;letter-spacing:.08em}.seedbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.seedbox input{width:150px}.scenario-card{height:100%;text-align:left}.scenario-card b{display:block}.scenario-card.active{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 @media(max-width:950px){.g4,.g3,.resultgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tablewrap{overflow:auto}table{min-width:760px}}@media(max-width:640px){.wrap{padding:15px}.g2,.g3,.g4,.resultgrid{grid-template-columns:1fr}.section-title,.hhead{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
+.glossary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.term{background:var(--card);border-radius:13px;padding:13px}.term b{display:block;margin-bottom:4px}.term .example{margin-top:6px;font-size:.78rem;color:var(--muted)}.jumpnote{font-size:.8rem;color:var(--muted);margin-top:8px}.jumpnote a{color:var(--blue);font-weight:700;text-decoration:none}@media(max-width:640px){.glossary-grid{grid-template-columns:1fr}}
+.easy-lead{font-size:1.08rem;line-height:1.8;background:var(--card);border-radius:15px;padding:16px}.easy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.easy-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px}.easy-card .q{font-weight:900;margin-bottom:5px}.easy-card .answer{font-size:.92rem}.easy-yes{border-left:4px solid var(--ok)}.easy-no{border-left:4px solid var(--ng)}.easy-maybe{border-left:4px solid var(--mid)}@media(max-width:640px){.easy-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -18,6 +20,7 @@
   <h1>ガチ研究</h1>
   <p class="muted">1ページ目はゲーム。ここは、<b>「その結論、仮定を変えても残るの？」</b>を調べる2ページ目です。事前仮説、対照群、出典、固定Seed、感度分析、100世界線を分けて扱います。</p>
   <div class="navrow"><a class="navbtn" href="index.html">← 1ページ目：ゲーム</a><span class="pill research-badge">2ページ目：ガチ研究</span><span class="pill">No.001</span></div>
+  <p class="jumpnote">CTR・CVR・Monte Carlo・Wilson区間などが分からなくても大丈夫です。<a href="#glossary">専門用語ミニ辞典 ↓</a> をページ下部に置いています。</p>
 </section>
 
 <section class="panel stack">
@@ -103,6 +106,14 @@
   <p class="foot">※「支持」は、選択中のモデル条件で事前判定規則を満たしたという意味です。現実の教材効果を証明した意味ではありません。</p>
 </section>
 
+<section id="easySummary" class="panel stack hidden">
+  <div class="section-title"><div><div class="eyebrow">PLAIN-LANGUAGE RESULT</div><h2>すごくわかりやすい結果</h2></div><span class="pill">専門用語ほぼなし</span></div>
+  <p class="small">「で、結局どうだったの？」だけ知りたい人向けです。100世界線の検証結果を、できるだけ普通の言葉に直します。</p>
+  <div id="easyLead" class="easy-lead"></div>
+  <div id="easyCards" class="grid easy-grid"></div>
+  <p class="foot">※ここでいう「勝った・負けた」は、選択中のシミュレーション条件の中での話です。現実の全員に同じ結果が出る、という意味ではありません。</p>
+</section>
+
 <section class="panel stack">
   <div class="section-title"><div><div class="eyebrow">ROBUSTNESS CHECK</div><h2>結論は、外部環境を変えても残る？</h2></div><span id="robustState" class="pill">未実行</span></div>
   <p class="small">選択中の<b>教材効果%</b>とSeedを固定したまま、悲観・標準・楽観の3環境をそれぞれ100世界線で走らせます。3環境で同じ判定が残るほど、結論は外部仮定に対して相対的に頑健です。</p>
@@ -119,6 +130,28 @@
     <div class="soft"><b>教材効果0%でも残る</b><div class="small">教材専用の性能バフではなく、行動設計・頻度・費用などの差で説明できる可能性が高い。</div></div>
   </div>
   <p class="small note"><b>さらに厳密にするなら：</b> 実際の運用ログ（投稿、PV、クリック、CV、作業時間）を集めてこのモデルを再校正する必要があります。今の研究ページの強みは「仮定を隠さず、結論がどの仮定に依存するかを見える化すること」です。</p>
+</section>
+<section id="glossary" class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">RESEARCH GLOSSARY</div><h2>専門用語ミニ辞典</h2></div><span class="pill">研究ページ用</span></div>
+  <p class="small">数式を覚える必要はありません。「この数字が何を意味するか」だけ分かれば、このページは読めます。</p>
+  <div class="grid glossary-grid">
+    <div class="term"><b>CTR（Click Through Rate / クリック率）</b><div class="small">表示・閲覧された人のうち、リンクをクリックした割合。研究ページでは主に記事PVから収益リンクへ進む確率として使います。</div><div class="example">例：1,000PV × CTR 1% ≒ 10クリック</div></div>
+    <div class="term"><b>CVR（Conversion Rate / 成約率）</b><div class="small">クリックした人のうち、購入などの成果まで到達した割合。CVはConversion＝成果・成約のことです。</div><div class="example">例：100クリック × CVR 2% ≒ 2件購入</div></div>
+    <div class="term"><b>SEO</b><div class="small">Googleなどの検索結果から流入を得るための最適化。このモデルでは、登録までの時間・成熟・記事ごとの流入・経年減衰などを簡略化して再現しています。</div></div>
+    <div class="term"><b>PV（Page View）</b><div class="small">ページが表示された回数。売上そのものではなく、「どれだけ記事が見られたか」の指標です。</div></div>
+    <div class="term"><b>Monte Carlo（モンテカルロ・シミュレーション）</b><div class="small">ランダム要素を含む同じ実験を何度も繰り返し、1回の結果ではなく結果の分布を見る方法です。このページでは基本100世界線を回します。</div></div>
+    <div class="term"><b>Seed（乱数シード）</b><div class="small">ランダムな数の並びを再現するための開始番号。同じSeed・同じ条件なら、同じ世界線をもう一度再現できます。</div></div>
+    <div class="term"><b>95% Wilson区間</b><div class="small">100世界線で得た「勝率」には偶然のブレがあります。そのブレを考慮して、勝率としてもっともらしい範囲をWilson法で計算しています。50%をまたぐ場合は、勝ち越しが十分明確とは扱いません。</div><div class="example">例：60勝/100でも区間が50%をまたぐなら「判定困難」になり得ます。</div></div>
+    <div class="term"><b>中央値（Median）</b><div class="small">結果を小さい順に並べたとき中央に来る値。極端な大当たり1件に平均値が引っ張られにくいため、100世界線の代表値として使います。</div></div>
+    <div class="term"><b>感度分析</b><div class="small">CTR・CVR・教材効果などの仮定を変えたとき、結論がどう変わるか調べること。「その結論はこの数字を少し動かしただけで崩れるのか？」を見る作業です。</div></div>
+    <div class="term"><b>頑健性（Robustness）</b><div class="small">前提を変えても結論が大きく変わらない性質。このページでは悲観・標準・楽観の3環境で同じ判定が残るかを確認します。</div></div>
+    <div class="term"><b>対照群</b><div class="small">検証したい要素を持たない比較相手。この研究では主に「教材なしの日記BOT」を教材効果を見るための比較群として使います。</div></div>
+    <div class="term"><b>外部ベンチマーク</b><div class="small">外部調査から得た参考値。日本の個人ブログそのものを完全再現する数字ではなく、モデル設定が極端でないか確認する境界情報として使います。</div></div>
+    <div class="term"><b>ゲーム仮定</b><div class="small">直接対応する信頼できる公開統計がないため、実験用にこちらで設定した数値。研究ページでは外部ベンチマークと明確に分けて表示します。</div></div>
+    <div class="term"><b>事前仮説</b><div class="small">結果を見る前に「何を確かめるか」と「どうなれば支持とするか」を先に固定した仮説。結果に合わせて判定基準を後から変えるのを防ぎます。</div></div>
+    <div class="term"><b>支持 / 支持されず / 判定困難</b><div class="small">このシミュレーション条件の中で事前判定規則を満たしたかを示す表示です。「現実で真実だと証明した」という意味ではありません。</div></div>
+    <div class="term"><b>FAB / BAF</b><div class="small">教材に出てくる文章設計。FABはFeature→Advantage→Benefit。BAFはBenefitを先に見せる構成です。</div></div>
+  </div>
 </section>
 </main>
 <script>
@@ -168,6 +201,27 @@ function setCard(id,status,html){let c=$('[data-h="'+id+'"]'),st=c.querySelector
 function pairStats(rows,side='a'){let a=rows.map(r=>r.a),b=rows.map(r=>r.b),wins=rows.filter(r=>side==='a'?r.a.profit>r.b.profit:r.b.profit>r.a.profit).length,delta=med(rows.map(r=>side==='a'?r.a.profit-r.b.profit:r.b.profit-r.a.profit)),x=side==='a'?a:b,y=side==='a'?b:a;return{wins,ci:ciText(wins,rows.length),delta,xProfit:med(x.map(v=>v.profit)),yProfit:med(y.map(v=>v.profit)),xRev:med(x.map(v=>v.rev)),yRev:med(y.map(v=>v.rev)),xHours:med(x.map(v=>v.hours)),yHours:med(y.map(v=>v.hours)),xArticles:med(x.map(v=>v.articles.length)),yArticles:med(y.map(v=>v.articles.length)),xPV:med(x.map(v=>v.pv)),yPV:med(y.map(v=>v.pv)),xFollowers:med(x.map(v=>v.followers)),yFollowers:med(y.map(v=>v.followers))}}
 function metrics(items){return'<div class="grid resultgrid">'+items.map(x=>'<div class="metric"><span class="small">'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')+'</div>'}
 function baseSeed(){return Number($('#seed').value)||20261004}
+function easyTone(status){return status==='support'?'easy-yes':status==='reject'?'easy-no':'easy-maybe'}
+function easyAnswer(status,yes,no,maybe){return status==='support'?yes:status==='reject'?no:maybe}
+function renderEasy(r){
+ let lead='';
+ if(r.h2.status==='support'&&r.h3.status==='support') lead='この条件では、教材を使った運用は「教材なし」よりお金の面でも時間の面でも有利でした。少なくともこのモデルでは、教材は単なる手順書以上の追加価値を持った可能性があります。';
+ else if(r.h2.status==='reject'&&r.h3.status==='reject'&&r.h5.status==='support') lead='この条件では、教材を買って丁寧に運用しても「教材なし」より明確に有利とは言えませんでした。むしろ、細かい運用より記事をたくさん作ったBOTの方が総利益では強い結果です。';
+ else if(r.h2.status==='reject'&&r.h3.status==='reject') lead='この条件では、教材を使うことで増える手間や1万円の費用まで含めると、教材なし運用より有利とは言いにくい結果でした。教材は「稼ぐ魔法」より、行動を整理する手順書に近い可能性があります。';
+ else if(r.h2.status==='support'&&r.h3.status!=='support') lead='教材を使った方が最終的なお金は増えました。ただし、そこまでに使う時間も考えると「効率まで良くなった」とはまだ言い切れません。';
+ else if(r.h2.status!=='support'&&r.h3.status==='support') lead='最終的なお金では教材の追加価値がはっきりしませんでしたが、同じ時間だけ働く条件では教材運用が有利になる可能性が見えました。';
+ else lead='今回は「教材が明確に良い／悪い」と一言で決められる結果ではありませんでした。条件や運の影響がまだ大きく、白黒をつけるには追加検証が必要です。';
+ let cards=[
+  ['h1','1万円の教材代は戻った？',easyAnswer(r.h1.status,'戻せる可能性が高い結果でした。100世界線のうち '+r.h1.rate+' 回で売上1万円以上になりました。','「買えば元が取れる」とは言いにくい結果でした。100世界線のうち売上1万円以上は '+r.h1.rate+' 回でした。','五分五分に近く、戻るとも戻らないともまだ言い切れません。100世界線のうち売上1万円以上は '+r.h1.rate+' 回でした。')],
+  ['h2','記事数を同じにしたら、教材ありの方が強い？',easyAnswer(r.h2.status,'はい。この条件では、同じ144記事でも教材ありの商材BOTの方が損益で勝つ傾向が出ました。','いいえ。この条件では、記事数をそろえても教材ありの明確な上乗せ効果は確認できませんでした。','まだ何とも言えません。記事数をそろえると、教材あり・なしの差は偶然のブレと区別しにくい結果でした。')],
+  ['h3','同じ1,000時間だけ使うなら、教材ありの方が得？',easyAnswer(r.h3.status,'はい。同じ時間だけ働く条件では、教材ありの方が利益を残す傾向が出ました。','いいえ。同じ1,000時間なら、教材ありの方が得とは言えませんでした。教材の作業手順が時間を使う分、優位性が残らなかった可能性があります。','まだ決められません。同じ時間にそろえると、どちらが得かははっきりしませんでした。')],
+  ['h4','人脈コミュニティは役に立った？',easyAnswer(r.h4.status,'役に立つ傾向が出ました。同じ教材運用でも、人脈BOTの方が損益で勝ちやすい結果でした。','この条件では、維持に使う時間まで含めると「人脈があれば得」とは言いにくい結果でした。','効果ははっきりしませんでした。人脈による露出増と、維持コストが拮抗している可能性があります。')],
+  ['h5','結局、難しいことより記事をたくさん書く方が強い？',easyAnswer(r.h5.status,'総利益だけを見ると、その可能性が高い結果でした。毎日記事を書く記事BOTが、5日に1記事の商材BOTより勝ちやすくなりました。','この条件では、記事数だけ増やせば勝てるとは言えませんでした。商材BOT側の運用が総利益でも上回る傾向でした。','まだ白黒つきません。記事量の多さだけで結果が決まるほど明確な差は出ませんでした。')]
+ ];
+ $('#easyLead').innerHTML='<b>ひとことで言うと</b><div style="margin-top:6px">'+lead+'</div><div class="small" style="margin-top:8px">現在の条件：'+env().name+' / 教材記事効果 +'+Math.round(lift*100)+'% / Seed '+baseSeed()+'</div>';
+ $('#easyCards').innerHTML=cards.map(c=>'<div class="easy-card '+easyTone(r[c[0]].status)+'"><div class="q">'+c[1]+'</div><div class="answer">'+c[2]+'</div></div>').join('');
+ $('#easySummary').classList.remove('hidden');
+}
 function testH1(){let rows=[],base=baseSeed();for(let i=0;i<WORLDS;i++)rows.push(simOne('manual','real',null,seedOf(base,'h1',i)));let k=rows.filter(b=>b.rev>=10000).length;return{status:propDecision(k,WORLDS),rate:k,ci:ciText(k,WORLDS),medRev:med(rows.map(b=>b.rev)),medProfit:med(rows.map(b=>b.profit)),medHours:med(rows.map(b=>b.hours)),medArticles:med(rows.map(b=>b.articles.length))}}
 function testPair(a,b,mode,side,tag,budget=null){let rows=[],base=baseSeed();for(let i=0;i<WORLDS;i++)rows.push(simPair(a,b,mode,budget,seedOf(base,tag,i)));let s=pairStats(rows,side);return{status:propDecision(s.wins,WORLDS,s.delta),...s}}
 function testH2(){return testPair('manual','diary','equalArticles','a','h2')}
@@ -185,8 +239,8 @@ function render(r){
  $('#statusSummary').innerHTML='<div class="soft"><div class="small">支持</div><div class="kpi">'+sup+' / 5</div></div><div class="soft"><div class="small">支持されず</div><div class="kpi">'+rej+' / 5</div></div><div class="soft"><div class="small">判定困難</div><div class="kpi">'+unc+' / 5</div></div>';
  let text='';if(r.h2.status==='support'&&r.h3.status==='support')text='教材は、教材なし比較群に対する現金損益と、同一時間条件の両方で優位性が残りました。';else if(r.h2.status==='reject'&&r.h3.status==='reject')text='教材は行動手順を与えますが、この条件では価格と時間を含めた追加の経済優位性は残りませんでした。';else if(r.h2.status==='support'&&r.h3.status!=='support')text='現金損益の上積みは観測されましたが、その上積みが時間効率まで改善するとは言い切れません。';else if(r.h2.status!=='support'&&r.h3.status==='support')text='総損益の追加価値は明確でない一方、同じ時間を使う条件では教材運用が有利になる可能性が残りました。';else text='教材の追加価値は一方向に決まりませんでした。外部環境またはランダム性への依存が残っています。';
  $('#bigSummary').innerHTML='<b>この条件での結論</b><div style="margin-top:7px">'+text+'</div><div class="small" style="margin-top:8px">環境：<b>'+env().name+'</b> / 教材記事効果：<b>+'+Math.round(lift*100)+'%</b> / Seed：<b>'+baseSeed()+'</b></div>';
- let nh=[];if(r.h4.status==='support')nh.push('・人脈の増幅効果が残った。次は人数と維持時間を別々に振り、損益分岐点を探せる。');if(r.h4.status==='reject')nh.push('・人脈維持コストが増幅効果を食い潰す可能性。人数と維持時間を分離して検証できる。');if(r.h5.status==='support')nh.push('・総利益では精緻な運用より記事量が強い可能性。次は記事BOTも同1,000時間に固定して量戦略そのものを比較できる。');if(r.h2.status==='unclear'||r.h3.status==='unclear')nh.push('・教材効果が小さくMonte Carlo誤差に埋もれている可能性。世界線数を増やすか、実データで分散を再校正する余地がある。');if(!nh.length)nh.push('・次は3環境頑健性チェックで、結論が外部仮定を変えても残るか確認する。');$('#newHypotheses').innerHTML=nh.join('<br>');$('#summary').classList.remove('hidden')}
-function resetResults(){['h1','h2','h3','h4','h5'].forEach(id=>{let c=$('[data-h="'+id+'"]'),st=c.querySelector('.status');st.className='status pending';st.textContent='未検証';c.querySelector('.result').innerHTML=''});$('#summary').classList.add('hidden');$('#bar').style.width='0%';$('#runState').textContent='停止中';$('#runNote').textContent='Seed '+baseSeed()+' / '+env().name+' / 教材効果 +'+Math.round(lift*100)+'%。'}
+ let nh=[];if(r.h4.status==='support')nh.push('・人脈の増幅効果が残った。次は人数と維持時間を別々に振り、損益分岐点を探せる。');if(r.h4.status==='reject')nh.push('・人脈維持コストが増幅効果を食い潰す可能性。人数と維持時間を分離して検証できる。');if(r.h5.status==='support')nh.push('・総利益では精緻な運用より記事量が強い可能性。次は記事BOTも同1,000時間に固定して量戦略そのものを比較できる。');if(r.h2.status==='unclear'||r.h3.status==='unclear')nh.push('・教材効果が小さくMonte Carlo誤差に埋もれている可能性。世界線数を増やすか、実データで分散を再校正する余地がある。');if(!nh.length)nh.push('・次は3環境頑健性チェックで、結論が外部仮定を変えても残るか確認する。');$('#newHypotheses').innerHTML=nh.join('<br>');$('#summary').classList.remove('hidden');renderEasy(r)}
+function resetResults(){['h1','h2','h3','h4','h5'].forEach(id=>{let c=$('[data-h="'+id+'"]'),st=c.querySelector('.status');st.className='status pending';st.textContent='未検証';c.querySelector('.result').innerHTML=''});$('#summary').classList.add('hidden');$('#easySummary').classList.add('hidden');$('#bar').style.width='0%';$('#runState').textContent='停止中';$('#runNote').textContent='Seed '+baseSeed()+' / '+env().name+' / 教材効果 +'+Math.round(lift*100)+'%。'}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function runAll(){if(running||robustRunning)return;running=true;resetResults();$('#runState').textContent='検証中';$('#runAll').disabled=true;$('#runNote').textContent='100世界線ずつ計算中…';let r={};await wait(20);r.h1=testH1();$('#bar').style.width='20%';await wait(15);r.h2=testH2();$('#bar').style.width='40%';await wait(15);r.h3=testH3();$('#bar').style.width='60%';await wait(15);r.h4=testH4();$('#bar').style.width='80%';await wait(15);r.h5=testH5();$('#bar').style.width='100%';render(r);$('#runState').textContent='完了';$('#runNote').textContent='5仮説 × 100世界線完了。次は3環境頑健性チェックで結論の依存性を確認できます。';$('#runAll').disabled=false;running=false}
 function robustnessLabel(vals){let uniq=[...new Set(vals)];if(uniq.length===1&&vals[0]!=='unclear')return['頑健', 'r-robust'];if(uniq.length===1)return['3環境とも不確実','r-unclear'];return['環境依存','r-sensitive']}
