@@ -6,7 +6,7 @@
 <title>商材実験室</title>
 <meta name="description" content="情報商材148ページから運用ルールを抽出し、BOT化して長期検証するシミュレーション実験">
 <style>
-:root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#2563eb;--s1:#2563eb;--s2:#0f766e;--s3:#65a30d;--s4:#d97706;--s5:#7c3aed}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g5{grid-template-columns:repeat(5,minmax(0,1fr))}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2rem,5vw,3.6rem)}h2{font-size:1.35rem}.muted,.small{color:var(--muted)}.small{font-size:.83rem}.kpi{font-size:1.25rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}button{border:1px solid var(--border);background:#fff;color:var(--text);min-height:44px;border-radius:10px;padding:0 14px;font:inherit;font-weight:650;cursor:pointer}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent)}.metric{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;font-size:.84rem}.metric b{font-size:1rem}.winner{outline:2px solid var(--accent);outline-offset:2px}svg{width:100%;height:auto;display:block}.logitem{background:var(--card);border-radius:10px;padding:9px 10px;margin-top:8px}.hypo{background:var(--card);border-radius:12px;padding:12px}.hidden{display:none!important}.future{opacity:.6;border-style:dashed}.note{border-left:3px solid var(--accent);padding-left:12px}.botguide{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.botguide .card{height:100%}.botdesc{margin-top:8px;line-height:1.5}.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tag{display:inline-flex;align-items:center;border:1px solid var(--border);background:var(--card);border-radius:999px;padding:2px 7px;font-size:.7rem;color:var(--muted)}@media(max-width:900px){.g5,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.wrap{padding:15px}.g5,.g3,.g2{grid-template-columns:1fr}.section-title{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
+:root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#2563eb;--s1:#2563eb;--s2:#0f766e;--s3:#65a30d;--s4:#d97706;--s5:#7c3aed}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g5{grid-template-columns:repeat(5,minmax(0,1fr))}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2rem,5vw,3.6rem)}h2{font-size:1.35rem}.muted,.small{color:var(--muted)}.small{font-size:.83rem}.kpi{font-size:1.25rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}button{border:1px solid var(--border);background:#fff;color:var(--text);min-height:44px;border-radius:10px;padding:0 14px;font:inherit;font-weight:650;cursor:pointer}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent)}.metric{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;font-size:.84rem}.metric b{font-size:1rem}.winner{outline:2px solid var(--accent);outline-offset:2px}svg{width:100%;height:auto;display:block}.logitem{background:var(--card);border-radius:10px;padding:9px 10px;margin-top:8px}.hypo{background:var(--card);border-radius:12px;padding:12px}.hidden{display:none!important}.future{opacity:.6;border-style:dashed}.note{border-left:3px solid var(--accent);padding-left:12px}.botguide{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.botguide .card{height:100%}.botdesc{margin-top:8px;line-height:1.5}.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tag{display:inline-flex;align-items:center;border:1px solid var(--border);background:var(--card);border-radius:999px;padding:2px 7px;font-size:.7rem;color:var(--muted)}.modecard{text-align:left;height:100%;padding:15px;border-radius:15px;background:#fff}.modecard.active{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}.modecard b{display:block;margin-bottom:5px}.modecard .small{font-weight:400}.modebar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.modebar .pill{font-weight:700;color:var(--text)}@media(max-width:900px){.g5,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.wrap{padding:15px}.g5,.g3,.g2{grid-template-columns:1fr}.section-title{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
 </style>
 </head>
 <body>
@@ -20,50 +20,94 @@
 <div class="soft"><b>ゲームへの変換方法</b><div class="small" style="margin-top:8px"><p>148ページの本文を、そのまま文章としてBOTに読ませ続けているわけではありません。教材から抽出した施策を、<b>投稿頻度・フォロワー増加率・バズ確率・プロフィールからの転換・リンク遷移率・記事作成頻度・記事品質・検索流入・成果報酬・作業時間</b>などへ変換しています。</p><p>たとえば「交流する・企画に参加する・インフルエンサーと接点を作る」はSNS成長側の確率へ、「検索意図を考える・不安を解消する・体験談を入れる」は記事品質側の補正へ落としています。</p><p style="margin-bottom:0"><b>つまり、AIに適当な「Twitter副業」を考えさせたゲームではなく、実在する2冊・148ページの教材を全ページ確認し、そこに書かれた運用思想と手順を抽出して、実行可能なシミュレーションモデルへ変換した実験です。</b></p></div></div></section>
 <section class="panel"><div class="section-title"><h2>現実寄せの数値</h2><span class="pill">未来予測ではなく比較モデル</span></div><div class="grid g3" style="margin-top:12px"><div class="soft"><b>SEO登録</b><div class="small">14〜45日</div></div><div class="soft"><b>SEO成熟</b><div class="small">約110日</div></div><div class="soft"><b>記事の当たり</b><div class="small">70%ほぼ0 / 22%小 / 7%中 / 1%当たり</div></div><div class="soft"><b>収益リンクCTR</b><div class="small">0.5〜1.0%</div></div><div class="soft"><b>購入率</b><div class="small">1〜3%</div></div><div class="soft"><b>成果報酬</b><div class="small">600〜1,200円/件</div></div></div><p class="small note">一部の数値は公開ベンチマークを参考にしたゲーム用仮定です。未来を正確に予測するものではありません。</p></section>
 <section class="panel"><div class="eyebrow">VARIABLE TEST</div><h2>人脈という変数</h2><div class="grid g2" style="margin-top:12px"><div class="soft"><b>📘 商材BOT</b><div class="small">毎日X運用＋5日に1記事。教材にあるSNS運用とライティング施策を使う。</div></div><div class="soft"><b>🤝 人脈BOT</b><div class="small">商材BOTと同条件＋60人規模の情報商材コミュニティ。投稿ごと15〜30%が相互応援。維持コスト0.25〜0.5時間/日。</div></div></div></section>
-<section class="panel stack"><div class="section-title"><div><div class="eyebrow">BOT CONDITIONS</div><h2>5つのBOTは何を比較している？</h2></div><span class="pill">比較条件を明示</span></div><p class="small note"><b>日記BOTとバズBOTも記事を書きます。</b> 比較を分かりやすくするため、商材BOT・人脈BOT・日記BOT・バズBOTはすべて「5日に1記事」に統一。違いはSNSの動き方、記事の作り方、人脈の有無です。記事BOTだけは「毎日1記事」で量産します。</p><div class="grid botguide">
-<div class="card"><b>📘 商材BOT</b><div class="small botdesc">教材実践型。毎日Xを運用し、5日に1記事。フォロワー規模別の運用、プロフィール改善、分析、検索意図、不安解消、体験談など教材の施策を使います。</div><div class="tagrow"><span class="tag">5日に1記事</span><span class="tag">教材あり</span><span class="tag">初期費用1万円</span></div></div>
-<div class="card"><b>🤝 人脈BOT</b><div class="small botdesc">商材BOTと同じ行動に、60人の相互応援コミュニティだけを追加。「人脈」という変数がどこまで数字や売上を押し上げるかを見るBOTです。</div><div class="tagrow"><span class="tag">5日に1記事</span><span class="tag">教材あり</span><span class="tag">人脈60人</span></div></div>
-<div class="card"><b>💬 日記BOT</b><div class="small botdesc">戦略なし比較群。約78%の日に1回、日常的な投稿をします。5日に1記事は書きますが、教材の段階運用・バズ設計・ライティング最適化は使いません。</div><div class="tagrow"><span class="tag">5日に1記事</span><span class="tag">SNS戦略なし</span><span class="tag">教材なし</span></div></div>
-<div class="card"><b>🚀 バズBOT</b><div class="small botdesc">拡散特化比較群。毎日1〜2投稿し、表示量とバズ確率を高めに設定。5日に1記事は書きますが、記事自体には教材のライティング最適化を使いません。</div><div class="tagrow"><span class="tag">5日に1記事</span><span class="tag">バズ重視</span><span class="tag">教材なし</span></div></div>
-<div class="card"><b>✍️ 記事BOT</b><div class="small botdesc">記事量産比較群。SNS投稿は最小限にして、毎日1記事を書きます。教材のSNS運用は使わず、「記事数を増やすだけ」でどこまで行くかを見ます。</div><div class="tagrow"><span class="tag">毎日1記事</span><span class="tag">量産型</span><span class="tag">教材なし</span></div></div>
-</div><p class="small" style="margin-bottom:0">※日記BOT・バズBOTに記事を持たせたことで、「商材BOTだけが記事を書いているから有利」という比較上の偏りを減らしています。SNSからのリンク流入も、記事が1本以上できてから発生します。</p></section>
-<section id="game" class="panel stack"><div class="section-title"><div><div class="eyebrow">LIVE SIMULATION</div><h2>720日バックテスト</h2></div><div class="controls"><button id="go" class="primary">開始</button><button id="jump">30日進める</button><button id="reset">リセット</button><button id="worlds">商材 vs 人脈 100世界線</button></div></div><div><div class="section-title"><b>DAY <span id="day">0</span> / 720</b><span id="state" class="small">停止中</span></div><div class="progress"><div id="bar"></div></div></div><div id="bots" class="grid g5"></div><div class="grid g2"><div class="card"><div class="section-title"><b>現金損益</b><span class="small">点線＝0円</span></div><svg viewBox="0 0 720 230"><line x1="45" y1="195" x2="700" y2="195" stroke="#d9dad6"/><line x1="45" y1="20" x2="45" y2="195" stroke="#d9dad6"/><line id="zero" x1="45" y1="100" x2="700" y2="100" stroke="#777" stroke-dasharray="4 5"/><path id="pmanual" fill="none" stroke="var(--s1)" stroke-width="3"/><path id="pnetwork" fill="none" stroke="var(--s2)" stroke-width="3"/><path id="pdiary" fill="none" stroke="var(--s3)" stroke-width="2.2"/><path id="pbuzz" fill="none" stroke="var(--s4)" stroke-width="2.2"/><path id="pwriter" fill="none" stroke="var(--s5)" stroke-width="2.2"/></svg><div class="small">📘 商材 / 🤝 人脈 / 💬 日記 / 🚀 バズ / ✍️ 記事</div></div><div class="card"><b>観測ログ</b><div id="log"></div></div></div><div id="worldResult" class="card hidden"></div></section>
+<section class="panel stack"><div class="section-title"><div><div class="eyebrow">BOT CONDITIONS</div><h2>5つのBOTは何を比較している？</h2></div><span class="pill">BOTの性格は固定</span></div><p class="small note"><b>BOTごとの「戦略」は固定し、下の3つの実験モードで比較条件だけを変えます。</b> 商材BOTは教材実践、人脈BOTは教材＋相互応援、日記BOTは戦略なしSNS、バズBOTは拡散重視、記事BOTはSNS最小限で記事中心です。</p><div class="grid botguide">
+<div class="card"><b>📘 商材BOT</b><div class="small botdesc">教材実践型。フォロワー規模別の運用、プロフィール改善、分析、検索意図、不安解消、体験談など教材の施策を使います。</div><div class="tagrow"><span class="tag">教材あり</span><span class="tag">初期費用1万円</span><span class="tag">現実運用: 5日に1記事</span></div></div>
+<div class="card"><b>🤝 人脈BOT</b><div class="small botdesc">商材BOTと同じ行動に、60人の相互応援コミュニティだけを追加。「人脈」という変数がどこまで数字や売上を押し上げるかを見るBOTです。</div><div class="tagrow"><span class="tag">教材あり</span><span class="tag">人脈60人</span><span class="tag">現実運用: 5日に1記事</span></div></div>
+<div class="card"><b>💬 日記BOT</b><div class="small botdesc">戦略なし比較群。日常的なSNS投稿と一般記事。教材の段階運用・バズ設計・ライティング最適化は使いません。</div><div class="tagrow"><span class="tag">SNS戦略なし</span><span class="tag">教材なし</span><span class="tag">現実運用: 5日に1記事</span></div></div>
+<div class="card"><b>🚀 バズBOT</b><div class="small botdesc">拡散特化比較群。投稿量とバズ確率を高めに設定。記事自体には教材のライティング最適化を使いません。</div><div class="tagrow"><span class="tag">バズ重視</span><span class="tag">教材なし</span><span class="tag">現実運用: 5日に1記事</span></div></div>
+<div class="card"><b>✍️ 記事BOT</b><div class="small botdesc">記事中心比較群。SNS投稿を最小限にして、教材なしの一般記事へ時間を寄せます。</div><div class="tagrow"><span class="tag">記事中心</span><span class="tag">教材なし</span><span class="tag">現実運用: 毎日1記事</span></div></div>
+</div><p class="small" style="margin-bottom:0">※SNSからのリンク流入は、記事が1本以上存在するときだけ発生します。</p></section>
+<section class="panel stack" id="modePanel"><div class="section-title"><div><div class="eyebrow">EXPERIMENT MODES</div><h2>3つの条件で同じ5BOTを比較する</h2></div><span class="pill">条件を切り替えて再実験</span></div><div class="grid g3">
+<button class="modecard active" data-mode="real"><b>① 現実運用モード</b><div class="small">各BOTが自分の戦略どおりの頻度で動く。記事BOTは毎日1記事、他4BOTは5日に1記事。<br><b>→ 最終的に誰が一番稼ぐか</b></div></button>
+<button class="modecard" data-mode="articles"><b>② 同記事数モード</b><div class="small">全BOTを720日で144記事に固定。記事量の差を消して、SNS戦略・記事品質・人脈を比較。<br><b>→ 教材そのものの差を見やすくする</b></div></button>
+<button class="modecard" data-mode="time"><b>③ 同作業時間モード</b><div class="small">全BOTに同じ1,000時間を配る。各BOTはその時間を自分の戦略比率でSNS・記事・人脈へ配分。<br><b>→ 同じ1,000時間なら何が一番マシか</b></div></button>
+</div><div id="modeInfo" class="soft small"></div></section>
+<section id="game" class="panel stack"><div class="section-title"><div><div class="eyebrow">LIVE SIMULATION</div><div class="modebar"><h2>720日バックテスト</h2><span id="modePill" class="pill">① 現実運用</span></div></div><div class="controls"><button id="go" class="primary">開始</button><button id="jump">30日進める</button><button id="reset">リセット</button><button id="worlds">商材 vs 人脈 100世界線</button></div></div><div><div class="section-title"><b>DAY <span id="day">0</span> / 720</b><span id="state" class="small">停止中</span></div><div class="progress"><div id="bar"></div></div></div><div id="bots" class="grid g5"></div><div class="grid g2"><div class="card"><div class="section-title"><b>現金損益</b><span class="small">点線＝0円</span></div><svg viewBox="0 0 720 230"><line x1="45" y1="195" x2="700" y2="195" stroke="#d9dad6"/><line x1="45" y1="20" x2="45" y2="195" stroke="#d9dad6"/><line id="zero" x1="45" y1="100" x2="700" y2="100" stroke="#777" stroke-dasharray="4 5"/><path id="pmanual" fill="none" stroke="var(--s1)" stroke-width="3"/><path id="pnetwork" fill="none" stroke="var(--s2)" stroke-width="3"/><path id="pdiary" fill="none" stroke="var(--s3)" stroke-width="2.2"/><path id="pbuzz" fill="none" stroke="var(--s4)" stroke-width="2.2"/><path id="pwriter" fill="none" stroke="var(--s5)" stroke-width="2.2"/></svg><div class="small">📘 商材 / 🤝 人脈 / 💬 日記 / 🚀 バズ / ✍️ 記事</div></div><div class="card"><b>観測ログ</b><div id="log"></div></div></div><div id="worldResult" class="card hidden"></div></section>
 <section id="summary" class="panel hidden"><div class="section-title"><div><div class="eyebrow">OBSERVED DATA → HYPOTHESES</div><h2>観測データから見た仮説</h2></div><span class="pill">断定ではなく仮説</span></div><p class="small">720日間に観測されたPV、フォロワー、クリック、購入、記事数、作業時間、BOT間の差から仮説を自動生成します。</p><div id="hypothesisList" class="stack"></div><div class="soft" style="margin-top:14px"><b>総括</b><div id="overall" class="small" style="margin-top:6px"></div></div></section>
 <section class="panel"><div class="section-title"><div><div class="eyebrow">MINI GAME COLLECTION</div><h2>次の実験</h2></div><span class="pill">追加予定</span></div><div class="grid g3" style="margin-top:12px"><div class="card future"><div class="eyebrow">No.002</div><b>商材待ち</b><div class="small">次の情報商材を全ページ確認してモデル化</div></div><div class="card future"><div class="eyebrow">No.003</div><b>商材待ち</b><div class="small">別ジャンルも実験可能</div></div><div class="card future"><div class="eyebrow">No.004</div><b>商材待ち</b><div class="small">成功法則をBOT化して観察</div></div></div></section>
 <section class="panel"><b>実験室の原則</b><p class="small">商材を最初から詐欺扱いしない。成功を保証もしない。教材の施策をBOT化し、現実寄りの確率・競争・時間コストを加え、複数世界線で観察する。</p></section>
 </main>
 <script>
 (()=>{
-const N=720;
+const N=720,TIME_TARGET=1000;
 const DEF={
-  manual:{icon:'📘',name:'商材BOT',cost:10000,short:'教材どおり：毎日X＋5日に1記事',cadence:'5日に1記事'},
-  network:{icon:'🤝',name:'人脈BOT',cost:10000,short:'商材BOT＋60人の相互応援',cadence:'5日に1記事'},
-  diary:{icon:'💬',name:'日記BOT',cost:0,short:'戦略なしSNS＋一般記事',cadence:'5日に1記事'},
-  buzz:{icon:'🚀',name:'バズBOT',cost:0,short:'バズ狙いSNS＋一般記事',cadence:'5日に1記事'},
-  writer:{icon:'✍️',name:'記事BOT',cost:0,short:'SNS最小限＋記事量産',cadence:'毎日1記事'}
+  manual:{icon:'📘',name:'商材BOT',cost:10000},
+  network:{icon:'🤝',name:'人脈BOT',cost:10000},
+  diary:{icon:'💬',name:'日記BOT',cost:0},
+  buzz:{icon:'🚀',name:'バズBOT',cost:0},
+  writer:{icon:'✍️',name:'記事BOT',cost:0}
 };
-let S,timer=null,running=false;
+const MODES={
+  real:{label:'① 現実運用',info:'各BOTが本来の戦略どおりに動きます。商材・人脈・日記・バズは5日に1記事、記事BOTは毎日1記事。記事量も含めて「実際にこの方針を720日続けたら誰が一番稼ぐか」を見るモードです。'},
+  articles:{label:'② 同記事数',info:'全BOTを720日で144記事に固定します。記事数の物量差を消し、SNS戦略・記事品質・人脈の違いを見やすくします。教材の施策が一般記事より効くのかを見るための比較モードです。'},
+  time:{label:'③ 同作業時間',info:'全BOTに同じ1,000時間を与えます。基本戦略の「SNS・記事・人脈に使う時間の比率」を保ったまま活動頻度を調整します。720日終了時の作業時間は全BOTちょうど1,000時間です。'}
+};
+const BASE={
+  manual:{posts:1,articleRate:.2,expectedHours:1.73},
+  network:{posts:1,articleRate:.2,expectedHours:2.105},
+  diary:{posts:.78,articleRate:.2,expectedHours:.6636},
+  buzz:{posts:1.8,articleRate:.2,expectedHours:1.045},
+  writer:{posts:.22,articleRate:1,expectedHours:3.2176}
+};
+let mode='real',S,timer=null,running=false;
 const $=s=>document.querySelector(s),rnd=(a,b)=>a+Math.random()*(b-a),ch=p=>Math.random()<Math.max(0,Math.min(1,p)),yen=n=>(n<0?'−':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP');
 function poi(l){if(l<=0)return 0;if(l>25)return Math.max(0,Math.round(l+Math.sqrt(l)*(Math.random()*2-1)));let L=Math.exp(-l),k=0,p=1;do{k++;p*=Math.random()}while(p>L);return k-1}
-function mk(k){return{k,rev:0,profit:-DEF[k].cost,followers:0,pv:0,hours:0,articles:[],sales:0,clicks:0,network:k==='network'?60:0,supports:0,hist:[-DEF[k].cost]}}
-function reset(){stop();S={day:0,b:{manual:mk('manual'),network:mk('network'),diary:mk('diary'),buzz:mk('buzz'),writer:mk('writer')},logs:[]};$('#worldResult').classList.add('hidden');$('#summary').classList.add('hidden');say('DAY 0：4つの比較BOTのうち、商材・人脈・日記・バズは5日に1記事。記事BOTだけ毎日1記事。',true);draw()}
+function stochasticCount(mean){let n=Math.floor(mean),f=mean-n;return n+(ch(f)?1:0)}
+function timeScale(k){return (TIME_TARGET/N)/BASE[k].expectedHours}
+function mk(k){return{k,rev:0,profit:-DEF[k].cost,followers:0,pv:0,hours:0,articles:[],sales:0,clicks:0,network:k==='network'?60:0,supports:0,hist:[-DEF[k].cost],articleCredit:0}}
+function cadence(k){if(mode==='real')return k==='writer'?'毎日1記事':'5日に1記事';if(mode==='articles')return'全BOT 5日に1記事';return'1,000h配分'}
+function shortText(k){
+  if(k==='manual')return mode==='time'?'教材施策へ1,000hを配分':'教材どおりのSNS＋記事';
+  if(k==='network')return mode==='time'?'教材＋人脈へ1,000hを配分':'商材BOT＋60人の相互応援';
+  if(k==='diary')return mode==='time'?'戦略なしSNS＋一般記事へ1,000h':'戦略なしSNS＋一般記事';
+  if(k==='buzz')return mode==='time'?'バズ狙いSNS＋一般記事へ1,000h':'バズ狙いSNS＋一般記事';
+  return mode==='real'?'SNS最小限＋記事量産':mode==='articles'?'SNS最小限＋同数の一般記事':'記事中心へ1,000hを配分';
+}
+function reset(){stop();S={day:0,b:{manual:mk('manual'),network:mk('network'),diary:mk('diary'),buzz:mk('buzz'),writer:mk('writer')},logs:[]};$('#worldResult').classList.add('hidden');$('#summary').classList.add('hidden');say('DAY 0：'+MODES[mode].label+'。'+(mode==='real'?'各BOT本来の行動量で比較。':mode==='articles'?'全BOTを144記事にそろえて比較。':'全BOTに同じ1,000時間を配って比較。'),true);updateModeUI();draw()}
 function stop(){running=false;if(timer){clearTimeout(timer);timer=null}$('#state').textContent=S&&S.day>=N?'完了':'停止中';$('#go').textContent=S&&S.day>=N?'もう一度':'開始'}
 function say(x,c){if(c)S.logs=[];S.logs.unshift(x);S.logs=S.logs.slice(0,7);$('#log').innerHTML=S.logs.map(v=>'<div class="logitem">'+v+'</div>').join('')}
-function article(day,k){
-  let r=Math.random(),m=r<.70?rnd(0,.8):r<.92?rnd(2,15):r<.99?rnd(20,80):rnd(100,500);
-  let q=(k==='manual'||k==='network')?rnd(.90,1.10):rnd(.55,.80);
-  return{index:day+Math.floor(rnd(14,46)),pot:m*q,quality:q};
-}
+function article(day,k){let r=Math.random(),m=r<.70?rnd(0,.8):r<.92?rnd(2,15):r<.99?rnd(20,80):rnd(100,500);let q=(k==='manual'||k==='network')?rnd(.90,1.10):rnd(.55,.80);return{index:day+Math.floor(rnd(14,46)),pot:m*q,quality:q}}
 function articleHours(k){if(k==='manual'||k==='network')return rnd(2.8,4.5);if(k==='writer')return rnd(2.4,4.0);return rnd(2.2,3.5)}
 function money(b,pv,q){b.pv+=pv;let clicks=poi(pv*rnd(.005,.01)*q);b.clicks+=clicks;let buys=poi(clicks*rnd(.01,.03)*q);b.sales+=buys;for(let i=0;i<buys;i++){let x=rnd(600,1200);b.rev+=x;b.profit+=x}}
 function support(b,canLink){let supporters=Math.min(b.network,poi(b.network*rnd(.15,.30)));b.supports+=supporters;let reposts=poi(supporters*rnd(.08,.18)),extraImp=supporters*rnd(6,14)+reposts*rnd(25,80);if(canLink&&ch(.35))money(b,supporters*rnd(.015,.05),.55);if(ch(.025)&&b.network<150)b.network+=Math.floor(rnd(1,4));return{supporters,extraImp}}
-function shouldPublish(k){return k==='writer'||(['manual','network','diary','buzz'].includes(k)&&S.day%5===0)}
+function plannedPosts(k){
+  if(mode==='time')return stochasticCount(BASE[k].posts*timeScale(k));
+  if(k==='manual'||k==='network')return 1;
+  if(k==='diary')return ch(.78)?1:0;
+  if(k==='buzz')return ch(.8)?2:1;
+  return ch(.22)?1:0;
+}
+function publishNow(b){
+  if(mode==='real')return b.k==='writer'||(['manual','network','diary','buzz'].includes(b.k)&&S.day%5===0);
+  if(mode==='articles')return S.day%5===0;
+  b.articleCredit+=BASE[b.k].articleRate*timeScale(b.k);
+  if(b.articleCredit>=1){b.articleCredit-=1;return true}
+  return false;
+}
+function addSocialHours(b,posts){
+  if(mode==='time')return;
+  if(b.k==='manual'||b.k==='network'){b.hours+=posts*rnd(.7,1.3);if(b.k==='network')b.hours+=rnd(.25,.5)}
+  if(b.k==='diary')b.hours+=posts*rnd(.08,.16);
+  if(b.k==='buzz'&&posts>0)b.hours+=rnd(.3,.65);
+  if(b.k==='writer')b.hours+=posts*.08;
+}
 function dayBot(b){
-  let posts=0,link=0,viral=.001;
-  if(b.k==='manual'||b.k==='network'){posts=1;link=.35;viral=.0012;b.hours+=rnd(.7,1.3);if(b.k==='network')b.hours+=rnd(.25,.5)}
-  if(b.k==='diary'){posts=ch(.78)?1:0;link=.03;viral=.0008;b.hours+=posts*rnd(.08,.16)}
-  if(b.k==='buzz'){posts=ch(.8)?2:1;link=.10;viral=.0035;b.hours+=rnd(.3,.65)}
-  if(b.k==='writer'){posts=ch(.22)?1:0;link=.40;viral=.0007;b.hours+=posts*.08}
+  let posts=plannedPosts(b.k),link=0,viral=.001;
+  if(b.k==='manual'||b.k==='network'){link=.35;viral=.0012}
+  if(b.k==='diary'){link=.03;viral=.0008}
+  if(b.k==='buzz'){link=.10;viral=.0035}
+  if(b.k==='writer'){link=.40;viral=.0007}
+  addSocialHours(b,posts);
   for(let i=0;i<posts;i++){
     let imp=(18+b.followers*rnd(.18,.42))*Math.exp(rnd(-.7,.7)),v=ch(viral);
     if(b.k==='buzz')imp*=1.2;
@@ -74,12 +118,12 @@ function dayBot(b){
       if(ns.supporters>=15&&ch(.12))say('DAY '+S.day+' 🤝 人脈BOT：'+ns.supporters+'人が相互応援。');
     }
     b.followers+=imp*((b.k==='manual'||b.k==='network')?.0009:.0005)*rnd(.55,1.3);
-    if(canLink)money(b,imp*rnd(.0005,.002),b.k==='manual'||b.k==='network'? .9:.72);
+    if(canLink)money(b,imp*rnd(.0005,.002),b.k==='manual'||b.k==='network'?.9:.72);
     if(v&&ch(.35))say('DAY '+S.day+' '+DEF[b.k].icon+'：投稿が跳ねた。ただし収益化は別。');
   }
-  if(shouldPublish(b.k)){
+  if(publishNow(b)){
     b.articles.push(article(S.day,b.k));
-    b.hours+=articleHours(b.k);
+    if(mode!=='time')b.hours+=articleHours(b.k);
     if(b.k==='network'){
       let readers=poi(b.network*rnd(.06,.15));b.pv+=readers;
       let clicks=poi(readers*.015);b.clicks+=clicks;
@@ -93,9 +137,18 @@ function dayBot(b){
     let conv=(b.k==='manual'||b.k==='network')?.95:.75;
     money(b,a.pot*mat*site*dec/30*rnd(.65,1.35),conv);
   }
+  if(mode==='time')b.hours=S.day/N*TIME_TARGET;
   b.hist.push(b.profit);
 }
-function one(){if(S.day>=N){finish();return}S.day++;Object.values(S.b).forEach(dayBot);if(S.day===5)say('DAY 5：商材・人脈・日記・バズが1本目の記事を公開。以後5日ごと。');if(S.day===30)say('DAY 30：同じ記事本数でも、SNS戦略と記事品質の差が少しずつ出始める。');if(S.day===180)say('DAY 180：半年。投稿戦略・記事品質・人脈・記事量の差を観測。');if(S.day===360)say('DAY 360：1年。フォロワー差だけでなく、PV・売上・作業時間も比較。');if(S.day===540)say('DAY 540：1年半。記事量産が強いのか、教材施策が効くのかを観測。');draw();if(S.day>=N)finish()}
+function one(){
+  if(S.day>=N){finish();return}
+  S.day++;Object.values(S.b).forEach(dayBot);
+  if(S.day===30)say('DAY 30：'+(mode==='real'?'行動量そのものの差も含めて観測中。':mode==='articles'?'記事数をそろえた状態で差を観測中。':'同じ時間予算を、各BOTが違う戦略へ配分中。'));
+  if(S.day===180)say('DAY 180：半年。SNS・記事品質・人脈・物量のどれが効くかを観測。');
+  if(S.day===360)say('DAY 360：1年。売上だけでなくPV・記事数・作業効率も比較。');
+  if(S.day===540)say('DAY 540：1年半。単発のバズより長期差が見えやすくなる時期。');
+  draw();if(S.day>=N)finish();
+}
 function loop(){if(!running)return;one();if(running)timer=setTimeout(loop,32)}
 function toggle(){if(S.day>=N)reset();running=!running;$('#state').textContent=running?'実行中':'停止中';$('#go').textContent=running?'一時停止':'再開';if(running)loop();else stop()}
 function jump(){stop();for(let i=0;i<30&&S.day<N;i++)one();draw()}
@@ -103,30 +156,45 @@ function cards(){
   let win=Object.values(S.b).slice().sort((a,b)=>b.profit-a.profit)[0].k;
   $('#bots').innerHTML=Object.values(S.b).map(b=>{
     let rate=b.hours?b.rev/b.hours:0,extra=b.k==='network'?'<div>人脈<br><b>'+b.network+'人</b></div>':'';
-    return '<div class="card '+(b.k===win?'winner':'')+'"><b>'+DEF[b.k].icon+' '+DEF[b.k].name+'</b><div class="small botdesc">'+DEF[b.k].short+'<br><span class="tag">'+DEF[b.k].cadence+'</span></div><div class="metric" style="margin-top:10px"><div>売上<br><b>'+yen(b.rev)+'</b></div><div>損益<br><b>'+yen(b.profit)+'</b></div><div>フォロワー<br><b>'+Math.round(b.followers).toLocaleString('ja-JP')+'</b></div><div>PV<br><b>'+Math.round(b.pv).toLocaleString('ja-JP')+'</b></div><div>記事<br><b>'+b.articles.length+'</b></div><div>作業<br><b>'+b.hours.toFixed(0)+'h</b></div>'+extra+'<div>売上/作業h<br><b>'+yen(rate)+'</b></div></div></div>';
+    return '<div class="card '+(b.k===win?'winner':'')+'"><b>'+DEF[b.k].icon+' '+DEF[b.k].name+'</b><div class="small botdesc">'+shortText(b.k)+'<br><span class="tag">'+cadence(b.k)+'</span></div><div class="metric" style="margin-top:10px"><div>売上<br><b>'+yen(b.rev)+'</b></div><div>損益<br><b>'+yen(b.profit)+'</b></div><div>フォロワー<br><b>'+Math.round(b.followers).toLocaleString('ja-JP')+'</b></div><div>PV<br><b>'+Math.round(b.pv).toLocaleString('ja-JP')+'</b></div><div>記事<br><b>'+b.articles.length+'</b></div><div>作業<br><b>'+b.hours.toFixed(0)+'h</b></div>'+extra+'<div>売上/作業h<br><b>'+yen(rate)+'</b></div></div></div>';
   }).join('');
 }
 function chart(){let vals=Object.values(S.b).flatMap(b=>b.hist),mn=Math.min(-11000,...vals),mx=Math.max(2000,...vals),pad=(mx-mn)*.08||1000;mn-=pad;mx+=pad;Object.values(S.b).forEach(b=>{let d=b.hist.map((v,i)=>(i?'L':'M')+(45+i/N*655).toFixed(1)+' '+(20+175-(v-mn)/(mx-mn)*175).toFixed(1)).join(' ');$('#p'+b.k).setAttribute('d',d)});let y=20+175-(0-mn)/(mx-mn)*175;$('#zero').setAttribute('y1',y);$('#zero').setAttribute('y2',y)}
 function draw(){$('#day').textContent=S.day;$('#bar').style.width=(S.day/N*100)+'%';cards();chart()}
 function hypo(t,x){return '<div class="hypo"><b>'+t+'</b><div class="small">'+x+'</div></div>'}
+function comparisonContext(a,b){
+  if(mode==='articles')return '記事本数はともに '+a.articles.length+' 本。';
+  if(mode==='time')return '作業時間はともに '+TIME_TARGET.toLocaleString('ja-JP')+' 時間。記事数は '+a.articles.length+' 本対 '+b.articles.length+' 本。';
+  return '現実運用の頻度で、記事数は '+a.articles.length+' 本対 '+b.articles.length+' 本。';
+}
 function summarize(){
   let m=S.b.manual,n=S.b.network,d=S.b.diary,z=S.b.buzz,w=S.b.writer,hs=[],mrate=m.hours?m.rev/m.hours:0,nrate=n.hours?n.rev/n.hours:0,mpvpa=m.articles.length?m.pv/m.articles.length:0;
-  hs.push(hypo('比較条件：4BOTの記事本数をそろえた','商材・人脈・日記・バズは各 '+m.articles.length+' 本。日記・バズも記事を書くため、「記事を書いたかどうか」ではなく、SNS戦略・記事品質・人脈の差を見やすくしています。記事BOTだけ '+w.articles.length+' 本で量産比較です。'));
-  if(m.pv<3000)hs.push(hypo('仮説1：そもそもの流入量が足りない','商材BOTの累計PVは '+Math.round(m.pv).toLocaleString('ja-JP')+'。720日間の作業量に対して母数が小さく、収益導線以前に「見られる量」が不足した可能性があります。'));else hs.push(hypo('仮説1：流入は作れたが、流入＝収益ではなかった','商材BOTは累計 '+Math.round(m.pv).toLocaleString('ja-JP')+'PV。売上 '+yen(m.rev)+' との比較から、アクセス増加だけでは十分でなかった可能性があります。'));
-  if(mpvpa<10)hs.push(hypo('仮説2：記事の多くが大きな資産にはならなかった','商材BOTは '+m.articles.length+' 本の記事を作り、単純平均は約 '+mpvpa.toFixed(1)+'PV/記事。記事数そのものより、当たり記事の有無や記事品質が効いた可能性があります。'));
-  if(m.hours>1000)hs.push(hypo('仮説3：時間コストに対して単価が低い','商材BOTの作業時間は約 '+m.hours.toFixed(0)+'時間。売上÷作業時間は '+yen(mrate)+'/h。施策が多少効いても、長い作業時間に対して売上単価が小さかった可能性があります。'));
-  if(m.rev>d.rev)hs.push(hypo('仮説4：教材施策は「何もしないSNS」よりは効いた可能性','記事本数は同じですが、商材BOT売上 '+yen(m.rev)+'、日記BOT '+yen(d.rev)+'。差が繰り返し出るなら、段階運用や記事最適化に一定の効果がある可能性があります。'));else hs.push(hypo('仮説4：教材施策が日記運用を明確には上回らなかった','記事本数をそろえても、商材BOT売上 '+yen(m.rev)+'、日記BOT '+yen(d.rev)+'。この世界線では教材施策の優位が明確ではありません。'));
-  if(z.rev>m.rev)hs.push(hypo('仮説5：この世界線ではバズ重視が強かった','バズBOT '+yen(z.rev)+' に対し商材BOT '+yen(m.rev)+'。記事本数は同じなので、SNS露出の差が売上へ波及した可能性があります。'));else hs.push(hypo('仮説5：バズだけでは商材運用を超えなかった','バズBOT '+yen(z.rev)+' に対し商材BOT '+yen(m.rev)+'。表示を増やしても、記事品質や導線が弱ければ収益差につながりにくい可能性があります。'));
+  if(mode==='real')hs.push(hypo('比較条件：各BOTの自然な行動量','記事数は、商材 '+m.articles.length+' / 人脈 '+n.articles.length+' / 日記 '+d.articles.length+' / バズ '+z.articles.length+' / 記事 '+w.articles.length+' 本。物量差も戦略の一部として最終成果を比較しています。'));
+  if(mode==='articles')hs.push(hypo('比較条件：全BOTを同じ144記事へ固定','5BOTすべて '+m.articles.length+' 本。記事量の差を消したため、SNS戦略・記事品質・人脈の差を見やすいモードです。'));
+  if(mode==='time')hs.push(hypo('比較条件：全BOTが同じ1,000時間','5BOTすべて '+m.hours.toFixed(0)+' 時間。時間をどこへ配ったかによって、記事数は 商材 '+m.articles.length+' / 人脈 '+n.articles.length+' / 日記 '+d.articles.length+' / バズ '+z.articles.length+' / 記事 '+w.articles.length+' 本に分かれました。'));
+  if(m.pv<3000)hs.push(hypo('仮説1：そもそもの流入量が足りない','商材BOTの累計PVは '+Math.round(m.pv).toLocaleString('ja-JP')+'。収益導線以前に「見られる量」が不足した可能性があります。'));else hs.push(hypo('仮説1：流入は作れたが、流入＝収益ではなかった','商材BOTは累計 '+Math.round(m.pv).toLocaleString('ja-JP')+'PV。売上 '+yen(m.rev)+' との比較から、アクセス増加だけでは十分でなかった可能性があります。'));
+  if(mpvpa<10)hs.push(hypo('仮説2：記事の多くが大きな資産にはならなかった','商材BOTは '+m.articles.length+' 本、単純平均は約 '+mpvpa.toFixed(1)+'PV/記事。記事数だけでなく、当たり記事の有無や品質が効いた可能性があります。'));
+  if(mode==='time')hs.push(hypo('仮説3：同じ1,000時間でも配分先で成果が変わる','全BOTの作業時間を固定したため、売上差は「時間そのもの」ではなく、SNS・記事・人脈への配分と各施策の効率の差として観測しやすくなっています。'));else if(m.hours>1000)hs.push(hypo('仮説3：時間コストに対して単価が低い','商材BOTの作業時間は約 '+m.hours.toFixed(0)+'時間。売上÷作業時間は '+yen(mrate)+'/h。施策が多少効いても、長い作業時間に対して売上単価が小さかった可能性があります。'));
+  let ctxD=comparisonContext(m,d),ctxZ=comparisonContext(m,z);
+  if(m.rev>d.rev)hs.push(hypo('仮説4：教材施策は日記運用より効いた可能性',ctxD+' 商材BOT売上 '+yen(m.rev)+'、日記BOT '+yen(d.rev)+'。差が複数世界線でも続くなら、段階運用や記事最適化に一定の効果がある可能性があります。'));else hs.push(hypo('仮説4：教材施策が日記運用を明確には上回らなかった',ctxD+' 商材BOT売上 '+yen(m.rev)+'、日記BOT '+yen(d.rev)+'。この世界線では教材施策の優位が明確ではありません。'));
+  if(z.rev>m.rev)hs.push(hypo('仮説5：この世界線ではバズ重視が強かった',ctxZ+' バズBOT '+yen(z.rev)+' に対し商材BOT '+yen(m.rev)+'。SNS露出の差が売上へ波及した可能性があります。'));else hs.push(hypo('仮説5：バズだけでは商材運用を超えなかった',ctxZ+' バズBOT '+yen(z.rev)+' に対し商材BOT '+yen(m.rev)+'。表示を増やしても、記事品質や導線が弱ければ収益差につながりにくい可能性があります。'));
   if(n.followers>m.followers)hs.push(hypo('仮説6：人脈は初期露出を増やす','商材BOTのフォロワー '+Math.round(m.followers).toLocaleString('ja-JP')+' 人に対し、人脈BOTは '+Math.round(n.followers).toLocaleString('ja-JP')+' 人。同じ教材条件なので、差の一部は相互応援で説明できる可能性があります。'));
   if(n.rev>m.rev)hs.push(hypo('仮説7：相互応援が売上にも一部波及した','商材BOT売上 '+yen(m.rev)+' に対し、人脈BOT '+yen(n.rev)+'。人脈が単なる見かけの数字だけでなく、購入機会にもつながった可能性があります。'));else hs.push(hypo('仮説7：相互応援者と顧客は別だった','人脈BOTは露出を得ましたが、売上は商材BOTを明確に上回りませんでした。コミュニティ参加者と顧客は別集団だった可能性があります。'));
   if(nrate<mrate)hs.push(hypo('仮説8：人脈維持にもコストがある','人脈BOTの売上/作業時間は '+yen(nrate)+'/h、商材BOTは '+yen(mrate)+'/h。交流維持コストが売上増加を上回った可能性があります。'));else hs.push(hypo('仮説8：この世界線では人脈維持コストを上回る効果が出た','人脈BOTの売上/作業時間は '+yen(nrate)+'/h、商材BOTは '+yen(mrate)+'/h。追加露出が交流時間のコストを上回った可能性があります。'));
   $('#hypothesisList').innerHTML=hs.join('');
-  $('#overall').textContent='この世界線では、商材・人脈・日記・バズの4BOTが同じ記事本数で走るため、以前より「記事を書いた量」だけに引っ張られず、SNS戦略・記事品質・人脈の差を比較できます。ただし確率モデルなので、1回の結果だけで教材の有効性を断定せず、複数回の傾向として見る実験です。';
+  $('#overall').textContent=mode==='real'?'現実運用モードでは、記事量も含めて各戦略をそのまま走らせます。記事BOTが物量で勝つなら、それ自体が「教材より量が強い可能性」という観測です。ただし教材そのものの効果を切り分けるには、同記事数・同作業時間モードも合わせて見ます。':mode==='articles'?'同記事数モードでは、全BOTの物量を144記事に固定しています。ここで商材BOTが優位なら、記事数ではなく教材のSNS運用・記事品質補正が効いた可能性を見やすくなります。':'同作業時間モードでは、全BOTが同じ1,000時間を使います。成果差は「時間を何に使ったか」の差として比較できます。記事数が違うのも、各戦略の時間配分の結果です。';
   $('#summary').classList.remove('hidden');
 }
-function finish(){stop();let q=Object.values(S.b).slice().sort((a,b)=>b.profit-a.profit);say('DAY 720：終了。損益1位 '+DEF[q[0].k].icon+' '+DEF[q[0].k].name+' '+yen(q[0].profit)+'。');summarize()}
+function finish(){stop();let q=Object.values(S.b).slice().sort((a,b)=>b.profit-a.profit);say('DAY 720：'+MODES[mode].label+'終了。損益1位 '+DEF[q[0].k].icon+' '+DEF[q[0].k].name+' '+yen(q[0].profit)+'。');summarize()}
 function runPair(){let old=S;S={day:0,b:{manual:mk('manual'),network:mk('network')},logs:[]};for(let i=0;i<N;i++){S.day++;dayBot(S.b.manual);dayBot(S.b.network)}let x={m:S.b.manual,n:S.b.network};S=old;return x}
-function worlds(){stop();let a=[];for(let i=0;i<100;i++)a.push(runPair());let mrev=a.map(x=>x.m.rev).sort((x,y)=>x-y),nrev=a.map(x=>x.n.rev).sort((x,y)=>x-y),mwin=a.filter(x=>x.m.profit>x.n.profit).length,nwin=a.filter(x=>x.n.profit>x.m.profit).length,draws=100-mwin-nwin;$('#worldResult').innerHTML='<b>商材BOT vs 人脈BOT / 100世界線</b><div class="grid g3" style="margin-top:10px"><div class="soft">商材売上中央値<br><span class="kpi">'+yen(mrev[49])+'</span></div><div class="soft">人脈売上中央値<br><span class="kpi">'+yen(nrev[49])+'</span></div><div class="soft">人脈BOT勝利<br><span class="kpi">'+nwin+'/100</span></div></div><div class="small" style="margin-top:10px">商材BOT勝利 '+mwin+' / 引き分け '+draws+'。この100世界線では変えたのはコミュニティ相互応援だけ。</div>';$('#worldResult').classList.remove('hidden')}
+function worlds(){stop();let a=[];for(let i=0;i<100;i++)a.push(runPair());let mrev=a.map(x=>x.m.rev).sort((x,y)=>x-y),nrev=a.map(x=>x.n.rev).sort((x,y)=>x-y),mwin=a.filter(x=>x.m.profit>x.n.profit).length,nwin=a.filter(x=>x.n.profit>x.m.profit).length,draws=100-mwin-nwin;$('#worldResult').innerHTML='<b>'+MODES[mode].label+' / 商材BOT vs 人脈BOT / 100世界線</b><div class="grid g3" style="margin-top:10px"><div class="soft">商材売上中央値<br><span class="kpi">'+yen(mrev[49])+'</span></div><div class="soft">人脈売上中央値<br><span class="kpi">'+yen(nrev[49])+'</span></div><div class="soft">人脈BOT勝利<br><span class="kpi">'+nwin+'/100</span></div></div><div class="small" style="margin-top:10px">商材BOT勝利 '+mwin+' / 引き分け '+draws+'。現在選択中のモード条件で、商材BOTと人脈BOTの差だけを100回観測。</div>';$('#worldResult').classList.remove('hidden')}
+function updateModeUI(){
+  document.querySelectorAll('.modecard').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  $('#modeInfo').innerHTML='<b>現在：'+MODES[mode].label+'</b><br>'+MODES[mode].info;
+  $('#modePill').textContent=MODES[mode].label;
+}
+function setMode(next){if(!MODES[next]||next===mode)return;mode=next;reset()}
+document.querySelectorAll('.modecard').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 $('#go').addEventListener('click',toggle);$('#jump').addEventListener('click',jump);$('#reset').addEventListener('click',reset);$('#worlds').addEventListener('click',worlds);reset();
 })();
 </script>
