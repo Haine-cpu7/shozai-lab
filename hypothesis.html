@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>仮説検証室 | 商材実験室</title>
+<meta name="description" content="商材実験室 No.001 の事前仮説を条件統制し、100世界線で検証するページ">
+<style>
+:root{--bg:#f7f7f5;--panel:#fff;--card:#f0f1ee;--text:#202124;--muted:#6b7280;--border:#d9dad6;--accent:#2563eb;--ok:#166534;--ng:#991b1b;--mid:#92400e;--course:#2563eb;--control:#65a30d;--network:#0f766e;--writer:#7c3aed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:auto;padding:24px}.stack{display:grid;gap:16px}.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:18px}.panel{padding:18px}.card{padding:15px}.soft{background:var(--card);border-radius:13px;padding:13px}.eyebrow{font-size:.76rem;letter-spacing:.12em;color:var(--muted)}h1,h2,h3{line-height:1.25;margin:0}h1{font-size:clamp(2rem,5vw,3.6rem)}h2{font-size:1.35rem}.muted,.small{color:var(--muted)}.small{font-size:.84rem}.kpi{font-size:1.3rem;font-weight:800}.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:4px 9px;font-size:.75rem;color:var(--muted)}.note{border-left:3px solid var(--accent);padding-left:12px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.controls,.navrow,.liftrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.navrow{margin-top:14px}.navbtn,button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:0 14px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}.primary,.navbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.hypothesis{display:grid;gap:10px}.hhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hid{font-size:.72rem;letter-spacing:.08em;color:var(--muted)}.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:800;border:1px solid var(--border)}.status.pending{color:var(--muted)}.status.support{color:var(--ok);border-color:#86efac;background:#f0fdf4}.status.reject{color:var(--ng);border-color:#fecaca;background:#fef2f2}.status.unclear{color:var(--mid);border-color:#fde68a;background:#fffbeb}.criteria{font-size:.8rem;color:var(--muted);background:var(--card);padding:9px 10px;border-radius:10px}.resultgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.metric{background:var(--card);border-radius:11px;padding:10px}.metric .small{display:block}.metric b{font-size:1.04rem}.progress{height:9px;background:var(--card);border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent);transition:width .2s}.liftbtn.active{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}.question{font-size:clamp(2.7rem,8vw,5.5rem);letter-spacing:-.05em;line-height:1;margin:4px 0 10px}.summarybox{border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff}.legend{display:flex;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:999px;display:inline-block;margin-right:5px}.hidden{display:none!important}.foot{font-size:.8rem;color:var(--muted)}
+@media(max-width:900px){.g3,.resultgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.wrap{padding:15px}.g2,.g3,.resultgrid{grid-template-columns:1fr}.section-title,.hhead{align-items:flex-start;flex-direction:column}.controls>*{flex:1 1 auto}}
+</style>
+</head>
+<body>
+<main class="wrap stack">
+<section>
+  <div class="eyebrow">INFORMATION PRODUCT LAB / HYPOTHESIS TEST</div>
+  <h1>仮説検証室</h1>
+  <p class="muted">メインページで観察してから仮説を作るのではなく、<b>先に仮説と判定条件を宣言し、その条件だけを100世界線で検証</b>します。</p>
+  <div class="navrow"><a class="navbtn" href="index.html">← 探索シミュレーションへ戻る</a><span class="pill">No.001 専用</span></div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">WHY THIS PAGE EXISTS</div><h2>探索と検証を分ける</h2></div><span class="pill">事前仮説</span></div>
+  <div class="grid g2">
+    <div class="soft"><b>探索ページ</b><div class="small">教材の主張をゲーム内の補正へ変換し、「何が起きるか」を眺める。結果から新しい仮説を作る場所。</div></div>
+    <div class="soft"><b>この検証ページ</b><div class="small">結果を見る前にH1〜H5を固定。教材に自動の品質バフを与えず、比較条件をそろえて判定する場所。</div></div>
+  </div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">TEST PROTOCOL</div><h2>今回の検証ルール</h2></div><span class="pill">100世界線 × 5仮説</span></div>
+  <div class="grid g3">
+    <div class="soft"><b>教材の自動バフ：標準0%</b><div class="small">記事の当たり分布、CTR、CVR、フォロー転換の基礎値は教材あり・なしで共通。教材だから高品質、とは最初から決めません。</div></div>
+    <div class="soft"><b>違うのは明示的な行動</b><div class="small">投稿頻度、リンクを出す頻度、記事本数、人脈、作業時間、教材代1万円など、実際に設定した行動差だけを残します。</div></div>
+    <div class="soft"><b>同作業時間は実時間</b><div class="small">作業ごとに時間を積み上げ、1,000時間を超える新規作業は行いません。表示だけ1,000hへ丸める方式は使いません。</div></div>
+  </div>
+  <p class="small note"><b>重要：</b>これは現実の因果効果を証明する実験ではありません。公開統計とゲーム仮定を使った「モデル内部の検証」です。特に教材施策が現実に記事品質を何%改善するかは不明なので、標準では0%に置き、下の感度分析でのみ明示的に仮定します。</p>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">SENSITIVITY ANALYSIS</div><h2>教材の記事施策に、どれだけ効果があると仮定する？</h2></div><span id="liftPill" class="pill">標準：0%</span></div>
+  <p class="small">教材の「検索意図・不安解消・体験談・FAB/BAF」などが、記事の検索流入ポテンシャルを平均で何%押し上げるかという<b>ゲーム仮定</b>です。フォロー率やCVRには自動補正をかけません。</p>
+  <div class="liftrow">
+    <button class="liftbtn active" data-lift="0">0%（自動バフなし）</button>
+    <button class="liftbtn" data-lift="0.10">+10%</button>
+    <button class="liftbtn" data-lift="0.25">+25%</button>
+    <button class="liftbtn" data-lift="0.50">+50%</button>
+  </div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">PRE-REGISTERED HYPOTHESES</div><h2>走らせる前に、判定条件を固定</h2></div><span class="pill">後出し禁止</span></div>
+  <div id="hypotheses" class="grid g2">
+    <div class="card hypothesis" data-h="h1"><div class="hhead"><div><div class="hid">H1</div><b>教材を実践すれば、2年で教材代1万円を回収できる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOTを現実運用で720日。100世界線のうち、売上が1万円以上になった割合を見る。</div><div class="criteria">支持：回収率60%以上 / 支持されず：40%以下 / 41〜59%：判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h2"><div class="hhead"><div><div class="hid">H2</div><b>教材には、教材なし運用より追加の経済価値がある</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。両方144記事。記事基礎性能・CTR・CVR・フォロー転換は同じ。教材代1万円を含む損益で比較。</div><div class="criteria">支持：商材BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h3"><div class="hhead"><div><div class="hid">H3</div><b>同じ1,000時間なら、教材運用の方が効率よく利益を残せる</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 日記BOT。720日間、実作業時間を積算し、各BOTは1,000時間を上限に新規作業を行います。損益で比較。</div><div class="criteria">支持：商材BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h4"><div class="hhead"><div><div class="hid">H4</div><b>人脈は、同じ教材運用の成果を増幅する</b></div><span class="status pending">未検証</span></div><div class="small">商材BOT vs 人脈BOT。教材条件は同じ。人脈BOTだけ60人の相互応援と維持時間を追加。</div><div class="criteria">支持：人脈BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
+    <div class="card hypothesis" data-h="h5"><div class="hhead"><div><div class="hid">H5</div><b>教材より、単純な記事量の方が総利益では強い可能性がある</b></div><span class="status pending">未検証</span></div><div class="small">現実運用の商材BOT（5日に1記事） vs 記事BOT（毎日1記事）。記事の基礎性能は共通。損益で比較。</div><div class="criteria">支持：記事BOT勝率60%以上かつ損益差中央値&gt;0 / 逆なら支持されず / それ以外は判定困難</div><div class="result"></div></div>
+  </div>
+</section>
+
+<section class="panel stack">
+  <div class="section-title"><div><div class="eyebrow">RUN TEST</div><h2>100世界線 × 5仮説を一括検証</h2></div><span id="runState" class="pill">停止中</span></div>
+  <div class="controls"><button id="runAll" class="primary">検証を開始</button><button id="reset">結果をリセット</button></div>
+  <div class="progress"><div id="bar"></div></div>
+  <div id="runNote" class="small">結果を見る前に、上のH1〜H5と判定条件が固定されています。</div>
+</section>
+
+<section id="summary" class="panel stack hidden">
+  <div><div class="eyebrow">WHAT WAS THE COURSE?</div><h2 class="question">教材とは？</h2><p class="small">事前に固定した5つの仮説を、100世界線ずつ走らせた結果からまとめます。</p></div>
+  <div id="bigSummary" class="summarybox"></div>
+  <div class="grid g3" id="statusSummary"></div>
+  <div class="soft"><b>この検証から新しく生まれる仮説</b><div id="newHypotheses" class="small" style="margin-top:6px"></div></div>
+  <p class="foot">※「支持」は、このゲームモデルと選択中の効果仮定の中で判定条件を満たした、という意味です。現実世界で教材の有効性が証明されたという意味ではありません。</p>
+</section>
+
+<section class="panel"><b>モデル上の共通値</b><div class="small" style="margin-top:6px">720日 / SEO登録14〜45日 / SEO成熟約110日 / 記事当たり分布 70%ほぼ0・22%小・7%中・1%当たり / CTR 0.5〜1.0% / CVR 1〜3% / 成果報酬600〜1,200円。これらは公開ベンチマークを参考にしたものを含むゲーム仮定です。</div></section>
+</main>
+<script>
+(()=>{
+const N=720,WORLDS=100,TIME_BUDGET=1000;
+let lift=0,running=false;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rnd=(a,b)=>a+Math.random()*(b-a),ch=p=>Math.random()<Math.max(0,Math.min(1,p));
+function poi(l){if(l<=0)return 0;if(l>25)return Math.max(0,Math.round(l+Math.sqrt(l)*(Math.random()*2-1)));let L=Math.exp(-l),k=0,p=1;do{k++;p*=Math.random()}while(p>L);return k-1}
+function stochastic(mean){let n=Math.floor(mean),f=mean-n;return n+(ch(f)?1:0)}
+function med(a){let x=a.slice().sort((a,b)=>a-b),n=x.length;return n%2?x[(n-1)/2]:(x[n/2-1]+x[n/2])/2}
+function yen(n){return (n<0?'−':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
+function signedYen(n){return (n>0?'+':n<0?'−':'±')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP')}
+function pct(n){return Math.round(n)+'%'}
+const DEF={manual:{cost:10000},network:{cost:10000},diary:{cost:0},writer:{cost:0}};
+const EXPECT={manual:1.73,diary:.6636};
+function mk(k){return{k,rev:0,profit:-DEF[k].cost,followers:0,pv:0,hours:0,articles:[],sales:0,clicks:0,network:k==='network'?60:0,supports:0,articleCredit:0,stopped:false}}
+function baseArticle(day,k){let r=Math.random(),m=r<.70?rnd(0,.8):r<.92?rnd(2,15):r<.99?rnd(20,80):rnd(100,500);if((k==='manual'||k==='network')&&lift>0)m*=1+lift;return{index:day+Math.floor(rnd(14,46)),pot:m}}
+function articleHours(k){if(k==='manual'||k==='network')return rnd(2.8,4.5);if(k==='writer')return rnd(2.4,4.0);return rnd(2.2,3.5)}
+function spend(b,h,budget){if(budget==null){b.hours+=h;return true}if(b.hours+h>budget){b.stopped=true;return false}b.hours+=h;return true}
+function money(b,pv){b.pv+=pv;let clicks=poi(pv*rnd(.005,.01));b.clicks+=clicks;let buys=poi(clicks*rnd(.01,.03));b.sales+=buys;for(let i=0;i<buys;i++){let x=rnd(600,1200);b.rev+=x;b.profit+=x}}
+function networkSupport(b,canLink){let supporters=Math.min(b.network,poi(b.network*rnd(.15,.30)));b.supports+=supporters;let reposts=poi(supporters*rnd(.08,.18));let extraImp=supporters*rnd(6,14)+reposts*rnd(25,80);if(canLink&&ch(.35))b.pv+=supporters*rnd(.015,.05);if(ch(.025)&&b.network<150)b.network+=Math.floor(rnd(1,4));return extraImp}
+function postsFor(k,mode){if(mode==='time'){let base=k==='manual'?1:.78;let scale=(TIME_BUDGET/N)/EXPECT[k];return stochastic(base*scale)}if(k==='manual'||k==='network')return 1;if(k==='diary')return ch(.78)?1:0;if(k==='writer')return ch(.22)?1:0;return 0}
+function shouldArticle(b,day,mode){if(mode==='real'||mode==='equalArticles')return b.k==='writer'||day%5===0;if(mode==='time'){let rate=.2*((TIME_BUDGET/N)/EXPECT[b.k]);b.articleCredit+=rate;if(b.articleCredit>=1){b.articleCredit-=1;return true}return false}return false}
+function socialTime(k){if(k==='manual'||k==='network')return rnd(.7,1.3);if(k==='diary')return rnd(.08,.16);return .08}
+function dayBot(b,day,mode,budget=null){
+  if(!b.stopped){
+    let posts=postsFor(b.k,mode);
+    let link=(b.k==='manual'||b.k==='network')?.35:b.k==='diary'?.03:.40;
+    // 検証ページでは教材あり/なしでバズ率・フォロー転換率を共通にする。
+    let viral=.001,followConv=.00065;
+    for(let i=0;i<posts;i++){
+      let th=socialTime(b.k);if(!spend(b,th,budget))break;
+      let imp=(18+b.followers*rnd(.18,.42))*Math.exp(rnd(-.7,.7));
+      if(ch(viral))imp*=rnd(15,70);
+      let canLink=b.articles.length>0&&ch(link);
+      if(b.k==='network')imp+=networkSupport(b,canLink);
+      b.followers+=imp*followConv*rnd(.55,1.3);
+      if(canLink)money(b,imp*rnd(.0005,.002));
+    }
+    if(!b.stopped&&b.k==='network')spend(b,rnd(.25,.5),budget);
+    if(!b.stopped&&shouldArticle(b,day,mode)){
+      let ah=articleHours(b.k);
+      if(spend(b,ah,budget))b.articles.push(baseArticle(day,b.k));
+    }
+  }
+  // 作業停止後も既存記事の検索流入は続く。
+  for(const a of b.articles){
+    if(day<a.index)continue;
+    let age=day-a.index,mat=Math.min(1,Math.max(.02,(age+1)/110)),site=day<90?.08:Math.min(.72,.08+(day-90)/240),dec=age>180?Math.max(.48,1-(age-180)*.0025):1;
+    money(b,a.pot*mat*site*dec/30*rnd(.65,1.35));
+  }
+}
+function simOne(k,mode,budget=null){let b=mk(k);for(let day=1;day<=N;day++)dayBot(b,day,mode,budget);return b}
+function simPair(a,b,mode,budget=null){return{a:simOne(a,mode,budget),b:simOne(b,mode,budget)}}
+function decision(winRate,delta){if(winRate>=60&&delta>0)return'support';if(winRate<=40&&delta<=0)return'reject';return'unclear'}
+function label(s){return s==='support'?'支持':s==='reject'?'支持されず':'判定困難'}
+function setCard(id,status,html){let c=$('[data-h="'+id+'"]');let st=c.querySelector('.status');st.className='status '+status;st.textContent=label(status);c.querySelector('.result').innerHTML=html}
+function pairStats(rows,side='a'){
+  let a=rows.map(r=>r.a),b=rows.map(r=>r.b),wins=rows.filter(r=>side==='a'?r.a.profit>r.b.profit:r.b.profit>r.a.profit).length;
+  let delta=med(rows.map(r=>side==='a'?r.a.profit-r.b.profit:r.b.profit-r.a.profit));
+  let x=side==='a'?a:b,y=side==='a'?b:a;
+  return{wins,delta,xProfit:med(x.map(v=>v.profit)),yProfit:med(y.map(v=>v.profit)),xRev:med(x.map(v=>v.rev)),yRev:med(y.map(v=>v.rev)),xHours:med(x.map(v=>v.hours)),yHours:med(y.map(v=>v.hours)),xArticles:med(x.map(v=>v.articles.length)),yArticles:med(y.map(v=>v.articles.length)),xPV:med(x.map(v=>v.pv)),yPV:med(y.map(v=>v.pv)),xFollowers:med(x.map(v=>v.followers)),yFollowers:med(y.map(v=>v.followers))}
+}
+function metrics(items){return '<div class="grid resultgrid">'+items.map(x=>'<div class="metric"><span class="small">'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')+'</div>'}
+function testH1(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simOne('manual','real'));let rate=rows.filter(b=>b.rev>=10000).length;let status=rate>=60?'support':rate<=40?'reject':'unclear';return{status,rate,medRev:med(rows.map(b=>b.rev)),medProfit:med(rows.map(b=>b.profit)),medHours:med(rows.map(b=>b.hours)),medArticles:med(rows.map(b=>b.articles.length))}}
+function testH2(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','diary','equalArticles'));let s=pairStats(rows,'a');return{status:decision(s.wins,s.delta),...s}}
+function testH3(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','diary','time',TIME_BUDGET));let s=pairStats(rows,'a');return{status:decision(s.wins,s.delta),...s}}
+function testH4(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','network','real'));let s=pairStats(rows,'b');return{status:decision(s.wins,s.delta),...s}}
+function testH5(){let rows=[];for(let i=0;i<WORLDS;i++)rows.push(simPair('manual','writer','real'));let s=pairStats(rows,'b');return{status:decision(s.wins,s.delta),...s}}
+function render(r){
+  setCard('h1',r.h1.status,metrics([['1万円回収率',pct(r.h1.rate)],['売上中央値',yen(r.h1.medRev)],['損益中央値',yen(r.h1.medProfit)],['作業時間中央値',Math.round(r.h1.medHours)+'h']])+'<div class="small" style="margin-top:7px">記事中央値 '+Math.round(r.h1.medArticles)+'本。</div>');
+  setCard('h2',r.h2.status,metrics([['商材BOT勝率（損益）',r.h2.wins+'/100'],['損益差中央値',signedYen(r.h2.delta)],['売上差（各中央値）',signedYen(r.h2.xRev-r.h2.yRev)],['商材 / 日記 損益',yen(r.h2.xProfit)+' / '+yen(r.h2.yProfit)]])+'<div class="small" style="margin-top:7px">売上中央値 '+yen(r.h2.xRev)+' vs '+yen(r.h2.yRev)+'。記事中央値 '+Math.round(r.h2.xArticles)+'本 vs '+Math.round(r.h2.yArticles)+'本 / 作業 '+Math.round(r.h2.xHours)+'h vs '+Math.round(r.h2.yHours)+'h。<b>売上が増えても、教材代1万円を超えなければ損益上の追加価値は支持されません。</b></div>');
+  setCard('h3',r.h3.status,metrics([['商材BOT勝率（損益）',r.h3.wins+'/100'],['損益差中央値',signedYen(r.h3.delta)],['売上差（各中央値）',signedYen(r.h3.xRev-r.h3.yRev)],['商材 / 日記 損益',yen(r.h3.xProfit)+' / '+yen(r.h3.yProfit)]])+'<div class="small" style="margin-top:7px">実作業中央値 '+Math.round(r.h3.xHours)+'h vs '+Math.round(r.h3.yHours)+'h / 記事 '+Math.round(r.h3.xArticles)+'本 vs '+Math.round(r.h3.yArticles)+'本。1,000時間は上限なので、次の作業が収まらない時点で停止します。</div>');
+  setCard('h4',r.h4.status,metrics([['人脈BOT勝率',r.h4.wins+'/100'],['損益差中央値',signedYen(r.h4.delta)],['商材BOT損益中央値',yen(r.h4.yProfit)],['人脈BOT損益中央値',yen(r.h4.xProfit)]])+'<div class="small" style="margin-top:7px">人脈BOTのPV中央値 '+Math.round(r.h4.xPV).toLocaleString('ja-JP')+' / 商材BOT '+Math.round(r.h4.yPV).toLocaleString('ja-JP')+'。</div>');
+  setCard('h5',r.h5.status,metrics([['記事BOT勝率',r.h5.wins+'/100'],['損益差中央値',signedYen(r.h5.delta)],['商材BOT損益中央値',yen(r.h5.yProfit)],['記事BOT損益中央値',yen(r.h5.xProfit)]])+'<div class="small" style="margin-top:7px">記事中央値 '+Math.round(r.h5.yArticles)+'本 vs '+Math.round(r.h5.xArticles)+'本 / 作業 '+Math.round(r.h5.yHours)+'h vs '+Math.round(r.h5.xHours)+'h。</div>');
+  let vals=[r.h1.status,r.h2.status,r.h3.status,r.h4.status,r.h5.status],sup=vals.filter(x=>x==='support').length,rej=vals.filter(x=>x==='reject').length,unc=5-sup-rej;
+  $('#statusSummary').innerHTML='<div class="soft"><div class="small">支持</div><div class="kpi">'+sup+' / 5</div></div><div class="soft"><div class="small">支持されず</div><div class="kpi">'+rej+' / 5</div></div><div class="soft"><div class="small">判定困難</div><div class="kpi">'+unc+' / 5</div></div>';
+  let text='';
+  if(r.h2.status==='support'&&r.h3.status==='support')text='このモデルでは、教材は「教材なしより高い経済価値」と「同じ時間での効率」の両方で支持されました。';
+  else if(r.h2.status==='reject'&&r.h3.status==='reject')text='このモデルでは、教材は行動手順を与えますが、価格と時間を含めた追加の経済価値は確認できませんでした。';
+  else if(r.h2.status==='support'&&r.h3.status!=='support')text='このモデルでは教材による上積みは観測されましたが、その上積みが時間効率まで改善するとは言い切れませんでした。';
+  else if(r.h2.status!=='support'&&r.h3.status==='support')text='総損益では明確な追加価値を確認しにくい一方、同じ時間条件では教材運用が有利になる可能性が観測されました。';
+  else text='教材の追加価値は、今回のモデルでは一方向に決まりませんでした。条件やランダム性に左右される余地が残っています。';
+  let fee=r.h1.status==='support'?' 教材代1万円の回収仮説は支持されました。':r.h1.status==='reject'?' 教材代1万円の回収仮説は支持されませんでした。':' 教材代1万円の回収は判定困難でした。';
+  $('#bigSummary').innerHTML='<b>この条件での結論</b><div style="margin-top:7px">'+text+fee+'</div><div class="small" style="margin-top:8px">現在の教材記事効果仮定：<b>+'+Math.round(lift*100)+'%</b>。0%の場合、教材だから高品質になるという自動バフは入っていません。</div>';
+  let nh=[];
+  if(r.h4.status==='support')nh.push('・人脈は露出だけでなく損益まで押し上げる条件があるかもしれない。次は「何人から効き始めるか」を閾値検証できる。');
+  if(r.h4.status==='reject')nh.push('・人脈維持コストが増幅効果を食い潰す可能性がある。コミュニティ人数と維持時間を分離して検証できる。');
+  if(r.h5.status==='support')nh.push('・総利益では教材の精緻な運用より記事量が強い可能性がある。次は「同時間」で量戦略と教材戦略を比較すると切り分けられる。');
+  if(r.h5.status==='reject')nh.push('・単純な記事量だけでは教材運用を上回らない可能性がある。記事本数の損益分岐点を探せる。');
+  if(r.h2.status==='unclear'||r.h3.status==='unclear')nh.push('・教材効果は小さいとランダム性に埋もれる可能性がある。世界線数を増やす、または効果量の感度分析を細かくする余地がある。');
+  if(!nh.length)nh.push('・今回の判定は比較的明確。次は仮定値を1つずつ動かし、結論が反転する境界を探すとよい。');
+  $('#newHypotheses').innerHTML=nh.join('<br>');
+  $('#summary').classList.remove('hidden');
+}
+function resetResults(){['h1','h2','h3','h4','h5'].forEach(id=>{let c=$('[data-h="'+id+'"]');let st=c.querySelector('.status');st.className='status pending';st.textContent='未検証';c.querySelector('.result').innerHTML=''});$('#summary').classList.add('hidden');$('#bar').style.width='0%';$('#runState').textContent='停止中';$('#runNote').textContent='結果を見る前に、上のH1〜H5と判定条件が固定されています。'}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function runAll(){if(running)return;running=true;resetResults();$('#runState').textContent='検証中';$('#runAll').disabled=true;$('#runNote').textContent='100世界線ずつ計算中…';let r={};await wait(30);r.h1=testH1();$('#bar').style.width='20%';$('#runNote').textContent='H1 完了。H2を検証中…';await wait(20);r.h2=testH2();$('#bar').style.width='40%';$('#runNote').textContent='H2 完了。H3を検証中…';await wait(20);r.h3=testH3();$('#bar').style.width='60%';$('#runNote').textContent='H3 完了。H4を検証中…';await wait(20);r.h4=testH4();$('#bar').style.width='80%';$('#runNote').textContent='H4 完了。H5を検証中…';await wait(20);r.h5=testH5();$('#bar').style.width='100%';render(r);$('#runState').textContent='完了';$('#runNote').textContent='5仮説 × 100世界線の検証が完了しました。';$('#runAll').disabled=false;running=false;}
+$$('.liftbtn').forEach(b=>b.addEventListener('click',()=>{if(running)return;lift=Number(b.dataset.lift);$$('.liftbtn').forEach(x=>x.classList.toggle('active',x===b));$('#liftPill').textContent=(lift===0?'標準：0%':'仮定：+'+Math.round(lift*100)+'%');resetResults()}));
+$('#runAll').addEventListener('click',runAll);$('#reset').addEventListener('click',resetResults);resetResults();
+})();
+</script>
+</body>
+</html>
