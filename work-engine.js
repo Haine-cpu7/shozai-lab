@@ -14,11 +14,22 @@ const STRATEGIES={
  semi:{label:'セミリタイア',paid:10,unpaid:15,learn:5,desc:'資産や他の家計収入を使い、有償労働を小さくする。'},
  zero:{label:'就業ゼロ',paid:0,unpaid:30,learn:5,desc:'給料を得る仕事はしないが、家事・ケアは行う。'}
 };
+const SUPPORTS={
+ none:{label:'共同家計なし',value:0},
+ shared:{label:'共同家計 年150万円',value:1_500_000},
+ covered:{label:'共同家計 年240万円',value:2_400_000}
+};
+const ASSET_BASES={
+ none:{label:'開始資産 0円',value:0},
+ modest:{label:'開始資産 500万円',value:5_000_000},
+ capital:{label:'開始資産 2,000万円',value:20_000_000}
+};
+// Backward-compatible named presets. v1.40から「共同家計収入」と「開始資産」は別変数。
 const FOUNDATIONS={
- self:{label:'自分の給料だけ',support:0,startAssets:0,desc:'他の家計収入も資産もほぼない。'},
- shared:{label:'共同家計あり',support:1_500_000,startAssets:5_000_000,desc:'家計から年150万円の共有収入があり、開始資産500万円。'},
- covered:{label:'生活費をほぼ共有でカバー',support:2_400_000,startAssets:5_000_000,desc:'年240万円の共有収入があり、本人の給料がなくても基礎生活費に届く設定。'},
- capital:{label:'資産が厚い',support:0,startAssets:20_000_000,desc:'共有収入はないが、開始資産2000万円。'}
+ self:{label:'共同家計0 / 資産0',support:0,startAssets:0,desc:'共同家計収入も開始資産もない。'},
+ shared:{label:'共同家計150万円 / 資産0',support:1_500_000,startAssets:0,desc:'共同家計収入だけを追加。開始資産は増やさない。'},
+ covered:{label:'共同家計240万円 / 資産0',support:2_400_000,startAssets:0,desc:'基礎生活費相当の共同家計収入だけを追加。'},
+ capital:{label:'共同家計0 / 資産2000万円',support:0,startAssets:20_000_000,desc:'開始資産だけを追加。共同家計収入はない。'}
 };
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function mean(a){return a.reduce((s,x)=>s+x,0)/(a.length||1)}
@@ -52,7 +63,7 @@ function run(seed,settings={}){
  return{seed,settings:s,history,netWorth:assets-debt,assets,debt,shortfallYears,insolventYears,paidTotal,unpaidTotal,learningTotal,freeTotal,unpaidValue,paidGrossTotal,supportTotal,finalWage:wage};
 }
 function batch(n,baseSeed,settings={}){const nw=[],short=[],ins=[],free=[],paid=[],unpaid=[];for(let i=0;i<n;i++){const r=run((baseSeed+Math.imul(i,104729))>>>0,settings);nw.push(r.netWorth);short.push(r.shortfallYears);ins.push(r.insolventYears);free.push(r.freeTotal);paid.push(r.paidTotal);unpaid.push(r.unpaidTotal)}return{n,netWorthMedian:q(nw,.5),netWorthBottom10:q(nw,.1),shortfallMedian:q(short,.5),shortfallP90:q(short,.9),insolventRate:mean(ins.map(x=>x>0?1:0)),freeMedian:q(free,.5),paidMedian:q(paid,.5),unpaidMedian:q(unpaid,.5),positiveRate:mean(nw.map(x=>x>=0?1:0))}}
-function applyStrategy(key,foundation='self',extra={}){const st=STRATEGIES[key]||STRATEGIES.balanced,f=FOUNDATIONS[foundation]||FOUNDATIONS.self;return{...defaultSettings(),paidHours:st.paid,unpaidHours:st.unpaid,learningHours:st.learn,support:f.support,startAssets:f.startAssets,...extra}}
-function compareStrategies(n,seed,foundation='self',extra={}){return Object.entries(STRATEGIES).map(([key,v])=>({key,label:v.label,desc:v.desc,...batch(n,seed,applyStrategy(key,foundation,extra))}))}
-window.WorkLab={YEARS,TIME_BUDGET,INVEST,STRATEGIES,FOUNDATIONS,defaultSettings,normalize,run,batch,applyStrategy,compareStrategies,randomSeed,q,mean,clamp};
+function applyStrategy(key,resources='self',extra={}){const st=STRATEGIES[key]||STRATEGIES.balanced,f=(typeof resources==='string'?(FOUNDATIONS[resources]||FOUNDATIONS.self):resources)||FOUNDATIONS.self;return{...defaultSettings(),paidHours:st.paid,unpaidHours:st.unpaid,learningHours:st.learn,support:+(f.support||0),startAssets:+(f.startAssets||0),...extra}}
+function compareStrategies(n,seed,resources='self',extra={}){return Object.entries(STRATEGIES).map(([key,v])=>({key,label:v.label,desc:v.desc,...batch(n,seed,applyStrategy(key,resources,extra))}))}
+window.WorkLab={YEARS,TIME_BUDGET,INVEST,STRATEGIES,SUPPORTS,ASSET_BASES,FOUNDATIONS,defaultSettings,normalize,run,batch,applyStrategy,compareStrategies,randomSeed,q,mean,clamp};
 })();

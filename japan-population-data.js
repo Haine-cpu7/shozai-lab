@@ -1,7 +1,8 @@
 (function(){
 'use strict';
 const START_YEAR=2025,END_YEAR=2070;
-const BASE_2025_ESTIMATE={year:2025,total:123.219,child:13.469,work:73.529,elder:36.221};
+const BASE_2025_CENSUS={year:2025,total:122.972528,child:13.349001,work:73.480843,elder:36.141613,ageUnknown:0.001071};
+const BASE_2025_ESTIMATE=BASE_2025_CENSUS; // backward-compatible export name
 const SERIES={
  medium:{label:'出生中位',tfr:'長期TFR 約1.36',rows:[
   [2025,123.262,13.633,73.101,36.529],
@@ -153,7 +154,7 @@ function rawRow(key,year){const s=SERIES[key]||SERIES.medium,y=clamp(Math.round(
 // All three future scenarios branch from the same observed 2025 population.
 // We therefore preserve the IPSS year-by-year absolute change path, rather than jumping in 2026
 // to a scenario that had already diverged from reality during 2021-2025.
-function rebasedRow(key,year){const y=clamp(Math.round(year),START_YEAR,END_YEAR);if(y===START_YEAR)return{...BASE_2025_ESTIMATE};const r=rawRow(key,y),r0=rawRow(key,START_YEAR);const child=BASE_2025_ESTIMATE.child+(r[2]-r0[2]),work=BASE_2025_ESTIMATE.work+(r[3]-r0[3]),elder=BASE_2025_ESTIMATE.elder+(r[4]-r0[4]);return{year:y,total:child+work+elder,child,work,elder}}
+function rebasedRow(key,year){const y=clamp(Math.round(year),START_YEAR,END_YEAR);if(y===START_YEAR)return{...BASE_2025_CENSUS};const r=rawRow(key,y),r0=rawRow(key,START_YEAR);const child=BASE_2025_CENSUS.child+(r[2]-r0[2]),work=BASE_2025_CENSUS.work+(r[3]-r0[3]),elder=BASE_2025_CENSUS.elder+(r[4]-r0[4]),total=BASE_2025_CENSUS.total+(r[1]-r0[1]);return{year:y,total,child,work,elder,ageUnknown:BASE_2025_CENSUS.ageUnknown}}
 function at(year,key='medium',enabled=true){
  if(!enabled)year=START_YEAR;const y=clamp(+year,START_YEAR,END_YEAR),lo=Math.floor(y),hi=Math.ceil(y),a=rebasedRow(key,lo),b=rebasedRow(key,hi),t=hi===lo?0:(y-lo)/(hi-lo),o={year:y};
  for(const k of ['total','child','work','elder'])o[k]=a[k]+(b[k]-a[k])*t;
@@ -161,6 +162,6 @@ function at(year,key='medium',enabled=true){
 }
 function rawAt(year,key='medium'){const r=rawRow(key,year);return{year:r[0],total:r[1],child:r[2],work:r[3],elder:r[4]}}
 function selfCheck(){const issues=[];for(const key of Object.keys(SERIES)){const rows=SERIES[key].rows;if(rows.length!==46)issues.push(key+': rows='+rows.length);for(let i=0;i<rows.length;i++){if(rows[i][0]!==START_YEAR+i)issues.push(key+': year gap '+i);const sum=rows[i][2]+rows[i][3]+rows[i][4];if(Math.abs(sum-rows[i][1])>.01)issues.push(key+': component mismatch '+rows[i][0]);}const p25=at(START_YEAR,key);if(Math.abs(p25.total-BASE_2025_ESTIMATE.total)>.001)issues.push(key+': common 2025 baseline failed');const p26=at(2026,key);if(!Number.isFinite(p26.total)||p26.total<=0)issues.push(key+': 2026 branch invalid');}return{ok:issues.length===0,issues}}
-const ACTUAL_2025=BASE_2025_ESTIMATE;
-window.JapanPopulationData={START_YEAR,END_YEAR,BASE_2025_ESTIMATE,ACTUAL_2025,SERIES,POP:SERIES,at,rawAt,selfCheck,method:'2025年は総務省統計局の2025年10月1日現在人口推計（令和2年国勢調査基準の確定値）を共通の出発点にし、2026〜2070年は社人研「日本の将来推計人口（令和5年推計）」の出生中位・高位・低位（死亡中位）の各年ごとの絶対増減を反映して2025年へリベース。3シナリオを同じ2025年から分岐させるためのモデル加工で、社人研原表の将来絶対人口そのものではない。'};
+const ACTUAL_2025=BASE_2025_CENSUS;
+window.JapanPopulationData={START_YEAR,END_YEAR,BASE_2025_CENSUS,BASE_2025_ESTIMATE,ACTUAL_2025,SERIES,POP:SERIES,at,rawAt,selfCheck,method:'2025年は総務省統計局「令和7年国勢調査 人口等基本集計」（2026年9月29日公表）の確定値を共通の出発点にする。総人口122,972,528人、15歳未満13,349,001人、15〜64歳73,480,843人、65歳以上36,141,613人、年齢不詳1,071人。2026〜2070年は社人研「日本の将来推計人口（令和5年推計）」の出生中位・高位・低位（死亡中位）の各年ごとの絶対増減を反映して2025年へリベース。3シナリオを同じ2025年から分岐させるためのモデル加工で、社人研原表の将来絶対人口そのものではない。'};
 })();

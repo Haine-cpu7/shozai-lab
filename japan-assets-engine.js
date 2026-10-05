@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const START_YEAR=2025, END_YEAR=2070, YEARS=45, START_CAPITAL=1_000_000;
+const START_YEAR=2025, END_YEAR=2070, YEARS=45, START_CAPITAL=1_000_000, GLOBAL_EQUITY_COST=.0015;
 const P=window.JapanPopulationData;if(!P)throw new Error('japan-population-data.js must be loaded before japan-assets-engine.js');
 const POP=P.POP;
 const ADAPT={
@@ -35,7 +35,7 @@ function marketFactors(pop,competition=.5){
  return{blogDemand,pokeDemand,competition:comp};
 }
 function resolveRegime(seed){return ['normal','early','lost','late'][(seed>>>0)%4]}
-function marketReturn(seed,year,regime){let mu=.0635,s=.147;if(regime==='lost'&&year<=2035)mu=.005;let r=Math.exp((mu-.5*s*s)+s*N01(seed,year,500,1))-1-.0015;if(regime==='early'&&year===2026)r=(1+r)*.65-1;if(regime==='late'&&year===2065)r=(1+r)*.65-1;return clamp(r,-.75,.65)}
+function marketReturn(seed,year,regime){let mu=.0635,s=.147;if(regime==='lost'&&year<=2035)mu=.005;let r=Math.exp((mu-.5*s*s)+s*N01(seed,year,500,1))-1-GLOBAL_EQUITY_COST;if(regime==='early'&&year===2026)r=(1+r)*.65-1;if(regime==='late'&&year===2065)r=(1+r)*.65-1;return clamp(r,-.75,.65)}
 function inflation(seed,year){return clamp(.020+N01(seed,year,501,1)*.009,-.005,.05)}
 function collectibleReturn(seed,year){let r=.018+N01(seed,year,502,1)*.13;if(U(seed,year,502,3)<.07)r-=.18;if(U(seed,year,502,4)<.06)r+=.16;return clamp(r,-.35,.40)}
 function rolexReturn(seed,year){return clamp(.010+N01(seed,year,503,1)*.11,-.28,.32)}
@@ -50,7 +50,7 @@ function pay(obj,amount){const fromCash=Math.min(obj.cash,amount);obj.cash-=from
 function sweep(obj,reserve){if(obj.cash>reserve&&obj.index!=null){const x=obj.cash-reserve;obj.cash=reserve;obj.index+=x}}
 function step(s){if(s.year>=END_YEAR)return s;const next=s.year+1,progress=(next-START_YEAR)/(END_YEAR-START_YEAR),pop=popAt(next,s.popScenario),mf=marketFactors(pop,s.competition),mr=marketReturn(s.seed,next,s.regime),inf=inflation(s.seed,next),cr=collectibleReturn(s.seed,next),rr=rolexReturn(s.seed,next);s.cpi*=1+inf;
  // common global market for every strategy that parks surplus in world equities
- for(const k of ['blog','pokemon'])s[k].index=Math.max(0,s[k].index*(1+mr-.0015));s.index.value=Math.max(0,s.index.value*(1+mr-.0015));
+ for(const k of ['blog','pokemon'])s[k].index=Math.max(0,s[k].index*(1+mr));s.index.value=Math.max(0,s.index.value*(1+mr));
  // blog: build 60 articles over 3 years, then refresh/maintain. Population affects audience, falling creator competition partially offsets it.
  const be=exposure(s.adapt,'blog',progress),blogMarket=(1-be)+be*(mf.blogDemand/Math.max(.55,mf.competition));
  if(next===2026){s.blog.effectiveArticles=60;s.blog.hours+=250}else{const decay=s.adapt==='local'?.80:s.adapt==='adapt'?.86:.88;s.blog.effectiveArticles*=decay;s.blog.effectiveArticles+=8;s.blog.hours+=34}
@@ -76,5 +76,5 @@ function evaluate(s){const v=exitValues(s),out={};for(const k of STRATEGIES){con
 function snapshot(s,pop,extra={}){const e=evaluate(s);return{year:s.year,pop,regime:s.regime,total:pop.total,child:pop.child,work:pop.work,elder:pop.elder,cpi:s.cpi,extra,values:Object.fromEntries(STRATEGIES.map(k=>[k,{real:e[k].real,adjusted:e[k].adjusted,nominal:e[k].nominal}]))}}
 function run(seed,settings={}){const s=newState(seed,settings);while(s.year<END_YEAR)step(s);return s}
 function batch(n,baseSeed,settings={}){const vals=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),adj=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),wins=Object.fromEntries(STRATEGIES.map(k=>[k,0])),hours=Object.fromEntries(STRATEGIES.map(k=>[k,[]]));for(let i=0;i<n;i++){const s=run((baseSeed+Math.imul(i,104729))>>>0,settings),e=evaluate(s);let w=STRATEGIES[0];for(const k of STRATEGIES){vals[k].push(e[k].real);adj[k].push(e[k].adjusted);hours[k].push(e[k].hours);if(e[k].adjusted>e[w].adjusted)w=k}wins[w]++}const summary={};for(const k of STRATEGIES)summary[k]={median:q(adj[k],.5),bottom10:q(adj[k],.1),realMedian:q(vals[k],.5),hoursMedian:q(hours[k],.5),wins:wins[k]};return{n,baseSeed,settings,summary}}
-window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch,populationMethod:P.method};
+window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,GLOBAL_EQUITY_COST,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch,populationMethod:P.method};
 })();

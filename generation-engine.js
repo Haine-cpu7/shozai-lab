@@ -2,13 +2,13 @@
 'use strict';
 const YEARS=30;
 const COHORTS={
-  y1965:{year:1965,label:'1965 就職',era:'高度成長後半',historical:true,entry:1.12,wage:.012,stability:.93,inflation:.032,housing:.86,market:.031,shock:.82,scar:.00},
-  y1975:{year:1975,label:'1975 就職',era:'安定成長への移行',historical:true,entry:1.00,wage:.009,stability:.91,inflation:.022,housing:.92,market:.032,shock:.86,scar:.03},
-  y1988:{year:1988,label:'1988 就職',era:'バブル期',historical:true,entry:1.12,wage:.007,stability:.92,inflation:.014,housing:1.22,market:.030,shock:.88,scar:.01},
-  y1995:{year:1995,label:'1995 就職',era:'就職氷河期',historical:true,entry:.76,wage:.0045,stability:.83,inflation:.001,housing:1.03,market:.031,shock:1.10,scar:.13},
-  y2000:{year:2000,label:'2000 就職',era:'氷河期後半',historical:false,entry:.73,wage:.0045,stability:.82,inflation:.000,housing:.99,market:.032,shock:1.10,scar:.15},
-  y2008:{year:2008,label:'2008 就職',era:'金融危機前後',historical:false,entry:.80,wage:.006,stability:.85,inflation:.004,housing:1.02,market:.032,shock:1.08,scar:.08},
-  y2020:{year:2020,label:'2020 就職',era:'コロナ期',historical:false,entry:.88,wage:.007,stability:.87,inflation:.018,housing:1.15,market:.033,shock:1.06,scar:.05}
+  y1965:{year:1965,label:'1965 就職',era:'高度成長後半',historical:true,entry:1.12,wage:.012,stability:.93,costPressure:.032,housing:.86,market:.031,shock:.82,scar:.00},
+  y1975:{year:1975,label:'1975 就職',era:'安定成長への移行',historical:true,entry:1.00,wage:.009,stability:.91,costPressure:.022,housing:.92,market:.032,shock:.86,scar:.03},
+  y1988:{year:1988,label:'1988 就職',era:'バブル期',historical:true,entry:1.12,wage:.007,stability:.92,costPressure:.014,housing:1.22,market:.030,shock:.88,scar:.01},
+  y1995:{year:1995,label:'1995 就職',era:'就職氷河期',historical:true,entry:.76,wage:.0045,stability:.83,costPressure:.001,housing:1.03,market:.031,shock:1.10,scar:.13},
+  y2000:{year:2000,label:'2000 就職',era:'氷河期後半',historical:false,entry:.73,wage:.0045,stability:.82,costPressure:.000,housing:.99,market:.032,shock:1.10,scar:.15},
+  y2008:{year:2008,label:'2008 就職',era:'金融危機前後',historical:false,entry:.80,wage:.006,stability:.85,costPressure:.004,housing:1.02,market:.032,shock:1.08,scar:.08},
+  y2020:{year:2020,label:'2020 就職',era:'コロナ期',historical:false,entry:.88,wage:.007,stability:.87,costPressure:.018,housing:1.15,market:.033,shock:1.06,scar:.05}
 };
 const EFFORTS={
   light:{label:'🦥 薄め',value:.72,hours:32},
@@ -31,7 +31,7 @@ function U(seed,a=0,b=0,c=0){return(hash(seed,a,b,c)+.5)/4294967296}
 function N(seed,a=0,b=0,c=0){const u1=Math.max(1e-12,U(seed,a,b,c)),u2=U(seed,a,b,c+1);return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2)}
 function randomSeed(){try{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]>>>0}catch(e){return(Date.now()^Math.floor(Math.random()*0xffffffff))>>>0}}
 function person(seed,id=0){return{ability:clamp(.82+.36*U(seed,id,1),.75,1.20),health:clamp(.86+.26*U(seed,id,2),.78,1.14),family:clamp(.25+.50*U(seed,id,3),.2,.8),startCapital:Math.round(900000+1200000*U(seed,id,4))}}
-function scaledCohort(c,scale=1){const n={entry:.90,wage:.007,stability:.87,inflation:.010,housing:1,market:.032,shock:1,scar:.05};const z={...c};for(const k of Object.keys(n))z[k]=n[k]+(c[k]-n[k])*scale;return z}
+function scaledCohort(c,scale=1){const n={entry:.90,wage:.007,stability:.87,costPressure:.010,housing:1,market:.032,shock:1,scar:.05};const z={...c};for(const k of Object.keys(n))z[k]=n[k]+(c[k]-n[k])*scale;return z}
 function macro(c,cohort,y,seed,world){
   // Shared personal luck component is identical across cohorts. Cohort-specific macro intensity changes how hard it hits.
   const common=N(seed,world*37+y,31,0),eraNoise=N(seed,world*41+y,32,c.year%97),cycle=Math.sin((y+1)*.52+(c.year%11)*.21);
@@ -73,7 +73,7 @@ function run(seed,cohortKey='y1995',effortKey='normal',strategyKey='steady',worl
     const income=employed?wage*effortReturn*health*m:wage*.36*m;
     if(!employed)irregularYears++;
     totalIncome+=income;
-    const living=2450000*(1+.003*y)*(1+.08*(c.housing-1))*(1+.18*c.inflation);
+    const living=2450000*(1+.003*y)*(1+.08*(c.housing-1))*(1+.18*c.costPressure);
     const housingExtra=260000*c.housing;
     const riskCost=70000*st.risk;
     let net=income-living-housingExtra-riskCost;
