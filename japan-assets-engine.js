@@ -1,26 +1,8 @@
 (function(){
 'use strict';
 const START_YEAR=2025, END_YEAR=2070, YEARS=45, START_CAPITAL=1_000_000;
-const POP={
- medium:{label:'出生中位',tfr:'長期TFR 1.36',anchors:[
-  {year:2025,total:123.21,child:13.47,work:73.53,elder:36.21},
-  {year:2045,total:108.80,child:11.03,work:58.32,elder:39.45},
-  {year:2065,total:91.59,child:8.36,work:48.09,elder:35.13},
-  {year:2070,total:87.00,child:7.97,work:45.35,elder:33.67}
- ]},
- high:{label:'出生高位',tfr:'長期TFR 1.64',anchors:[
-  {year:2025,total:123.21,child:13.47,work:73.53,elder:36.21},
-  {year:2045,total:112.03,child:13.21,work:59.37,elder:39.45},
-  {year:2065,total:98.85,child:11.28,work:52.44,elder:35.13},
-  {year:2070,total:95.49,child:11.15,work:50.67,elder:33.67}
- ]},
- low:{label:'出生低位',tfr:'長期TFR 1.13',anchors:[
-  {year:2025,total:123.21,child:13.47,work:73.53,elder:36.21},
-  {year:2045,total:106.00,child:9.19,work:57.36,elder:39.45},
-  {year:2065,total:85.70,child:6.20,work:44.37,elder:35.13},
-  {year:2070,total:80.24,child:5.69,work:40.87,elder:33.67}
- ]}
-};
+const P=window.JapanPopulationData;if(!P)throw new Error('japan-population-data.js must be loaded before japan-assets-engine.js');
+const POP=P.POP;
 const ADAPT={
  local:{label:'国内だけで戦う',blog:[.95,.90],pokemon:[.90,.85],desc:'日本の顧客・検索・二次流通への依存を高く置く'},
  adapt:{label:'人口変化に合わせて適応',blog:[.85,.45],pokemon:[.75,.40],desc:'高齢層・別ジャンル・海外販路へ徐々に寄せる'},
@@ -36,12 +18,7 @@ const META={
 };
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function interp(a,b,t){return a+(b-a)*t}
-function popAt(year,key='medium'){
- const s=POP[key]||POP.medium,y=clamp(year,START_YEAR,END_YEAR),A=s.anchors;let lo=A[0],hi=A[A.length-1];
- for(let i=0;i<A.length-1;i++)if(y>=A[i].year&&y<=A[i+1].year){lo=A[i];hi=A[i+1];break}
- const t=hi.year===lo.year?0:(y-lo.year)/(hi.year-lo.year),o={year:y};for(const k of ['total','child','work','elder'])o[k]=interp(lo[k],hi[k],t);
- o.childShare=o.child/o.total;o.workShare=o.work/o.total;o.elderShare=o.elder/o.total;o.workPerElder=o.work/(o.elder||1);return o;
-}
+function popAt(year,key='medium'){return P.at(year,key,true)}
 function mix32(x){x|=0;x=(x+0x9e3779b9)|0;x=Math.imul(x^(x>>>16),0x21f0aaad);x=Math.imul(x^(x>>>15),0x735a2d97);return (x^(x>>>15))>>>0}
 function hash(seed,a=0,b=0,c=0){let x=(seed>>>0)^Math.imul((a+1)|0,0x9e3779b1)^Math.imul((b+7)|0,0x85ebca6b)^Math.imul((c+13)|0,0xc2b2ae35);return mix32(x)}
 function U(seed,a=0,b=0,c=0){return (hash(seed,a,b,c)+.5)/4294967296}
@@ -99,5 +76,5 @@ function evaluate(s){const v=exitValues(s),out={};for(const k of STRATEGIES){con
 function snapshot(s,pop,extra={}){const e=evaluate(s);return{year:s.year,pop,regime:s.regime,total:pop.total,child:pop.child,work:pop.work,elder:pop.elder,cpi:s.cpi,extra,values:Object.fromEntries(STRATEGIES.map(k=>[k,{real:e[k].real,adjusted:e[k].adjusted,nominal:e[k].nominal}]))}}
 function run(seed,settings={}){const s=newState(seed,settings);while(s.year<END_YEAR)step(s);return s}
 function batch(n,baseSeed,settings={}){const vals=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),adj=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),wins=Object.fromEntries(STRATEGIES.map(k=>[k,0])),hours=Object.fromEntries(STRATEGIES.map(k=>[k,[]]));for(let i=0;i<n;i++){const s=run((baseSeed+Math.imul(i,104729))>>>0,settings),e=evaluate(s);let w=STRATEGIES[0];for(const k of STRATEGIES){vals[k].push(e[k].real);adj[k].push(e[k].adjusted);hours[k].push(e[k].hours);if(e[k].adjusted>e[w].adjusted)w=k}wins[w]++}const summary={};for(const k of STRATEGIES)summary[k]={median:q(adj[k],.5),bottom10:q(adj[k],.1),realMedian:q(vals[k],.5),hoursMedian:q(hours[k],.5),wins:wins[k]};return{n,baseSeed,settings,summary}}
-window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch};
+window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch,populationMethod:P.method};
 })();
