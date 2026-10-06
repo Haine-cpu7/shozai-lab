@@ -38,11 +38,13 @@ function basePerson(seed,id){
   startCash:Math.round(1200000+U(seed,id,7)*1200000),
   employed:U(seed,id,8)<.96,
   hoursAffinity:clamp(.62+U(seed,id,9)*.76,.60,1.40),
-  leverageAffinity:clamp(.72+U(seed,id,10)*.58,.70,1.32)
+  leverageAffinity:clamp(.72+U(seed,id,10)*.58,.70,1.32),
+  // Subjective comparison sensitivity: used only for the commentary 'ずるい感', not for economic outcomes.
+  fairnessSensitivity:U(seed,id,11)
  };
 }
 function clonePerson(p,groupKey){const g=GROUPS[groupKey];return {groupKey,group:g.label,id:p.id,ability:p.ability,adaptability:p.adaptability,
- health:p.health,skill:p.skill,fit:p.fit,care:p.care,hoursAffinity:p.hoursAffinity,leverageAffinity:p.leverageAffinity,cash:p.startCash,invested:0,debt:0,employed:p.employed,
+ health:p.health,skill:p.skill,fit:p.fit,care:p.care,hoursAffinity:p.hoursAffinity,leverageAffinity:p.leverageAffinity,fairnessSensitivity:p.fairnessSensitivity,cash:p.startCash,invested:0,debt:0,employed:p.employed,
  systems:0,stress:.15+.10*p.care,burnoutYears:0,jobLosses:0,switches:0,trainingYears:0,ventureWins:0,ventureLosses:0,
  totalHours:0,totalIncome:0,totalSaved:0,wellbeing:64,freeHours:28,workHours:g.hours,lastIncome:0,lastCost:0,lastShock:'なし',bankrupt:false};}
 function net(a){return a.cash+a.invested-a.debt}
@@ -103,7 +105,26 @@ function stepAgent(a,seed,year,env){
  a.totalIncome+=income+transfer;a.lastIncome=income+transfer;a.lastCost=cost;
  a.wellbeing=clamp(48+17*(a.health-.5)+4*Math.log10(Math.max(1,nw+3000000)/3000000)+.42*a.freeHours+7*(a.employed?1:0)-18*a.stress-7*a.care,0,100);
 }
-function unfairnessScore(a,other){if(a.groupKey!=='struggle')return 0;const g=GROUPS.struggle;if(!other)return 35*g.meritBelief;const incomeGap=(other.lastIncome-a.lastIncome)/Math.max(1000000,a.lastIncome||1000000);const hourGap=(a.workHours-other.workHours)/20;const wealthGap=(net(other)-net(a))/Math.max(3000000,Math.abs(net(a))+3000000);return clamp(34+35*g.meritBelief*clamp(.55*incomeGap+.30*hourGap+.25*wealthGap,-.7,1.2),0,100)}
+function unfairnessScore(a,other){
+ if(a.groupKey!=='struggle')return 0;
+ // Subjective commentary index only: 1 = almost no resentment, 100 = extremely unfair-feeling.
+ // Each BOT has a different comparison sensitivity; this never changes income, health or assets.
+ const disposition=clamp(Number.isFinite(a.fairnessSensitivity)?a.fairnessSensitivity:.50,0,1);
+ if(!other)return clamp(1+99*disposition,1,100);
+ const aNet=net(a),oNet=net(other);
+ const incomeGap=clamp((other.lastIncome-a.lastIncome)/Math.max(1200000,Math.abs(a.lastIncome)+1200000),-1.25,1.75);
+ const wealthGap=clamp((oNet-aNet)/Math.max(5000000,(Math.abs(aNet)+Math.abs(oNet))*.45+2500000),-1.35,1.85);
+ const hourGap=clamp((a.workHours-other.workHours)/14,-1.4,1.8);
+ const freeGap=clamp((other.freeHours-a.freeHours)/16,-1.4,1.8);
+ const outcomeMismatch=.48*incomeGap+.52*wealthGap;
+ const effortMismatch=.62*hourGap+.38*freeGap;
+ const strain=clamp(.55*a.stress+.12*Math.min(4,a.burnoutYears)/4+.18*Math.max(0,.65-a.health),0,1);
+ // Situation can amplify or soften the BOT's own disposition. A low-sensitivity BOT can still shrug off a large gap;
+ // a high-sensitivity BOT can approach 100 when it works more yet falls behind.
+ const situation=clamp(.38+.34*outcomeMismatch+.24*effortMismatch+.18*strain,0,1);
+ const perceived=clamp(disposition*(.18+1.34*situation),0,1);
+ return clamp(1+99*perceived,1,100);
+}
 function pickVoice(list,a,year,salt=0){
  if(!list.length)return '';
  const idx=hash((a.id*2654435761)>>>0,year,salt,Math.round((net(a)+50000000)/100000))%list.length;
@@ -261,14 +282,14 @@ function voiceFor(a,other,year){
  if(isBehind)return pickVoice(pools.behind,a,year,206);
  return pickVoice(pools.base,a,year,207);
 }
-function summarizeGroup(arr){const vals=arr.map(net);return {n:arr.length,medianNet:q(vals,.5),p10Net:q(vals,.1),p90Net:q(vals,.9),meanNet:mean(vals),medianIncome:q(arr.map(a=>a.lastIncome),.5),medianHealth:q(arr.map(a=>a.health),.5),medianWell:q(arr.map(a=>a.wellbeing),.5),medianFree:q(arr.map(a=>a.freeHours),.5),medianSkill:q(arr.map(a=>a.skill),.5),medianSystems:q(arr.map(a=>a.systems),.5),medianHours:q(arr.map(a=>a.workHours),.5),burnoutRate:arr.filter(a=>a.burnoutYears>=2).length/arr.length,bankruptRate:arr.filter(a=>a.bankrupt).length/arr.length,employedRate:arr.filter(a=>a.employed).length/arr.length,totalHoursMean:mean(arr.map(a=>a.totalHours)),ventureWins:arr.reduce((s,a)=>s+a.ventureWins,0),ventureLosses:arr.reduce((s,a)=>s+a.ventureLosses,0)}}
-function summarize(state){const s=groupAgents(state,'struggle'),e=groupAgents(state,'efficient'),pairs=pairMap(state);let sWins=0,eWins=0,ties=0;const unfair=[];for(const [id,p] of pairs){const d=net(p.struggle)-net(p.efficient);if(Math.abs(d)<100000)ties++;else if(d>0)sWins++;else eWins++;unfair.push(unfairnessScore(p.struggle,p.efficient));}return {year:state.year,struggle:summarizeGroup(s),efficient:summarizeGroup(e),pairWins:{struggle:sWins,efficient:eWins,ties},unfairnessMedian:q(unfair,.5)}}
+function summarizeGroup(arr){const vals=arr.map(net);return {n:arr.length,medianNet:q(vals,.5),p10Net:q(vals,.1),p90Net:q(vals,.9),meanNet:mean(vals),medianIncome:q(arr.map(a=>a.lastIncome),.5),medianHealth:q(arr.map(a=>a.health),.5),medianStress:q(arr.map(a=>a.stress),.5),medianBurnoutYears:q(arr.map(a=>a.burnoutYears),.5),medianWell:q(arr.map(a=>a.wellbeing),.5),medianFree:q(arr.map(a=>a.freeHours),.5),medianSkill:q(arr.map(a=>a.skill),.5),medianSystems:q(arr.map(a=>a.systems),.5),medianHours:q(arr.map(a=>a.workHours),.5),burnoutRate:arr.filter(a=>a.burnoutYears>=2).length/arr.length,lowHealthRate:arr.filter(a=>a.health<.60).length/arr.length,bankruptRate:arr.filter(a=>a.bankrupt).length/arr.length,employedRate:arr.filter(a=>a.employed).length/arr.length,totalHoursMean:mean(arr.map(a=>a.totalHours)),ventureWins:arr.reduce((s,a)=>s+a.ventureWins,0),ventureLosses:arr.reduce((s,a)=>s+a.ventureLosses,0)}}
+function summarize(state){const s=groupAgents(state,'struggle'),e=groupAgents(state,'efficient'),pairs=pairMap(state);let sWins=0,eWins=0,ties=0;const unfair=[];for(const [id,p] of pairs){const d=net(p.struggle)-net(p.efficient);if(Math.abs(d)<100000)ties++;else if(d>0)sWins++;else eWins++;unfair.push(unfairnessScore(p.struggle,p.efficient));}return {year:state.year,struggle:summarizeGroup(s),efficient:summarizeGroup(e),pairWins:{struggle:sWins,efficient:eWins,ties},unfairnessMedian:q(unfair,.5),unfairnessP10:q(unfair,.1),unfairnessP90:q(unfair,.9),unfairnessMin:Math.min(...unfair),unfairnessMax:Math.max(...unfair)}}
 function snapshot(state){const x=summarize(state);return {year:x.year,struggle:{...x.struggle},efficient:{...x.efficient},pairWins:{...x.pairWins},unfairnessMedian:x.unfairnessMedian}}
 function init(seed=20261006,overrides={}){const env=envWith(overrides),agents=[];for(let i=0;i<PAIRS;i++){const p=basePerson(seed,i);agents.push(clonePerson(p,'struggle'),clonePerson(p,'efficient'))}const state={seed,year:0,env,agents,history:[]};state.history.push(snapshot(state));return state}
 function step(state){if(state.year>=YEARS)return state;const y=state.year;state.agents.forEach(a=>stepAgent(a,state.seed,y,state.env));state.year++;state.history.push(snapshot(state));return state}
 function runToEnd(state){while(state.year<YEARS)step(state);return state}
 function run(seed=20261006,overrides={}){return runToEnd(init(seed,overrides))}
-function voices(state,count=6,offset=0){const pm=pairMap(state),ids=[],used=new Set();for(let i=0;i<count*3&&ids.length<count;i++){const id=1+Math.floor(U(state.seed,state.year,700+i+offset*97)*PAIRS);if(!used.has(id)){used.add(id);ids.push(id)}}const out=[];for(const id of ids){const p=pm.get(id);if(!p)continue;out.push({id,struggle:voiceFor(p.struggle,p.efficient,state.year),efficient:voiceFor(p.efficient,p.struggle,state.year),unfairness:unfairnessScore(p.struggle,p.efficient),gap:net(p.efficient)-net(p.struggle)});}return out}
+function voices(state,count=6,offset=0){const pm=pairMap(state),ids=[],used=new Set();for(let i=0;i<count*3&&ids.length<count;i++){const id=1+Math.floor(U(state.seed,state.year,700+i+offset*97)*PAIRS);if(!used.has(id)){used.add(id);ids.push(id)}}const out=[];for(const id of ids){const p=pm.get(id);if(!p)continue;out.push({id,struggle:voiceFor(p.struggle,p.efficient,state.year),efficient:voiceFor(p.efficient,p.struggle,state.year),struggleState:{health:p.struggle.health,stress:p.struggle.stress,burnoutYears:p.struggle.burnoutYears,freeHours:p.struggle.freeHours,workHours:p.struggle.workHours,wellbeing:p.struggle.wellbeing},efficientState:{health:p.efficient.health,stress:p.efficient.stress,burnoutYears:p.efficient.burnoutYears,freeHours:p.efficient.freeHours,workHours:p.efficient.workHours,wellbeing:p.efficient.wellbeing},unfairness:unfairnessScore(p.struggle,p.efficient),gap:net(p.efficient)-net(p.struggle)});}return out}
 function sensitivity(baseSeed=20261006,nSeeds=5){const leverage=[.20,.72,1.05],overtime=[.04,.16,.42],rows=[];for(const l of leverage)for(const o of overtime){let sm=0,em=0,sw=0,ew=0;for(let j=0;j<nSeeds;j++){const st=run((baseSeed+j*104729)>>>0,{leverageReward:l,overtimePremium:o}),s=summarize(st);sm+=s.struggle.medianNet;em+=s.efficient.medianNet;sw+=s.pairWins.struggle;ew+=s.pairWins.efficient;}rows.push({leverage:l,overtime:o,struggleMedian:sm/nSeeds,efficientMedian:em/nSeeds,strugglePairWins:sw/nSeeds,efficientPairWins:ew/nSeeds});}return rows}
 function robust(baseSeed=20261006,n=10){let sMedWins=0,eMedWins=0,sPair=0,ePair=0,sg=0,eg=0;for(let j=0;j<n;j++){const st=run((baseSeed+j*104729)>>>0),x=summarize(st);if(x.struggle.medianNet>x.efficient.medianNet)sMedWins++;else if(x.efficient.medianNet>x.struggle.medianNet)eMedWins++;sPair+=x.pairWins.struggle;ePair+=x.pairWins.efficient;sg+=x.struggle.medianNet;eg+=x.efficient.medianNet;}return {n,struggleMedianWins:sMedWins,efficientMedianWins:eMedWins,strugglePairWinsAvg:sPair/n,efficientPairWinsAvg:ePair/n,struggleMedianAvg:sg/n,efficientMedianAvg:eg/n}}
 function selfCheck(){const issues=[];const a=run(12345),b=run(12345);const sa=summarize(a),sb=summarize(b);if(JSON.stringify(sa)!==JSON.stringify(sb))issues.push('seed reproducibility');if(a.agents.length!==600)issues.push('agent count');const pm=pairMap(init(12345));for(const [id,p] of pm){for(const k of ['ability','adaptability','health','skill','fit','care','hoursAffinity','leverageAffinity'])if(Math.abs(p.struggle[k]-p.efficient[k])>1e-12){issues.push('paired traits mismatch '+id+' '+k);break}if(issues.length>3)break;}for(const g of [sa.struggle,sa.efficient])for(const k of ['medianNet','medianHealth','medianWell','medianFree','burnoutRate'])if(!Number.isFinite(g[k]))issues.push('nonfinite '+k);return {ok:!issues.length,issues}}
