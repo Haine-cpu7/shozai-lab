@@ -57,9 +57,86 @@ function runToEnd(state){while(state.year<YEARS)step(state);return state}
 function rankAll(state){const all=[state.expert,...state.amateurs].slice().sort((a,b)=>b.wealth-a.wealth);return all.map((b,i)=>({...b,rank:i+1}))}
 function styleStats(state){const styles=Object.keys(STYLE_LABELS);return styles.map(k=>{const a=state.amateurs.filter(x=>x.style===k);return{key:k,label:STYLE_LABELS[k],n:a.length,median:q(a.map(x=>x.wealth),.5),p90:q(a.map(x=>x.wealth),.9),bankrupt:a.filter(x=>x.bankrupt).length/a.length,medianDD:q(a.map(x=>x.maxDD),.5)}})}
 function summarize(state){const ranks=rankAll(state),expertRank=ranks.find(x=>x.kind==='expert')?.rank||101,wealths=state.amateurs.map(x=>x.wealth),topAm=ranks.find(x=>x.kind==='amateur');const indexBots=state.amateurs.filter(x=>x.style==='index');return{year:state.year,expertWealth:state.expert.wealth,expertRank,expertDD:state.expert.maxDD,amateurMedian:q(wealths,.5),amateurP90:q(wealths,.9),topAmateur:topAm?topAm.wealth:0,topAmateurLabel:topAm?topAm.label:'-',bankruptRate:state.amateurs.filter(x=>x.bankrupt).length/N_AMATEURS,indexMedian:q(indexBots.map(x=>x.wealth),.5),indexDD:q(indexBots.map(x=>x.maxDD),.5),styleStats:styleStats(state)}}
-function voices(state,n=5){const ranks=rankAll(state),am=ranks.filter(x=>x.kind==='amateur');const picks=[];if(am[0])picks.push(am[0]);const median=am[Math.floor(am.length/2)];if(median&&!picks.some(x=>x.id===median.id))picks.push(median);const worst=am[am.length-1];if(worst&&!picks.some(x=>x.id===worst.id))picks.push(worst);const idx=am.find(x=>x.style==='index');if(idx&&!picks.some(x=>x.id===idx.id))picks.push(idx);const fx=am.find(x=>x.style==='fx');if(fx&&!picks.some(x=>x.id===fx.id))picks.push(fx);
- const expert=state.expert;const ex=`今年は「${expert.lastDecision?.tag||'開始'}」。未来は見えないので、当てにいくより壊れない配分を優先。`;
- return{expert:ex,amateurs:picks.slice(0,n).map(b=>{let t='';if(b.bankrupt)t='レバレッジをかけすぎた。取り返そうとして傷が広がった。';else if(b.style==='index')t='よく分からないので世界株を持ったまま。意外とこれで残っている。';else if(b.style==='crypto')t=(b.lastReturn||0)>0?'上がってる。もっと入れておけばよかった。':'え、こんなに下がるの？戻るまで持つ。';else if(b.style==='fx')t=(b.lastReturn||0)>0?'流れに乗れた。次もいけそう。':'逆に行った。次で取り返したい。';else if(b.style==='stock')t='指数よりこの銘柄の方が伸びる気がした。';else if(b.style==='realEstate')t='現物なら安心だと思っている。金利はちょっと気になる。';else if(b.style==='cash')t='増えなくても減らなければいい。';else t='分散してるつもり。正直、配分はだいたい。';return{id:b.id,label:b.label,rank:b.rank,wealth:b.wealth,text:t}})}}
+function pickLine(arr,seed,id,year,salt=0,variant=0){if(!arr.length)return'';const u=U(seed,(id||0)+variant*17,year+variant*31,700+salt);return arr[Math.floor(u*arr.length)%arr.length]}
+function voices(state,n=6,variant=0){
+ const ranks=rankAll(state),am=ranks.filter(x=>x.kind==='amateur'),year=state.year,seed=state.seed;
+ const picks=[];const add=b=>{if(b&&!picks.some(x=>x.id===b.id))picks.push(b)};
+ // 毎回「上位・中央・下位」は残しつつ、残りは年と切替回数でタイプを回す。
+ add(am[0]);add(am[Math.floor(am.length/2)]);add(am[am.length-1]);
+ const styles=['index','stock','fx','crypto','realEstate','cash','mixed'];
+ const offset=(year+variant*3)%styles.length;
+ for(let k=0;k<styles.length&&picks.length<n;k++){
+  const style=styles[(offset+k)%styles.length];
+  const pool=am.filter(x=>x.style===style&&!picks.some(p=>p.id===x.id));
+  if(pool.length)add(pool[Math.floor(U(seed,variant+31,k+year,730)*pool.length)]);
+ }
+ while(picks.length<n){const b=am[Math.floor(U(seed,variant+91,picks.length+year,731)*am.length)];add(b);if(picks.length>=am.length)break}
+ const expert=state.expert,er=ranks.find(x=>x.kind==='expert')||{rank:101},m=state.lastMarket;
+ let exPool=[];
+ if(year===0)exPool=[
+  '1000万円。まず勝つより、退場しない配分から始める。',
+  '予想は外れる前提。外れても次の手が残るようにする。',
+  '市場を当てるゲームというより、ミスしても生き残るゲームだと思っている。',
+  '全力で当てにいかない。30年あるので、まず壊れないこと。'
+ ];
+ else if(expert.bankrupt)exPool=['これは失敗。分析力があっても、資金管理を壊せば終わる。','退場した。上手さを名乗るなら、まず生存を守るべきだった。'];
+ else{
+  if((expert.lastReturn||0)<-.12)exPool.push('今年は普通に外した。損失を小さくして、次の判断材料を残す。','痛い下げ。ただし「取り返す」は判断基準にしない。','下落したから正解が変わるわけじゃない。配分が想定内かを確認する。');
+  if((expert.lastReturn||0)>.15)exPool.push('今年は伸びた。でも、当たった直後ほど自分を過信しない。','利益は出た。ここで急に賭け金を増やさない。','上手くいった年ほど、実力と相場の追い風を分けて考える。');
+  if(expert.maxDD>.30)exPool.push('最大下落はかなり深い。資産額より、この下落を耐えられる設計かを見る。','ドローダウンが大きい。リターンだけ見れば判断を誤る。');
+  if(er.rank<=10)exPool.push(`今は${er.rank}位。でも101人の一発勝負の順位はあまり信用していない。`,'上位にはいる。ただ、集中投資の大当たり一発で順位は簡単に入れ替わる。');
+  if(er.rank>50)exPool.push(`今は${er.rank}位。順位が悪いからといって、ルールを捨てて大勝負はしない。`,'半分より下。こういう時に戦略を壊すと、検証できなくなる。');
+  if(m?.regime==='recession')exPool.push('景気後退。現金は「何もしない資産」じゃなく、次の一手を買う余力。','不況で全部売る気はない。リスクを落として、安い所だけ拾う。');
+  if(m?.regime==='boom')exPool.push('好況。全員が天才に見える時ほど、リスク上限を忘れない。','上がっているから正しい、とは限らない。過熱と実力を分ける。');
+  if(m?.regime==='inflation')exPool.push('インフレ局面。株だけでなく、金利と不動産の効き方も見る。','物価が動くと、現金の安全と実質価値は同じ話じゃなくなる。');
+  if(expert.lastDecision?.tag==='守りを厚く')exPool.push('今は守りを厚く。現金比率を上げるのも立派なポジション。','攻めない年を作れるのも戦略のうち。');
+  if(expert.lastDecision?.tag==='割安資産を増やす')exPool.push('割安シグナルが強いので少し増やす。ただし全力ではいかない。','安そうに見える。でも「安い」と「さらに下がらない」は別。');
+  if(expert.lastDecision?.tag==='分散維持')exPool.push('特別な優位が見えない。こういう年は分散を崩さない。','何もしない判断もある。売買回数を増やすことが仕事ではない。');
+ }
+ if(!exPool.length)exPool=['未来は見えない。だから予想より、壊れない配分を優先する。'];
+ const ex=pickLine(exPool,seed,0,year,10,variant);
+ const amateurText=b=>{
+  if(year===0){const starts={index:['よく分からないので世界株を買って置いておく。','銘柄選びは無理。市場ごと持つ。'],stock:['指数じゃ夢がない。伸びそうな株を当てたい。','ちゃんと会社を選べば指数より勝てる気がする。'],fx:['値動きがあるなら毎年チャンスはあるでしょ。','短期なら景気より流れを見ればいいと思う。'],crypto:['値幅が大きい方が増えるのも早いはず。','次の大相場を逃したくない。'],realEstate:['土地と建物は消えない。借金を使えるのも強い。','現物がある方が安心する。'],cash:['減らさないことがまず勝ち。','投資で減るくらいなら現金でいい。'],mixed:['一応いろいろ持っておけば大丈夫でしょ。','分散がいいらしいので、なんとなく全部買う。']};return pickLine(starts[b.style]||['とりあえず始める。'],seed,b.id,year,20,variant)}
+  if(b.bankrupt)return pickLine([
+   '終わった。取り返そうとして、次の一手までなくした。','ゼロになった。勝つことより退場しないことの方が先だった。','一回の大勝負で全部戻すつもりだった。全部なくなった。','含み損の時に止まれなかった。今なら「次で取り返す」が一番危なかったと分かる。','相場が悪かった、と言いたい。でも賭け金を決めたのは自分だった。','当たる時もあった。それで自分が上手いと思った。','資金が尽きたら、正しい予想をしてももう参加できない。','破産率って他人の数字だと思ってた。自分がその1人になった。'
+  ],seed,b.id,year,30,variant);
+  const r=b.lastReturn||0,ratio=b.wealth/START_WEALTH,rank=b.rank||101,dd=b.maxDD;
+  const common=[];
+  if(rank<=10)common.push(`今${rank}位。これ、実力なのか運なのかは考えたくない。`,`上位${rank}位。やっぱ自分、投資向いてるのでは？`);
+  if(rank>=90)common.push(`現在${rank}位。みんな何を買ってるんだ…。`,'下の方にいる。戦略を変えたくなってきた。');
+  if(r>.18)common.push('今年めっちゃ増えた。急に自信が出てきた。','勝つと、もっと入れておけばよかったって思う。');
+  if(r<-.18)common.push('画面を見たくない。','こんなに下がる想定はしてなかった。','売ったら負けな気がする。でも持つ理由も怪しくなってきた。');
+  if(dd>.45)common.push('高値から見るとかなり減った。元に戻るまで売りたくない。','「最高値まで戻れば」が基準になってきてる。');
+  if(ratio>3)common.push('元本の3倍を超えた。ここまで来ると、最初から分かってた気がしてくる。');
+  if(ratio<.55)common.push('1000万円あった頃が遠い。残った資金で逆転できるかな。');
+  const byStyle={
+   index:[
+    '何もしてない。市場が勝手に動いてる。','ニュースは見たけど、結局そのまま。','誰かが爆益してても、こっちは淡々と持つ。','暴落したけど、銘柄を選んでないので何を売ればいいのかもない。','退屈。でも退屈なまま残ってる。','投資してる感は薄い。資産だけ勝手に上下してる。','売買しないせいで話すことがない。それが戦略らしい。','今年も世界株。来年も多分世界株。','上位じゃなくてもいい。30年後に残ってればいい。','みんな忙しそう。私は何もしてない。'
+   ],
+   stock:[
+    'この会社だけは指数より伸びる気がする。','去年強かった銘柄、まだ行けると思う。','決算を見た。分かった気になった。','指数に負けると、銘柄選びを否定された感じがする。','当たった銘柄だけは選んだ理由を鮮明に覚えてる。','外した銘柄は「タイミングが悪かった」で処理したい。','次はちゃんと本物を選ぶ。','この株、売った直後に上がりそうで切れない。','分散すると儲けも薄まる気がして、つい集中する。','企業を見るのは楽しい。成績は別問題。'
+   ],
+   fx:[
+    '流れに乗れた。次もいけそう。','逆に行った。次で取り返したい。','損切りした瞬間に戻るの、本当にやめてほしい。','小さく勝って大きく負ける形になってる気がする。','今日は読めてる。レバレッジもう少し上げてもいいかも。','値動きがないと何もできない気がする。','ポジションを持ってない時間がもったいなく感じる。','一回当たると、次も同じ流れに見える。','負けた直後ほどチャートが簡単に見える。','現金で待つのが一番難しい。'
+   ],
+   crypto:[
+    '上がってる。もっと入れておけばよかった。','え、こんなに下がるの？戻るまで持つ。','SNSが静かになった。こういう時が底なのでは？','みんな騒ぎ始めた。まだ間に合うはず。','半値になったけど、前はもっと上だった。','倍になった。ここで売ったら次の10倍を逃す気がする。','下がると長期投資家になる。','上がると短期で利確したくなる。','値幅が大きすぎて、他の市場が眠く見える。','利益が出ると、リスクを取ったこと自体を忘れる。'
+   ],
+   realEstate:[
+    '家賃が入ると安心する。価格は見ないことにする。','現物ならゼロにはならないと思ってる。','金利が上がると、急に借金の存在感が出る。','売りたい時にすぐ売れないのはちょっと怖い。','借入が効いてる時は天才になった気分。','空室とか修繕とか、このモデルでは軽いけど現実なら面倒そう。','株より値段を毎日見ないぶん精神は楽。','不動産価格が落ちても家はそこにある。安心なのか錯覚なのか。','レバレッジって、上がる時は味方なんだよな。','現物資産という言葉が好き。'
+   ],
+   cash:[
+    '増えなくても減らなければいい。','みんな資産が増えてて少し焦る。','暴落の年だけは現金でよかったと思う。','上昇相場が続くと、何もしないのが一番つらい。','いつか暴落したら買おうと思ってる。いつ買えばいいんだ。','数字は減ってない。物価のことは考えないことにする。','安心はある。機会損失は見えにくい。','投資しないのも一つのポジション、ということにしてる。','周りが儲かってる時だけ、自分が損してる気分になる。','現金は退場しない。増えもしない。'
+   ],
+   mixed:[
+    '分散してるつもり。配分はだいたい。','何が上がっても少しは持ってる。何が下がっても少しは食らう。','去年儲かったものをちょっと増やした。','ポートフォリオって言うと賢そうだけど、決め方は雰囲気。','全部持てば安心だと思ったけど、全部下がる年もあるのか。','どれか当たればいい、くらいの気持ち。','比率を決めた理由を聞かれると困る。','気づいたら一番上がった資産の比率が大きくなってる。','分散してるから大丈夫、の「大丈夫」が何かは分からない。','投資先より、自分が何をしてるか分からなくなる時がある。'
+   ]
+  };
+  const pool=[...(byStyle[b.style]||[]),...common];
+  return pickLine(pool.length?pool:['今年も様子を見る。'],seed,b.id,year,40+styles.indexOf(b.style),variant)
+ };
+ return{expert:ex,amateurs:picks.slice(0,n).map(b=>({id:b.id,label:b.label,rank:b.rank,wealth:b.wealth,text:amateurText(b)}))}
+}
 function seedStudy(baseSeed=20261006,count=60,opts={}){const rows=[];for(let i=0;i<count;i++){const st=runToEnd(init((baseSeed+i*104729)>>>0,opts)),s=summarize(st);rows.push({seed:st.seed,expertRank:s.expertRank,expertWealth:s.expertWealth,amateurMedian:s.amateurMedian,topAmateur:s.topAmateur,indexMedian:s.indexMedian,expertDD:s.expertDD,bankruptRate:s.bankruptRate})}return{rows,top1:rows.filter(r=>r.expertRank===1).length/count,top10:rows.filter(r=>r.expertRank<=10).length/count,beatsMedian:rows.filter(r=>r.expertWealth>r.amateurMedian).length/count,beatsIndex:rows.filter(r=>r.expertWealth>r.indexMedian).length/count,medianRank:q(rows.map(r=>r.expertRank),.5),medianExpert:q(rows.map(r=>r.expertWealth),.5),medianIndex:q(rows.map(r=>r.indexMedian),.5),medianDD:q(rows.map(r=>r.expertDD),.5)}}
 function sensitivity(baseSeed=20261006){const skills=[.55,.72,.92],effs=[.45,.72,.90],rows=[];for(const skill of skills)for(const efficiency of effs){const s=seedStudy(baseSeed,24,{expertSkill:skill,efficiency});rows.push({skill,efficiency,top10:s.top10,medianRank:s.medianRank,beatsIndex:s.beatsIndex})}return rows}
 function selfCheck(){const issues=[];const a=runToEnd(init(12345)),b=runToEnd(init(12345));if(JSON.stringify(a.history)!==JSON.stringify(b.history))issues.push('seed reproducibility');if(a.amateurs.length!==100)issues.push('amateur count');const s=summarize(a);for(const k of ['expertWealth','expertRank','amateurMedian','expertDD','bankruptRate'])if(!Number.isFinite(s[k]))issues.push('nonfinite '+k);if(a.expert.wealth<0||a.amateurs.some(x=>x.wealth<0))issues.push('negative wealth');return{ok:!issues.length,issues}}
