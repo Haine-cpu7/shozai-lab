@@ -48,7 +48,7 @@ function randomSeed(){try{const a=new Uint32Array(1);crypto.getRandomValues(a);r
 function popAt(year,key='medium',enabled=true){return P.at(year,key,enabled)}
 function annuityPayment(principal,annualRate,years){if(principal<=0)return 0;if(annualRate<=0)return principal/Math.max(1,years);return principal*annualRate/(1-Math.pow(1+annualRate,-years))}
 function defaultSettings(){return{
- popScenario:'medium',startAge:35,retireAge:65,startAssets:5_000_000,startWage:4_300_000,livingCost:2_400_000,
+ popScenario:'medium',startAge:35,retireAge:65,startAssets:5_000_000,startWage:6_000_000,livingCost:3_000_000,
  housing:'rent',invest:'balanced',skill:'use',side:'none',pension:'standard',aiMacro:'base',layerPreset:'ai',
  taxBaseRate:.20,taxPressureSlope:.12,taxMin:.18,taxMax:.31,
  mortgageRate:.018,maintenanceRate:.010,rentBase:1_080_000,housingElasticScale:1,
@@ -115,7 +115,7 @@ function step(state){
 }
 function metrics(s,pop=null,extra={}){
  pop=pop||popAt(s.year,s.settings.popScenario,s.layers.pop);const netWorth=(s.cash+s.index+s.homeValue-s.mortgage-s.debt)/s.cpi,liquid=(s.cash+s.index-s.debt)/s.cpi,currentNeed=extra.livingReal!=null?(extra.livingReal+(extra.housingReal||0)+(extra.shockExpenseReal||0)):s.lastAnnualNeedReal,currentCoverage=currentNeed>0?s.pensionReal/currentNeed:0,pensionCoverage=s.retirementCoverageMin??currentCoverage;
- return{year:s.year,age:s.age,pop,netWorth,liquid,homeReal:s.homeValue/s.cpi,mortgageReal:s.mortgage/s.cpi,debtReal:s.debt/s.cpi,wageReal:extra.wageReal??(s.age<s.settings.retireAge?s.wageReal:0),pensionReal:s.pensionReal,taxRate:extra.taxRate??taxRateFor(s,pop),deficitYears:s.deficitYears,extraHours:s.extraHours,pensionCoverage,pensionCoverageCurrent:currentCoverage,pensionCoverageFirst:s.retirementCoverageFirst??0,retirementCoverageMin:s.retirementCoverageMin??0,annualNeedReal:currentNeed,shockYears:s.shockYears,cumTaxReal:s.cumTaxReal,cumHousingReal:s.cumHousingReal,cumTrainingReal:s.cumTrainingReal,cumSideReal:s.cumSideReal,...extra}
+ return{year:s.year,age:s.age,pop,netWorth,liquid,homeReal:s.homeValue/s.cpi,mortgageReal:s.mortgage/s.cpi,debtReal:s.debt/s.cpi,wageReal:extra.wageReal??(s.age<s.settings.retireAge?s.wageReal:0),lastWorkingWageReal:s.wageReal,working:extra.working??(s.age<s.settings.retireAge),pensionReal:s.pensionReal,taxRate:extra.taxRate??taxRateFor(s,pop),deficitYears:s.deficitYears,extraHours:s.extraHours,pensionCoverage,pensionCoverageCurrent:currentCoverage,pensionCoverageFirst:s.retirementCoverageFirst??0,retirementCoverageMin:s.retirementCoverageMin??0,annualNeedReal:currentNeed,shockYears:s.shockYears,cumTaxReal:s.cumTaxReal,cumHousingReal:s.cumHousingReal,cumTrainingReal:s.cumTrainingReal,cumSideReal:s.cumSideReal,...extra}
 }
 function run(seed,settings={},layers=null){const s=newState(seed,settings,layers);while(s.year<END_YEAR)step(s);return s}
 function evaluate(s){return metrics(s)}
