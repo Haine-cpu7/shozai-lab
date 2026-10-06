@@ -620,3 +620,9 @@ No.006へ通常モデルとは別のストレステストを追加。
 - Q5〜Q6は感度分析後に「支持 / 支持されず」と優位幅の変化を表示。
 - No.015（`investment-battle.html` / `investment-battle-research.html` / `investment-battle-engine.js`）がZIPに含まれ、`index.html` からリンクされていることを再確認。
 - 経済ロジック・BOTロジックは変更なし。
+
+
+## v1.62（2026-10-06）No.014 BOT音声キャッシュ対策
+- `merit.html` / `merit-research.html` の `merit-engine.js` 読み込みに `?v=1.62` を付与。
+- GitHub Pages / ブラウザ側に旧 `merit-engine.js` が残り、v1.57時代の固定台詞が表示され続ける問題を回避。
+- BOT音声ロジック自体は v1.60 以降の状態別バリエーションを維持。経済・資産・勝敗ロジックは変更なし。
