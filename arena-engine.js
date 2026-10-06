@@ -37,7 +37,7 @@ function cloneForArena(a,origin,mode){
   employed:true,stress:equal?.18:clamp(a.stress||.2,.08,.85),businessWins:0,businessLosses:0,jobLosses:0,
   totalIncome:0,totalCost:0,wellbeing:equal?65:a.wellbeing,bankrupt:false,entryNet:equal?2000000:net(a),entrySkill:equal?.78:a.skill,entryHealth:equal?.86:a.health};
 }
-function arenaEnv(){return {label:'ごりごり資本主義',safetyNet:.08,wageDispersion:.62,capitalReturn:.055,capitalVol:.18,entrepreneurship:.085,jobMarket:.78,rentPressure:1.00}}
+function arenaEnv(){return {label:'ごりごり資本主義',safetyNet:.08,capitalReturn:.055,capitalVol:.18,entrepreneurship:.085,jobMarket:.78,rentPressure:1.00}}
 function stepAgent(a,seed,year,env){
  const macro=clamp(1+.018+N01(seed,7000,year,1)*.055,.84,1.16);
  const recession=macro<.965?1:0;
@@ -60,7 +60,7 @@ function stepAgent(a,seed,year,env){
  const insurance=60000*a.risk,medical=illness?190000*(1-.42*a.risk):0,cost=living+insurance+medical;
  let transfer=0;if(!a.employed||income<cost)transfer=Math.max(0,cost-income)*env.safetyNet;
  let flow=income+transfer-cost;
- if(flow>=0){a.cash+=flow;if(a.debt>0){const pay=Math.min(a.debt,a.cash*.30);a.debt-=pay;a.cash-=pay}}
+ if(flow>=0){let surplus=flow;if(a.debt>0){const pay=Math.min(a.debt,surplus);a.debt-=pay;surplus-=pay}const saved=Math.min(surplus,Math.max(0,income)*a.save);a.cash+=Math.max(0,saved)}
  else{const need=-flow;if(a.cash>=need)a.cash-=need;else{const short=need-a.cash;a.cash=0;a.debt+=short}}
  if(a.debt>0)a.debt*=1.06;
  const monthly=cost/12,buffer=monthly>0?a.cash/monthly:0;
@@ -84,6 +84,6 @@ function run(seed=20261006,mode='carry'){
  return {seed,mode,env,selection:sel,entry,hell,heaven,summary:{hell:summarizeGroup(hell),heaven:summarizeGroup(heaven),top10Hell,top10Heaven:10-top10Hell,overlap:sel.overlap},ranked};
 }
 function robust(baseSeed=20261006,n=10){const rows=[];for(const mode of ['carry','equal']){let hMed=0,vMed=0,hTop=0,vTop=0,hWins=0,vWins=0;for(let j=0;j<n;j++){const r=run((baseSeed+j*104729)>>>0,mode),hs=r.summary.hell,vs=r.summary.heaven;hMed+=hs.medianNet;vMed+=vs.medianNet;hTop+=r.summary.top10Hell;vTop+=r.summary.top10Heaven;if(hs.medianNet>vs.medianNet)hWins++;else if(vs.medianNet>hs.medianNet)vWins++;}rows.push({mode,hellMedianAvg:hMed/n,heavenMedianAvg:vMed/n,hellTop10Avg:hTop/n,heavenTop10Avg:vTop/n,hellMedianWins:hWins,heavenMedianWins:vWins});}return rows}
-function selfCheck(){const issues=[];const a=run(12345,'equal'),b=run(12345,'equal');const sig=x=>JSON.stringify({s:x.summary,r:x.ranked.slice(0,5).map(y=>[y.origin,y.id,Math.round(net(y))])});if(sig(a)!==sig(b))issues.push('seed reproducibility');if(a.hell.length!==GROUP_N||a.heaven.length!==GROUP_N)issues.push('group count');for(const g of [a.summary.hell,a.summary.heaven])for(const k of ['medianNet','p10Net','p90Net','bankruptRate','medianHealth','medianWell'])if(!Number.isFinite(g[k]))issues.push('nonfinite '+k);return {ok:!issues.length,issues}}
+function selfCheck(){const issues=[];const a=run(12345,'equal'),b=run(12345,'equal');const sig=x=>JSON.stringify({s:x.summary,r:x.ranked.slice(0,5).map(y=>[y.origin,y.id,Math.round(net(y))])});if(sig(a)!==sig(b))issues.push('seed reproducibility');if(a.hell.length!==GROUP_N||a.heaven.length!==GROUP_N)issues.push('group count');const hs=a.selection.hellState.agents.filter(x=>x.status==='escape'||x.status==='survive').length,vs=a.selection.heavenState.agents.filter(x=>x.status==='flourish'||x.status==='stable').length;if(hs<GROUP_N||vs<GROUP_N)issues.push('not enough qualified survivors');for(const g of [a.summary.hell,a.summary.heaven])for(const k of ['medianNet','p10Net','p90Net','bankruptRate','medianHealth','medianWell'])if(!Number.isFinite(g[k]))issues.push('nonfinite '+k);return {ok:!issues.length,issues}}
 window.ArenaLab={YEARS,GROUP_N,net,qualificationScore,selectGroups,run,robust,profile,selfCheck};
 })();

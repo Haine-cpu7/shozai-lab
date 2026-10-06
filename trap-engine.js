@@ -37,7 +37,7 @@ function makeAgent(seed,id,env){
   lastIncome:0,lastCost:0,lastShock:'なし'};
 }
 function essentialCost(a,env,year){const infl=1.012**year;return (1320000+650000*env.rentPressure+320000*a.care)*infl}
-function calcOptions(a,env,year){const monthly=essentialCost(a,env,year)/12;const liquid=Math.max(0,a.cash-a.debt*.25);const buffer=monthly>0?liquid/monthly:0;
+function calcOptions(a,env,year){const monthly=essentialCost(a,env,year)/12;const liquid=Math.max(0,a.cash+a.invested*.75-a.debt*.25);const buffer=monthly>0?liquid/monthly:0;
  let n=0;
  if((buffer>=1||env.safetyNet>=.45)&&a.health>.42)n++; // job switch
  if(a.health>.48&&a.care<.72&&(a.cash>50000||env.educationAccess>.30))n++; // train
@@ -87,9 +87,8 @@ function stepAgent(a,seed,year,env){
  let cost=essential+medical+riskCost;
  let transfer=0;
  if(!a.employed||income<cost){const gap=Math.max(0,cost-income);transfer=gap*env.safetyNet*(.65+.35*U(seed,a.id,year,41))+a.family*120000}
- const saveTrim=clamp(t.save*.34,0,.09);cost*=1-saveTrim;
  let net=income+transfer-cost;
- if(net>=0){a.cash+=net; if(a.debt>0){const pay=Math.min(a.debt,a.cash*.35);a.debt-=pay;a.cash-=pay}}
+ if(net>=0){let surplus=net;if(a.debt>0){const pay=Math.min(a.debt,surplus);a.debt-=pay;surplus-=pay}const saved=Math.min(surplus,Math.max(0,income)*t.save);a.cash+=Math.max(0,saved)}
  else {const need=-net;if(a.cash>=need)a.cash-=need;else{const short=need-a.cash;a.cash=0;a.debt+=short}}
  if(a.debt>0)a.debt*=1.04;
  const o1=calcOptions(a,env,year);
@@ -105,8 +104,8 @@ function stepAgent(a,seed,year,env){
 function summarize(agents,year,env){
  const counts={escape:0,survive:0,trapped:0,crisis:0};agents.forEach(a=>counts[a.status]++);
  const net=agents.map(a=>a.cash+a.invested-a.debt),opts=agents.map(a=>a.options),health=agents.map(a=>a.health),well=agents.map(a=>a.wellbeing);
- return {year,counts,escapeRate:counts.escape/N,trappedRate:(counts.trapped+counts.crisis)/N,crisisRate:counts.crisis/N,
-  debtRate:agents.filter(a=>a.debt>0).length/N,employedRate:agents.filter(a=>a.employed).length/N,medianNet:q(net,.5),p10Net:q(net,.1),p90Net:q(net,.9),
+ const denom=agents.length||1;return {year,counts,escapeRate:counts.escape/denom,trappedRate:(counts.trapped+counts.crisis)/denom,crisisRate:counts.crisis/denom,
+  debtRate:agents.filter(a=>a.debt>0).length/denom,employedRate:agents.filter(a=>a.employed).length/denom,medianNet:q(net,.5),p10Net:q(net,.1),p90Net:q(net,.9),
   medianOptions:q(opts,.5),medianHealth:q(health,.5),medianWell:q(well,.5),avgBuffer:mean(agents.map(a=>a.bufferMonths)),env};
 }
 function init(seed=20261006,overrides={}){const env=envWith(overrides),agents=Array.from({length:N},(_,i)=>makeAgent(seed,i,env));const state={seed,year:0,env,agents,history:[]};state.agents.forEach(a=>{const o=calcOptions(a,env,0);a.options=o.n;a.bufferMonths=o.buffer;a.status=statusOf(a,env,0)});state.history.push(summarize(state.agents,0,env));return state}

@@ -33,15 +33,17 @@ function makePeople(seed){const out=[];for(let i=0;i<N;i++){
 function newAgent(p){return{base:p,health:p.health0,assets:p.initAsset,income:0,resources:0,happiness:50,hours:0,basic:1,employed:true,cumIncome:0,cumService:0,lastComp:null}}
 function init(seed){const people=makePeople(seed),worlds={};for(const k of WORLD_ORDER)worlds[k]={econ:1,agents:people.map(newAgent),history:[]};return{seed,year:0,people,worlds}}
 function scenarioDefaults(){return{incentive:.25,serviceEfficiency:.85}}
+function incentiveMultiplier(cfg,drive,incentive=.25){return clamp(1+incentive*cfg.reward*(drive-.5)*1.20,.75,1.30)}
+function incentiveGrowth(cfg,incentive=.25){const minReward=Math.min(...WORLD_ORDER.map(k=>WORLD[k].reward));return incentive*Math.max(0,cfg.reward-minReward)*.018}
 function macroGrowth(seed,year){let g=.016+N01(seed,year,999,1)*.018;if(U(seed,year,999,3)<.10)g-=.045;if(U(seed,year,999,4)<.07)g+=.030;return clamp(g,-.08,.08)}
 function capitalReturn(seed,year){let r=.04+N01(seed,year,998,1)*.11;if(U(seed,year,998,3)<.08)r-=.18;if(U(seed,year,998,4)<.06)r+=.12;return clamp(r,-.35,.35)}
 function happinessFromComponents(comp,pref,presetKey){const global=PRESETS[presetKey||'balanced'].w,w={};for(const k of Object.keys(global))w[k]=global[k]*.72+pref[k]*.28;const nw=normalizeWeights(w);let s=0;for(const k in nw)s+=nw[k]*comp[k];return clamp(s,0,100)}
 function simulateYear(state,opts={}){if(state.year>=YEARS)return state;const year=state.year+1,incentive=opts.incentive??.25,serviceEff=opts.serviceEfficiency??.85,preset=opts.preset||'balanced',mg=macroGrowth(state.seed,year),cr=capitalReturn(state.seed,year);
- for(const wk of WORLD_ORDER){const cfg=WORLD[wk],ws=state.worlds[wk];const instGrowth=incentive*(cfg.reward-.5)*.018+(serviceEff-.85)*(cfg.serviceShare-.5)*.012;ws.econ*=Math.max(.90,1+mg+instGrowth);
+ for(const wk of WORLD_ORDER){const cfg=WORLD[wk],ws=state.worlds[wk];const instGrowth=incentiveGrowth(cfg,incentive)+(serviceEff-.85)*(cfg.serviceShare-.5)*.012;ws.econ*=Math.max(.90,1+mg+instGrowth);
    const gross=[];let totalGross=0;
    for(let i=0;i<N;i++){const a=ws.agents[i],p=a.base;const jobU=U(state.seed,year,i,100),luck=N01(state.seed,year,i,110),opp=U(state.seed,year,i,120),oppSize=Math.max(0,N01(state.seed,year,i,121));
      const unemployment=jobU<cfg.unemp*(1-.25*p.ability);a.employed=!unemployment;
-     const incentiveMul=1+incentive*(cfg.reward-.5)*(p.drive-.5)*1.20;
+     const incentiveMul=incentiveMultiplier(cfg,p.drive,incentive);
      let gi=unemployment?0:3000000*ws.econ*(.55+.72*p.ability)*(.78+.28*a.health)*(.82+.36*p.drive)*Math.exp(luck*cfg.wageDisp)*clamp(incentiveMul,.75,1.30);
      if(opp<cfg.entre*(.55+.6*p.drive)){gi+=300000*ws.econ*(1+oppSize*2.2)*cfg.econChoice}
      gross.push(Math.max(0,gi));totalGross+=Math.max(0,gi);
@@ -70,5 +72,6 @@ function recomputeHappiness(ws,preset){for(const a of ws.agents)if(a.lastComp)a.
 function run(seed,opts={}){const s=init(seed);while(s.year<YEARS)simulateYear(s,opts);return s}
 function summary(state,preset='balanced'){const out={};for(const k of WORLD_ORDER){if(preset)for(const a of state.worlds[k].agents)if(a.lastComp)a.happiness=happinessFromComponents(a.lastComp,a.base.pref,preset);out[k]=metricsForWorld(state.worlds[k],state.people,preset)}return out}
 function oneBot(state,id,preset='balanced'){const i=clamp((id|0)-1,0,N-1),out={id:i+1,traits:state.people[i]};for(const k of WORLD_ORDER){const a=state.worlds[k].agents[i];if(a.lastComp)a.happiness=happinessFromComponents(a.lastComp,a.base.pref,preset);out[k]={assets:a.assets,income:a.income,resources:a.resources,happiness:a.happiness,hours:a.hours,basic:a.basic,health:a.health,employed:a.employed}}return out}
-window.SocietyLab={YEARS,N,WORLD,WORLD_ORDER,PRESETS,clamp,q,mean,gini,randomSeed,makePeople,init,simulateYear,run,summary,oneBot,scenarioDefaults,happinessFromComponents,recomputeHappiness};
+function selfCheck(){const issues=[];for(const k of WORLD_ORDER){const cfg=WORLD[k],lo=incentiveMultiplier(cfg,.30,.5),hi=incentiveMultiplier(cfg,.80,.5);if(!(hi>=lo))issues.push(k+' incentive direction');if(incentiveGrowth(cfg,.5)<-1e-12)issues.push(k+' negative incentive growth')}const a=run(12345),b=run(12345);if(JSON.stringify(summary(a,'balanced'))!==JSON.stringify(summary(b,'balanced')))issues.push('seed reproducibility');for(const k of WORLD_ORDER){const m=summary(a,'balanced')[k];for(const x of ['medianAssets','medianIncome','medianHappy','bottom10Happy','avgHours','basicRate'])if(!Number.isFinite(m[x]))issues.push(k+' nonfinite '+x)}return{ok:!issues.length,issues}}
+window.SocietyLab={YEARS,N,WORLD,WORLD_ORDER,PRESETS,clamp,q,mean,gini,randomSeed,makePeople,init,simulateYear,run,summary,oneBot,scenarioDefaults,incentiveMultiplier,incentiveGrowth,happinessFromComponents,recomputeHappiness,selfCheck};
 })();

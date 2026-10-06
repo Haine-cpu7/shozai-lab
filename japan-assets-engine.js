@@ -46,7 +46,7 @@ function newState(seed,settings={}){
   pokemon:{cash:200_000,index:800_000,inventory:0,hours:0,revenue:0,fees:0,shipping:0},
   rolex:{cash:50_000,watch:950_000,hours:6,costs:0},index:{value:1_000_000,hours:1},cash:{value:1_000_000,hours:0}}
 }
-function pay(obj,amount){const fromCash=Math.min(obj.cash,amount);obj.cash-=fromCash;let left=amount-fromCash;if(left>0&&obj.index!=null){const take=Math.min(obj.index,left);obj.index-=take;left-=take}return amount-left}
+function pay(obj,amount,allowDeficit=false){const availableCash=Math.max(0,obj.cash),fromCash=Math.min(availableCash,amount);obj.cash-=fromCash;let left=amount-fromCash;if(left>0&&obj.index!=null){const take=Math.min(Math.max(0,obj.index),left);obj.index-=take;left-=take}if(left>0&&allowDeficit){obj.cash-=left;left=0}return amount-left}
 function sweep(obj,reserve){if(obj.cash>reserve&&obj.index!=null){const x=obj.cash-reserve;obj.cash=reserve;obj.index+=x}}
 function step(s){if(s.year>=END_YEAR)return s;const next=s.year+1,progress=(next-START_YEAR)/(END_YEAR-START_YEAR),pop=popAt(next,s.popScenario),mf=marketFactors(pop,s.competition),mr=marketReturn(s.seed,next,s.regime),inf=inflation(s.seed,next),cr=collectibleReturn(s.seed,next),rr=rolexReturn(s.seed,next);s.cpi*=1+inf;
  // common global market for every strategy that parks surplus in world equities
@@ -54,15 +54,15 @@ function step(s){if(s.year>=END_YEAR)return s;const next=s.year+1,progress=(next
  // blog: build 60 articles over 3 years, then refresh/maintain. Population affects audience, falling creator competition partially offsets it.
  const be=exposure(s.adapt,'blog',progress),blogMarket=(1-be)+be*(mf.blogDemand/Math.max(.55,mf.competition));
  if(next===2026){s.blog.effectiveArticles=60;s.blog.hours+=250}else{const decay=s.adapt==='local'?.80:s.adapt==='adapt'?.86:.88;s.blog.effectiveArticles*=decay;s.blog.effectiveArticles+=8;s.blog.hours+=34}
- const blogCost=18_000;pay(s.blog,blogCost);s.blog.costs+=blogCost;
+ const blogCost=18_000;pay(s.blog,blogCost,true);s.blog.costs+=blogCost;
  const ageAdapt=s.adapt==='local'?1:s.adapt==='adapt'?(1+.08*progress):(1+.12*progress);const blogNoise=clamp(1+N01(s.seed,next,601,1)*.25,.40,1.75);
  const blogGross=Math.max(0,s.blog.effectiveArticles*1_600*blogMarket*ageAdapt*blogNoise);s.blog.cash+=blogGross;s.blog.revenue+=blogGross;s.blog.lastNet=blogGross-blogCost;sweep(s.blog,50_000);
  // pokemon resale: recurring side business. Japan buyer pool matters, but global reach can decouple demand. Competition shrink helps acquisition somewhat; low liquidity hurts exit.
  const pe=exposure(s.adapt,'pokemon',progress),pokeDemand=(1-pe)+pe*mf.pokeDemand,competitionHelp=clamp(1+(1-mf.competition)*.30,1,1.18),liquidity=clamp(.60+.40*pokeDemand,.55,1.08);
  s.pokemon.inventory=Math.max(0,s.pokemon.inventory*(1+cr)*(.97+.03*liquidity));
- const turnover=clamp(520_000*pokeDemand*competitionHelp*(.75+U(s.seed,next,602,1)*.55),180_000,900_000);const grossMargin=clamp(.18*pokeDemand+N01(s.seed,next,602,2)*.08,.02,.38);const grossProfit=turnover*grossMargin,fee=turnover*.10,shipping=turnover*.012;const net=grossProfit-fee-shipping;if(net>=0)s.pokemon.cash+=net;else pay(s.pokemon,-net);s.pokemon.revenue+=turnover;s.pokemon.fees+=fee;s.pokemon.shipping+=shipping;const inventoryAdd=clamp(turnover*.08*(.8+U(s.seed,next,602,3)*.4),20_000,90_000),inventoryPaid=pay(s.pokemon,inventoryAdd);s.pokemon.inventory+=inventoryPaid;s.pokemon.hours+=45+U(s.seed,next,602,4)*45;sweep(s.pokemon,200_000);
+ const turnover=clamp(520_000*pokeDemand*competitionHelp*(.75+U(s.seed,next,602,1)*.55),180_000,900_000);const grossMargin=clamp(.18*pokeDemand+N01(s.seed,next,602,2)*.08,.02,.38);const grossProfit=turnover*grossMargin,fee=turnover*.10,shipping=turnover*.012;const net=grossProfit-fee-shipping;if(net>=0)s.pokemon.cash+=net;else pay(s.pokemon,-net,true);s.pokemon.revenue+=turnover;s.pokemon.fees+=fee;s.pokemon.shipping+=shipping;const inventoryAdd=clamp(turnover*.08*(.8+U(s.seed,next,602,3)*.4),20_000,90_000),inventoryPaid=pay(s.pokemon,inventoryAdd);s.pokemon.inventory+=inventoryPaid;s.pokemon.hours+=45+U(s.seed,next,602,4)*45;sweep(s.pokemon,200_000);
  // Rolex: global luxury price path; only a small local-liquidity friction is tied to Japan working-age population.
- s.rolex.watch=Math.max(0,s.rolex.watch*(1+rr));if((next-START_YEAR)%5===0){const m=35_000*s.cpi;const paid=Math.min(s.rolex.cash,m);s.rolex.cash-=paid;s.rolex.costs+=paid}s.rolex.hours+=2;
+ s.rolex.watch=Math.max(0,s.rolex.watch*(1+rr));if((next-START_YEAR)%5===0){const m=35_000*s.cpi;s.rolex.cash-=m;s.rolex.costs+=m}s.rolex.hours+=2;
  // cash stays nominal; cpi handles purchasing power
  s.year=next;s.history.push(snapshot(s,pop,{blogMarket,pokeDemand,liquidity,mr,inf}));return s;
 }
@@ -76,5 +76,6 @@ function evaluate(s){const v=exitValues(s),out={};for(const k of STRATEGIES){con
 function snapshot(s,pop,extra={}){const e=evaluate(s);return{year:s.year,pop,regime:s.regime,total:pop.total,child:pop.child,work:pop.work,elder:pop.elder,cpi:s.cpi,extra,values:Object.fromEntries(STRATEGIES.map(k=>[k,{real:e[k].real,adjusted:e[k].adjusted,nominal:e[k].nominal}]))}}
 function run(seed,settings={}){const s=newState(seed,settings);while(s.year<END_YEAR)step(s);return s}
 function batch(n,baseSeed,settings={}){const vals=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),adj=Object.fromEntries(STRATEGIES.map(k=>[k,[]])),wins=Object.fromEntries(STRATEGIES.map(k=>[k,0])),hours=Object.fromEntries(STRATEGIES.map(k=>[k,[]]));for(let i=0;i<n;i++){const s=run((baseSeed+Math.imul(i,104729))>>>0,settings),e=evaluate(s);let w=STRATEGIES[0];for(const k of STRATEGIES){vals[k].push(e[k].real);adj[k].push(e[k].adjusted);hours[k].push(e[k].hours);if(e[k].adjusted>e[w].adjusted)w=k}wins[w]++}const summary={};for(const k of STRATEGIES)summary[k]={median:q(adj[k],.5),bottom10:q(adj[k],.1),realMedian:q(vals[k],.5),hoursMedian:q(hours[k],.5),wins:wins[k]};return{n,baseSeed,settings,summary}}
-window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,GLOBAL_EQUITY_COST,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch,populationMethod:P.method};
+function selfCheck(){const issues=[];const a=evaluate(run(12345)),b=evaluate(run(12345));if(JSON.stringify(a)!==JSON.stringify(b))issues.push('seed reproducibility');for(const k of STRATEGIES)for(const x of ['nominal','real','adjusted','hours'])if(!Number.isFinite(a[k][x]))issues.push(k+' nonfinite '+x);const r=run(12345);if(Math.abs(r.rolex.costs)<=0)issues.push('rolex upkeep missing');const z={cash:0,index:0};if(pay(z,1000,true)!==1000||z.cash!==-1000)issues.push('operating deficit disappears');return{ok:!issues.length,issues}}
+window.JapanAssetLab={START_YEAR,END_YEAR,YEARS,START_CAPITAL,GLOBAL_EQUITY_COST,POP,ADAPT,STRATEGIES,META,clamp,q,mean,randomSeed,popAt,marketFactors,newState,step,exitValues,evaluate,run,batch,populationMethod:P.method,selfCheck};
 })();

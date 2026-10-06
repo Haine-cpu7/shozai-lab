@@ -35,10 +35,10 @@ function makeAgent(seed,id,env){
  return {id:id+1,typeKey,type:t.label,ability,adaptability,family,care,fit,skill:.32+.13*ability,health,
   cash,debt:0,invested:0,employed:U(seed,id,8)<.93,wage:0,stress:.14+.10*care,options:0,bufferMonths:0,
   status:'stable',shockYears:0,unemployedYears:0,switches:0,trainingYears:0,totalIncome:0,totalCost:0,wellbeing:62,
-  lastIncome:0,lastCost:0,lastShock:'なし',recoveredShocks:0,pendingRecovery:0};
+  lastIncome:0,lastCost:0,lastShock:'なし',recoveredShocks:0,pendingRecoveries:[]};
 }
 function essentialCost(a,env,year){const infl=1.012**year;return (1260000+650000*env.rentPressure+260000*a.care)*infl}
-function calcOptions(a,env,year){const monthly=essentialCost(a,env,year)/12;const liquid=Math.max(0,a.cash-a.debt*.25);const buffer=monthly>0?liquid/monthly:0;let n=0;
+function calcOptions(a,env,year){const monthly=essentialCost(a,env,year)/12;const liquid=Math.max(0,a.cash+a.invested*.75-a.debt*.25);const buffer=monthly>0?liquid/monthly:0;let n=0;
  if((buffer>=1||env.safetyNet>=.45)&&a.health>.42)n++;
  if(a.health>.48&&a.care<.72&&(a.cash>50000||env.educationAccess>.30))n++;
  if(a.cash-a.debt>120000&&a.health>.45)n++;
@@ -46,8 +46,8 @@ function calcOptions(a,env,year){const monthly=essentialCost(a,env,year)/12;cons
  if(buffer>=.75||env.safetyNet>=.40||a.family>.14)n++;
  return {n,buffer};
 }
-function statusOf(a,env,year){const o=calcOptions(a,env,year);
- if(o.buffer>=12&&o.n===5&&a.health>=.82&&a.employed&&a.debt<100000&&a.skill>=.62)return 'flourish';
+function statusOf(a,env,year){const o=calcOptions(a,env,year),monthly=essentialCost(a,env,year)/12,cashBuffer=monthly>0?Math.max(0,a.cash)/monthly:0;
+ if(cashBuffer>=8&&o.n===5&&a.health>=.82&&a.employed&&a.debt<100000)return 'flourish';
  if(o.n>=4&&a.health>=.58&&a.debt<350000)return 'stable';
  if(o.n>=2&&a.health>=.42&&a.debt<1000000)return 'recovering';
  return 'strained';
@@ -64,10 +64,10 @@ function stepAgent(a,seed,year,env){
  const accidentP=.014*env.shockRate;
  const illness=U(seed,a.id,year,30)<illnessP, jobLoss=U(seed,a.id,year,31)<jobLossP, accident=U(seed,a.id,year,32)<accidentP;
  a.lastShock='なし';let shocks=0;
- if(illness){a.lastShock='病気';a.health=clamp(a.health-.055-.025*U(seed,a.id,year,33),.25,1.04);a.shockYears++;shocks++}
- if(accident){a.lastShock=a.lastShock==='なし'?'事故':a.lastShock+'＋事故';a.cash-=100000*(1-.50*t.risk);a.health=clamp(a.health-.035,.25,1.04);a.shockYears++;shocks++}
- if(jobLoss){a.employed=false;a.lastShock=a.lastShock==='なし'?'失業':a.lastShock+'＋失業';a.shockYears++;shocks++}
- if(shocks>0)a.pendingRecovery=Math.max(a.pendingRecovery,3);
+ if(illness){a.lastShock='病気';a.health=clamp(a.health-.055-.025*U(seed,a.id,year,33),.25,1.04);shocks++}
+ if(accident){a.lastShock=a.lastShock==='なし'?'事故':a.lastShock+'＋事故';a.cash-=100000*(1-.50*t.risk);a.health=clamp(a.health-.035,.25,1.04);shocks++}
+ if(jobLoss){a.employed=false;a.lastShock=a.lastShock==='なし'?'失業':a.lastShock+'＋失業';shocks++}
+ if(shocks>0){a.shockYears++;a.pendingRecoveries.push(3)}
  if(!a.employed){a.unemployedYears++;const rehire=clamp(.38+.34*env.jobMarket+.16*a.skill+.12*a.adaptability-.10*recession-.08*a.care,.12,.94);if(U(seed,a.id,year,34)<rehire){a.employed=true;a.fit=clamp(.60+U(seed,a.id,year,35)*.58*a.adaptability,.55,1.28)}}
  const over=Math.max(0,t.effort-1.05),under=Math.max(0,.82-t.effort);
  a.health=clamp(a.health-.008*over-.0015*a.care-.0015*a.stress+.007*under+.016*(1-a.stress),.25,1.04);
@@ -75,8 +75,8 @@ function stepAgent(a,seed,year,env){
  if(a.employed){income=3600000*env.wageLevel*(1.012**year)*(.68+.46*a.skill)*(.74+.28*a.ability)*(.74+.28*a.fit)*effortReturn*(.76+.28*a.health);income*=1-recession*.08;income*=clamp(1+N01(seed,a.id,year,40)*.07,.76,1.24)}
  const essential=essentialCost(a,env,year),medical=illness?150000*(1-.40*t.risk):0,riskCost=55000*t.risk;let cost=essential+medical+riskCost,transfer=0;
  if(!a.employed||income<cost){const gap=Math.max(0,cost-income);transfer=gap*env.safetyNet*(.82+.18*U(seed,a.id,year,41))+a.family*140000}
- const saveTrim=clamp(t.save*.34,0,.09);cost*=1-saveTrim;let net=income+transfer-cost;
- if(net>=0){a.cash+=net;if(a.debt>0){const pay=Math.min(a.debt,a.cash*.55);a.debt-=pay;a.cash-=pay}}
+ let net=income+transfer-cost;
+ if(net>=0){let surplus=net;if(a.debt>0){const pay=Math.min(a.debt,surplus);a.debt-=pay;surplus-=pay}const saved=Math.min(surplus,Math.max(0,income)*t.save);a.cash+=Math.max(0,saved)}
  else{const need=-net;if(a.cash>=need)a.cash-=need;else{const short=need-a.cash;a.cash=0;a.debt+=short*(1-env.safetyNet*.15)}}
  if(a.debt>0)a.debt*=1.025;
  const o1=calcOptions(a,env,year);
@@ -85,12 +85,12 @@ function stepAgent(a,seed,year,env){
  const stigmaHit=env.stigma*((!a.employed||a.debt>500000)?1:.25);
  a.stress=clamp(.14+.14*(a.debt>0?Math.min(1,a.debt/1800000):0)+.11*(!a.employed?1:0)+.12*a.care+.08*stigmaHit-.12*Math.min(1,o1.buffer/9),.04,.80);
  a.options=o1.n;a.bufferMonths=o1.buffer;a.status=statusOf(a,env,year);
- if(a.pendingRecovery>0){if(a.options>=4&&a.health>=.58&&a.employed&&a.debt<350000){a.recoveredShocks++;a.pendingRecovery=0}else a.pendingRecovery--}
+ if(a.pendingRecoveries.length){if(a.options>=4&&a.health>=.58&&a.employed&&a.debt<350000){a.recoveredShocks+=a.pendingRecoveries.length;a.pendingRecoveries=[]}else a.pendingRecoveries=a.pendingRecoveries.map(x=>x-1).filter(x=>x>0)}
  a.wage=income;a.lastIncome=income+transfer;a.lastCost=cost;a.totalIncome+=income+transfer;a.totalCost+=cost;
  const netWorth=a.cash+a.invested-a.debt;
  a.wellbeing=clamp(50+16*(a.health-.5)+3*Math.log10(Math.max(1,netWorth+2500000)/2500000)+3*a.options-14*a.stress-6*a.care,0,100);
 }
-function summarize(agents,year,env){const counts={flourish:0,stable:0,recovering:0,strained:0};agents.forEach(a=>counts[a.status]++);const net=agents.map(a=>a.cash+a.invested-a.debt),opts=agents.map(a=>a.options),health=agents.map(a=>a.health),well=agents.map(a=>a.wellbeing);return {year,counts,flourishRate:counts.flourish/agents.length,secureRate:(counts.flourish+counts.stable)/agents.length,strainedRate:counts.strained/agents.length,debtRate:agents.filter(a=>a.debt>0).length/agents.length,employedRate:agents.filter(a=>a.employed).length/agents.length,medianNet:q(net,.5),p10Net:q(net,.1),p90Net:q(net,.9),medianOptions:q(opts,.5),medianHealth:q(health,.5),medianWell:q(well,.5),avgBuffer:mean(agents.map(a=>a.bufferMonths)),recoveryRate:agents.reduce((s,a)=>s+a.recoveredShocks,0)/Math.max(1,agents.reduce((s,a)=>s+a.shockYears,0)),env};}
+function summarize(agents,year,env){const counts={flourish:0,stable:0,recovering:0,strained:0};agents.forEach(a=>counts[a.status]++);const net=agents.map(a=>a.cash+a.invested-a.debt),opts=agents.map(a=>a.options),health=agents.map(a=>a.health),well=agents.map(a=>a.wellbeing),denom=agents.length||1;return {year,counts,flourishRate:counts.flourish/denom,secureRate:(counts.flourish+counts.stable)/denom,strainedRate:counts.strained/denom,debtRate:agents.filter(a=>a.debt>0).length/denom,employedRate:agents.filter(a=>a.employed).length/denom,medianNet:q(net,.5),p10Net:q(net,.1),p90Net:q(net,.9),medianOptions:q(opts,.5),medianHealth:q(health,.5),medianWell:q(well,.5),avgBuffer:mean(agents.map(a=>a.bufferMonths)),recoveryRate:agents.reduce((s,a)=>s+a.recoveredShocks,0)/Math.max(1,agents.reduce((s,a)=>s+a.shockYears,0)),env};}
 function init(seed=20261006,overrides={}){const env=envWith(overrides),agents=Array.from({length:N},(_,i)=>makeAgent(seed,i,env));const state={seed,year:0,env,agents,history:[]};state.agents.forEach(a=>{const o=calcOptions(a,env,0);a.options=o.n;a.bufferMonths=o.buffer;a.status=statusOf(a,env,0)});state.history.push(summarize(state.agents,0,env));return state}
 function step(state){if(state.year>=YEARS)return state;const y=state.year;state.agents.forEach(a=>stepAgent(a,state.seed,y,state.env));state.year++;state.history.push(summarize(state.agents,state.year,state.env));return state}
 function runToEnd(state){while(state.year<YEARS)step(state);return state}
@@ -104,6 +104,6 @@ function compareScenarios(seed){const scenarios=[
  {key:'jobs',label:'就職・学習機会を減らす',over:{jobMarket:.72,educationAccess:.62}},
  {key:'shock',label:'ショック頻度を上げる',over:{shockRate:1.10}}
  ];return scenarios.map(sc=>{const st=cloneRun(seed,sc.over),s=summarize(st.agents,YEARS,st.env);return {...sc,s}})}
-function selfCheck(){const issues=[];const a=cloneRun(12345),b=cloneRun(12345);if(JSON.stringify(a.history)!==JSON.stringify(b.history))issues.push('seed reproducibility');const s=summarize(a.agents,YEARS,a.env);for(const k of ['flourishRate','secureRate','strainedRate','debtRate','medianNet','medianOptions','medianHealth'])if(!Number.isFinite(s[k]))issues.push('nonfinite '+k);if(a.agents.length!==300)issues.push('agent count');return {ok:!issues.length,issues}}
+function selfCheck(){const issues=[];const a=cloneRun(12345),b=cloneRun(12345);if(JSON.stringify(a.history)!==JSON.stringify(b.history))issues.push('seed reproducibility');const s=summarize(a.agents,YEARS,a.env);for(const k of ['flourishRate','secureRate','strainedRate','debtRate','medianNet','medianOptions','medianHealth','recoveryRate'])if(!Number.isFinite(s[k]))issues.push('nonfinite '+k);if(s.recoveryRate<0||s.recoveryRate>1)issues.push('recovery rate range');if(a.agents.length!==300)issues.push('agent count');const probe=makeAgent(9,0,a.env);probe.cash=2_000_000;probe.invested=5_000_000;probe.debt=0;probe.health=.95;probe.employed=true;probe.skill=.20;if(statusOf(probe,a.env,0)!=='flourish')issues.push('flourish improperly depends on skill');return {ok:!issues.length,issues}}
 window.HeavenLab={YEARS,N,TYPES,TYPE_KEYS,BASE_ENV,clamp,mean,q,randomSeed,envWith,init,step,runToEnd,summarize,typeSummary,compareScenarios,selfCheck};
 })();

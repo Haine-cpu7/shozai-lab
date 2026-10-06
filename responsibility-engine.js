@@ -52,10 +52,11 @@ function run(seed,choiceKey='steady',envId=0,envScale=1,choiceScale=1){
   if(jobShock)income*=.62;if(illness)income*=.76;income=Math.max(0,income);totalIncome+=income;
   const baseLiving=2380000*(1.012**y),burdenCost=e.burden*520000*(1.01**y),insurance=70000*c.risk;
   let shockCost=(illness?520000:0)+(jobShock?260000:0);shockCost*=1-.46*c.risk;if(illness||jobShock)shockYears++;
-  const spendingTrim=clamp(c.save*.42,0,.12),living=(baseLiving+burdenCost)*(1-spendingTrim)+insurance+shockCost;
+  const living=baseLiving+burdenCost+insurance+shockCost;
   let net=income-living;if(net<0&&e.family>.55){const help=Math.min(-net,220000*e.family);net+=help}
   if(net<0)deficitYears++;
-  const invReturn=clamp(.035+N(e.shockSeed,y,8,0)*.09,-.24,.26);wealth=(wealth+net)*(1+invReturn);
+  const wealthFlow=net>0?Math.min(net,income*c.save):net;
+  const invReturn=clamp(.035+N(e.shockSeed,y,8,0)*.09,-.24,.26),preReturn=wealth+wealthFlow;wealth=preReturn>=0?preReturn*(1+invReturn):preReturn;
   totalFree+=clamp(62-38*c.effort-7*c.learn,3,50)*52;
  }
  const wellbeing=clamp(48+18*health+10*Math.log10(Math.max(1,wealth+1000000)/1000000)+12*(totalFree/(YEARS*52*50))-16*(deficitYears/YEARS)-7*e.burden,0,100);

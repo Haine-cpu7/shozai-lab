@@ -78,9 +78,9 @@ function run(seed,cohortKey='y1995',effortKey='normal',strategyKey='steady',worl
     const riskCost=70000*st.risk;
     let net=income-living-housingExtra-riskCost;
     if(net<0&&p.family>.55)net+=Math.min(-net,180000*p.family);
-    const trim=clamp(st.save*.34,0,.10); net+=living*trim;
-    const invest=clamp(c.market+N(seed,world*71+y,73,0)*.075,-.22,.24);
-    wealth=(wealth+net)*(1+invest);
+    const wealthFlow=net>0?Math.min(net,income*st.save):net;
+    const invest=clamp(c.market+N(seed,world*71+y,73,0)*.075,-.22,.24),preReturn=wealth+wealthFlow;
+    wealth=preReturn>=0?preReturn*(1+invest):preReturn;
     totalHours+=ef.hours*52;
     const housePrice=26000000*c.housing*(1+.006*y);
     if(homeAge===null&&wealth>housePrice*.20&&income>housePrice*.13)homeAge=22+y;
