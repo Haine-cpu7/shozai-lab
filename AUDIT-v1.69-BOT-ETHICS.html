@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>v1.69 BOT-only ethics lab audit | shozai-lab</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="v1.69 BOT-only ethics lab audit" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.69-BOT-ETHICS.html" />
+<meta property="og:url" content="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.69-BOT-ETHICS.html" />
+<meta property="og:site_name" content="shozai-lab" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="v1.69 BOT-only ethics lab audit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"v1.69 BOT-only ethics lab audit","url":"https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.69-BOT-ETHICS.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/shozai-lab/assets/css/style.css?v=2780103d1cc805def266d017d1bf2ea7d9df22ea">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/shozai-lab/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://haine-cpu7.github.io/shozai-lab/">shozai-lab</a></h1>
+      
+
+      <h1 id="v169-bot-only-ethics-lab-audit">v1.69 BOT-only ethics lab audit</h1>
+
+<h2 id="no016-無意味なラベル">No.016 無意味なラベル</h2>
+<ul>
+  <li>300組の同一BOTを赤/青へ複製。</li>
+  <li>ability / adaptability / discipline / initial health / initial cash / initial skill / annual shock draws are paired.</li>
+  <li>Default treatment: red-only access multiplier -20% for hiring, education, productive credit.</li>
+  <li>No direct wage penalty or direct ability penalty.</li>
+  <li>Placebo (all penalties 0) produces exact paired outcome equality under fixed seed.</li>
+  <li>15-year removal scenario tests persistence after treatment removal.</li>
+</ul>
+
+<p>Baseline seed 20261006:</p>
+<ul>
+  <li>median paired net-worth gap (blue - red): about ¥1.07m</li>
+  <li>blue pair wins: 293 / 300</li>
+  <li>median skill: red 0.718 / blue 0.800</li>
+  <li>employment: red 97.7% / blue 98.7%</li>
+  <li>remove-at-15 gap narrows to about ¥0.69m</li>
+  <li>placebo paired gap: ¥0</li>
+</ul>
+
+<h2 id="no017-報われない努力">No.017 報われない努力</h2>
+<ul>
+  <li>300組の同一BOTを fair / blocked-reward worldsへ複製。</li>
+  <li>Same intrinsic traits and yearly noise.</li>
+  <li>Default blocked world: successful-reward probability reduced 70%; failure penalty multiplier 1.7.</li>
+  <li>Effort itself is not directly lowered. BOT updates expected return from observed reward history, and effort/challenge respond to that expectation.</li>
+  <li>Placebo (reward block 0, penalty multiplier 1) produces exact paired equality.</li>
+  <li>Restore-at-15 scenario tests recovery after rule normalization.</li>
+</ul>
+
+<p>Baseline seed 20261006:</p>
+<ul>
+  <li>reward expectation: fair 0.471 / blocked 0.226</li>
+  <li>effort: fair 0.840 / blocked 0.762</li>
+  <li>median challenges: fair 16 / blocked 15</li>
+  <li>median skill: fair 1.175 / blocked 1.120</li>
+  <li>median income: fair ~¥5.81m / blocked ~¥4.29m</li>
+  <li>restore-at-15: expectation mostly recovers, but skill/income history gap remains.</li>
+</ul>
+
+<h2 id="qa">QA</h2>
+<ul>
+  <li>Both engines pass selfCheck and fixed-seed reproducibility.</li>
+  <li>HTML duplicate IDs: none.</li>
+  <li>Local links: no missing targets.</li>
+  <li>Inline JS syntax: passes node –check (JSON-LD excluded as JSON).</li>
+  <li>Placebo checks confirm no hidden red/blue or fair/blocked asymmetry.</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

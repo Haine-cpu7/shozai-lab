@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>商材実験室 v1.40 信頼性監査 | shozai-lab</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="商材実験室 v1.40 信頼性監査" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.40.html" />
+<meta property="og:url" content="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.40.html" />
+<meta property="og:site_name" content="shozai-lab" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="商材実験室 v1.40 信頼性監査" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"商材実験室 v1.40 信頼性監査","url":"https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.40.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/shozai-lab/assets/css/style.css?v=2780103d1cc805def266d017d1bf2ea7d9df22ea">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/shozai-lab/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://haine-cpu7.github.io/shozai-lab/">shozai-lab</a></h1>
+      
+
+      <h1 id="商材実験室-v140-信頼性監査">商材実験室 v1.40 信頼性監査</h1>
+
+<p>基準日: 2026-10-06</p>
+
+<h2 id="結論">結論</h2>
+
+<p>このサイトは「未来予測」や「因果を証明する研究」ではなく、条件を固定・変更して仮説を壊すためのシミュレーション／思考実験です。信頼性は、結果の数字そのものよりも、<strong>どの数字が外部データで、どの数字がゲーム仮定で、どの結論が式に直接入っているか</strong>を追えることに置きます。</p>
+
+<blockquote>
+  <p>世界線を増やしても、間違った前提が正しくなるわけではない。</p>
+</blockquote>
+
+<h2 id="v140で修正した重要事項">v1.40で修正した重要事項</h2>
+
+<h3 id="no005-資産--人口">No.005 資産 × 人口</h3>
+<ul>
+  <li>世界株の年0.15%モデル摩擦が市場リターン生成時と資産更新時の2回差し引かれていた。</li>
+  <li>v1.40では市場リターン側で1回だけ適用する。</li>
+</ul>
+
+<h3 id="no007-働くとは">No.007 働くとは？</h3>
+<ul>
+  <li>共同家計収入と初期資産が同じプリセットで同時に変わる交絡を除去。</li>
+  <li>「共同家計から毎年入る資源」と「開始時点で保有する資産」を独立に設定可能にした。</li>
+  <li>家事・ケアの外部評価額1,500円/hは表示上の置換価値、家計支出を減らす効果はゲーム仮定として標準600円/h、と区別。研究では300/600/1,200円/hで感度を見る。</li>
+</ul>
+
+<h3 id="no008-努力とは">No.008 努力とは？</h3>
+<ul>
+  <li>旧比較では努力タイプごとにSeedをずらしており、タイプ差と運・個体差が混ざり得た。</li>
+  <li>v1.40では同じ基礎個体を各努力タイプへコピーし、タイプだけを変える完全ペア比較に変更。</li>
+</ul>
+
+<h3 id="no009-自己責任とは">No.009 自己責任とは？</h3>
+<ul>
+  <li>「選択5% / 環境93%」のような標準設定値だけを現実の責任割合として読めないよう、9条件感度の最小〜最大レンジを標準結果と同時表示。</li>
+  <li>割合は現在のモデルで与えた変数と変動幅に対する分散分解であり、道徳的・法的な責任割合ではない。</li>
+</ul>
+
+<h3 id="no010-世代別趣味レーション">No.010 世代別趣味レーション</h3>
+<ul>
+  <li>年ごとの実賃金・CPI・求人倍率・住宅価格・株価を直接再生する歴史モデルではないことを明記。</li>
+  <li>公的な長期時系列・研究を「方向づけ」に使い、時代差は簡略係数で表現する。</li>
+  <li><code class="language-plaintext highlighter-rouge">inflation</code> という誤解を招く内部名を <code class="language-plaintext highlighter-rouge">costPressure</code> へ変更。</li>
+  <li>要因分解は全個人の人生分散ではなく、7時代×4努力量=28条件の<strong>平均結果の差</strong>を分けたモデル内指標。</li>
+</ul>
+
+<h2 id="仮説ラベル">仮説ラベル</h2>
+
+<h3 id="設計挙動">設計挙動</h3>
+<p>式に直接入れた前提や方向が、想定どおり動くかを見る。支持されても現実の仮説が証明されたことにはならない。</p>
+
+<h3 id="創発比較">創発比較</h3>
+<p>複数の仕組み・乱数・トレードオフを組み合わせた結果として、どちらが残るかを見る。モデル内では最も「実験結果」に近いが、外部妥当性は別問題。</p>
+
+<h3 id="外部データ定義">外部データ・定義</h3>
+<p>公的統計、公式資料、国際定義、外部研究などゲーム外の根拠。外部資料が直接支えている範囲だけに使う。</p>
+
+<h2 id="人口データ">人口データ</h2>
+
+<p>2025年の共通起点は総務省統計局「令和7年国勢調査 人口等基本集計」（2026-09-29公表）の確定値へ更新。</p>
+
+<ul>
+  <li>総人口: 122,972,528人</li>
+  <li>15歳未満: 13,349,001人</li>
+  <li>15〜64歳: 73,480,843人</li>
+  <li>65歳以上: 36,141,613人</li>
+  <li>年齢不詳: 1,071人</li>
+</ul>
+
+<p>2026〜2070年は国立社会保障・人口問題研究所「日本の将来推計人口（令和5年推計）」の出生中位・高位・低位（死亡中位）の年次増減を2025年実績へリベースする。したがって、将来値は社人研原表の絶対人口そのものではない。</p>
+
+<h2 id="まだ残る大きな限界">まだ残る大きな限界</h2>
+
+<ol>
+  <li><strong>歴史hindcast不足</strong>：No.005〜010の多くは過去期間へ戻して予測精度を検証していない。</li>
+  <li><strong>パラメータ校正不足</strong>：AI効果、住宅感応度、副業収益、家事節約効果、努力タイプ差、心理BOTなどは多くがゲーム仮定。</li>
+  <li><strong>因果推論ではない</strong>：Seed固定・ペア比較は交絡を減らすが、現実社会の因果効果を同定しない。</li>
+  <li><strong>選択肢依存</strong>：比較する戦略の集合を変えると「一番良い戦略」も変わる。</li>
+  <li><strong>評価指標依存</strong>：純資産、幸福、自由時間、下位層保護など、何を目的にするかで結論は変わる。</li>
+  <li><strong>未実装要因</strong>：制度変更、地域差、家族形成、障害・差別、詳細税制、介護、教育、相続などは実験により欠落している。</li>
+</ol>
+
+<h2 id="読み方">読み方</h2>
+
+<ul>
+  <li>「300世界線で勝った」→ このモデルのこの前提では勝ちやすかった。</li>
+  <li>「モデル内で支持」→ まずラベルを見る。設計挙動なら実装確認、創発比較ならモデル内の傾向、外部データなら出典を確認。</li>
+  <li>「○%は環境」→ 現実の人生の責任割合ではない。感度レンジも同時に見る。</li>
+  <li>「高度成長期が有利」→ No.010の時代係数モデル上の比較。実際の世代平均資産ではない。</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

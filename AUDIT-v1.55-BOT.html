@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>商材実験室 BOTロジック監査 v1.55 | shozai-lab</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="商材実験室 BOTロジック監査 v1.55" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.55-BOT.html" />
+<meta property="og:url" content="https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.55-BOT.html" />
+<meta property="og:site_name" content="shozai-lab" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="商材実験室 BOTロジック監査 v1.55" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"商材実験室 BOTロジック監査 v1.55","url":"https://haine-cpu7.github.io/shozai-lab/AUDIT-v1.55-BOT.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/shozai-lab/assets/css/style.css?v=2780103d1cc805def266d017d1bf2ea7d9df22ea">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/shozai-lab/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://haine-cpu7.github.io/shozai-lab/">shozai-lab</a></h1>
+      
+
+      <h1 id="商材実験室-botロジック監査-v155">商材実験室 BOTロジック監査 v1.55</h1>
+
+<p>基準日: 2026-10-06<br />
+対象: EXPERIMENT No.001〜No.013<br />
+基準ファイル: v1.54 full-site ZIP を起点に監査・修正</p>
+
+<h2 id="監査方針">監査方針</h2>
+
+<p>この監査は「好きな結論を勝たせる」ための再調整ではない。以下を機械的に確認した。</p>
+
+<ul>
+  <li>同じSeedで同じ結果が再現されるか</li>
+  <li>比較対象間で共有すべき個体差・外部ショックが共有されているか</li>
+  <li>UIに存在する変数が実際の計算で使われているか</li>
+  <li>パラメータの符号が意味と逆転していないか</li>
+  <li>「貯蓄」「投資」「負債」「費用」が名前どおりに処理されているか</li>
+  <li>状態ラベルが特定BOTを構造的に排除していないか</li>
+  <li>資金が尽きたとき費用や損失が消えないか</li>
+  <li>NaN / Infinity / Seed非再現がないか</li>
+  <li>モデル内結果と現実世界の結論を混同する文言がないか</li>
+</ul>
+
+<h2 id="実験別結果">実験別結果</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>実験</th>
+      <th>判定</th>
+      <th>監査結果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>001</td>
+      <td>情報商材 / 成功法則</td>
+      <td>点検・維持</td>
+      <td>固定Seed再現、教材費、時間上限、対照BOTを確認。重大な符号・費用バグなし。BOTごとに行動分岐が違うため、同Seedでも乱数イベントを完全1対1固定する common-random-number 設計ではない点は残る限界として明記。</td>
+    </tr>
+    <tr>
+      <td>002</td>
+      <td>資産とは？</td>
+      <td>点検・維持</td>
+      <td>世界株・ブログ余剰資金・ポケカ余剰資金は同一市場系列。費用不足時も赤字が消えない <code class="language-plaintext highlighter-rouge">payPortfolio</code> を確認。重大修正なし。</td>
+    </tr>
+    <tr>
+      <td>003</td>
+      <td>3制度</td>
+      <td><strong>修正</strong></td>
+      <td>共産主義の低い <code class="language-plaintext highlighter-rouge">reward</code> が、高drive BOTへの追加報酬を逆向きにする式を修正。低報酬は「追加報酬が小さい」に統一。制度成長側の逆符号も除去。</td>
+    </tr>
+    <tr>
+      <td>004</td>
+      <td>人口減少</td>
+      <td>点検・維持</td>
+      <td>行動BOTではなく人口系列モデル。人口データ自己検査・補間・参照を確認。追加修正なし。</td>
+    </tr>
+    <tr>
+      <td>005</td>
+      <td>人口×資産</td>
+      <td><strong>修正</strong></td>
+      <td>Rolex維持費が現金枯渇後に消える問題を修正。ブログ／ポケカの運営損失も流動資産枯渇後に消えないようにした。追加仕入れは借金で無限購入しない。</td>
+    </tr>
+    <tr>
+      <td>006</td>
+      <td>縮小日本の人生戦略</td>
+      <td>点検・維持</td>
+      <td>住宅・投資・AI・年金・人口レイヤー、同Seed、負債処理を確認。既存selfCheck通過。追加修正なし。</td>
+    </tr>
+    <tr>
+      <td>007</td>
+      <td>なぜ働く？</td>
+      <td>点検＋検査追加</td>
+      <td>共同家計収入と開始資産の分離、時間予算、負債、投資を確認。重大不整合なし。selfCheck追加済み。</td>
+    </tr>
+    <tr>
+      <td>008</td>
+      <td>努力</td>
+      <td><strong>修正</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">support</code>（家庭支援）が生成されるだけで未使用だった。生活費不足時だけ補填するよう修正。負の純資産には株式市場リターンを掛けない。</td>
+    </tr>
+    <tr>
+      <td>009</td>
+      <td>自己責任</td>
+      <td><strong>修正</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">save</code> が生活費割引として使われ、残りの黒字が全額投資されていた。実際の貯蓄率へ修正。負の純資産には市場リターンを掛けない。</td>
+    </tr>
+    <tr>
+      <td>010</td>
+      <td>時代・世代</td>
+      <td><strong>修正</strong></td>
+      <td>No.009同様に <code class="language-plaintext highlighter-rouge">save</code> を実貯蓄率へ修正。負の純資産への株式市場リターンを停止。時代差・努力差・同一個体比較は維持。</td>
+    </tr>
+    <tr>
+      <td>011</td>
+      <td>地獄300BOT</td>
+      <td><strong>修正</strong></td>
+      <td>黒字全額の強制資産化を廃止し、タイプ別saveを実貯蓄率に。投資資産75%を換金可能余力として選択肢へ反映。旧版より地獄プリセットは厳しく出るが、旧脱出率へ合わせる再調整はしていない。</td>
+    </tr>
+    <tr>
+      <td>012</td>
+      <td>天国300BOT</td>
+      <td><strong>修正</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">skill&gt;=0.62</code> が「かなり余裕」の隠れ条件で、なりゆき型を構造的に0%へしていた。スキル条件を削除し、現金8か月・5選択肢・健康・就業・低負債へ変更。save・流動性・回復率も修正。</td>
+    </tr>
+    <tr>
+      <td>013</td>
+      <td>地獄上位 vs 天国上位</td>
+      <td><strong>修正</strong></td>
+      <td>アリーナ内の黒字全額資産化を修正し、タイプ別saveを適用。選抜は同一のqualification score、対決ルールは出身に依存しないことを再確認。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="特に重要な修正">特に重要な修正</h2>
+
+<h3 id="1-no003-逆インセンティブ">1. No.003 逆インセンティブ</h3>
+<p>旧式は <code class="language-plaintext highlighter-rouge">reward - 0.5</code> を使っていたため、<code class="language-plaintext highlighter-rouge">reward=0.20</code> の共産主義では高drive BOTほど制度固有のインセンティブ補正がマイナスになっていた。これは「報酬差が小さい」ではなく「努力に逆罰を与える」に近い。</p>
+
+<p>v1.55では、rewardを非負の強度として使い、低報酬制度でも高driveほど追加リターンは同方向、ただし幅が小さい形へ修正した。制度成長も同様に、最低reward制度は追加成長0を基準とし、マイナス補正にはしない。</p>
+
+<h3 id="2-save-の意味統一">2. <code class="language-plaintext highlighter-rouge">save</code> の意味統一</h3>
+<p>No.009〜013の一部で、<code class="language-plaintext highlighter-rouge">save</code> と表示しながら、実装は生活費割引だったり、黒字全額が自動資産化されたりしていた。これでは「なりゆき型 save=0.05」でも実質的には大量に貯蓄できる。</p>
+
+<p>v1.55では、黒字のうち <code class="language-plaintext highlighter-rouge">income × save</code> を上限に残し、それ以外は消費されたものとして扱う。負債がある場合は先に返済する。これにより、タイプ名・説明と資産形成行動が一致した。</p>
+
+<h3 id="3-no012-なりゆき型-0-問題">3. No.012 なりゆき型 0% 問題</h3>
+<p>旧「かなり余裕」は、現金・選択肢・健康・就業・負債に加えて <code class="language-plaintext highlighter-rouge">skill&gt;=0.62</code> を要求していた。なりゆき型は学習率が低いため、資産1億円超・5選択肢・無借金でも構造的に0%になった。</p>
+
+<p>v1.55ではスキルを状態判定から外し、次で判定する。</p>
+
+<ul>
+  <li>現金で生活費8か月以上</li>
+  <li>選択肢 5/5</li>
+  <li>健康 0.82以上</li>
+  <li>就業中</li>
+  <li>借金10万円未満</li>
+</ul>
+
+<p>投資資産は選択肢を数えるとき75%を換金可能とするが、「かなり余裕」の現金バッファは現金だけで判定する。したがって、なりゆき型が0%になる場合は「学ばないから強制失格」ではなく、低い貯蓄率で現金8か月分を作れていないことが理由になる。</p>
+
+<h3 id="4-負の資産に株式市場リターンを掛けない">4. 負の資産に株式市場リターンを掛けない</h3>
+<p>No.008〜010では、純資産が負になった後も株式市場リターンを乗算していたため、株価下落で「借金が減る」ような挙動が起こり得た。v1.55では市場リターンは非負の資産残高だけに適用する。負残高は市場から切り離して繰り越す。</p>
+
+<h2 id="v155で結果が変わることについて">v1.55で結果が変わることについて</h2>
+
+<p>修正後にNo.009の「選択由来」比率やNo.011〜013の資産額・脱出率などは旧版から動く。これは勝者を変えるためのチューニングではなく、<code class="language-plaintext highlighter-rouge">save</code>、費用、状態判定などの意味をコードと一致させた結果である。</p>
+
+<p>特にNo.011は旧版の「黒字がほぼ全部資産化される」効果が消えるため、地獄環境が以前より厳しく見える。旧版で想定していた脱出率へ戻すための係数調整は行っていない。必要なら今後、別工程として「環境プリセットそのものの妥当性」を検討する。</p>
+
+<h2 id="残る限界">残る限界</h2>
+
+<ul>
+  <li>No.001は同Seedで再現するが、行動分岐ごとに乱数消費数が違うため、異なるBOTが全く同じイベント列を受ける厳密な paired-randomness ではない。</li>
+  <li>No.004〜006の人口・市場・政策係数は現実の将来予測ではない。</li>
+  <li>No.009の分散分解は、モデルに入れた変数幅へ依存する。道徳的な「自己責任率」ではない。</li>
+  <li>No.010の時代係数は歴史の完全再現ではない。</li>
+  <li>No.011〜013の地獄・天国・資本主義アリーナは架空プリセットであり、実在国・階層・政策の効果量を推定しない。</li>
+  <li>BOTは人間の心理・文化・ネットワークを完全には表現しない。</li>
+</ul>
+
+<h2 id="qa">QA</h2>
+
+<p>v1.55では以下を実行済み。</p>
+
+<ul>
+  <li>外部JavaScript：全ファイル構文チェック OK</li>
+  <li>HTML内インラインScript：26ブロック構文チェック OK</li>
+  <li>主要11エンジンの <code class="language-plaintext highlighter-rouge">selfCheck()</code>：すべて OK</li>
+  <li>ローカル <code class="language-plaintext highlighter-rouge">href</code> / <code class="language-plaintext highlighter-rouge">src</code>：欠落 0</li>
+  <li>HTML重複ID：0</li>
+  <li>代表Seed・追加ストレス実行：NaN / Infinity なし</li>
+  <li>ZIP作成後に integrity test を実施</li>
+</ul>
+
+<p>ブラウザ自動操作によるlocalhost表示確認は、実行環境側でlocalhost Chromiumがブロックされたため未実施。代わりに構文・リンク・重複ID・各エンジン自己検査・代表実行を通している。</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
