@@ -3,11 +3,13 @@
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
 function mulberry32(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296}}
 function hash(s){let h=2166136261>>>0;for(let i=0;i<String(s).length;i++){h^=String(s).charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function unit(seed,...parts){return mulberry32(((seed>>>0)^hash(parts.join('|')))>>>0)()}
 function logistic(x){return 1/(1+Math.exp(-x))}
-function median(a){const b=[...a].sort((x,y)=>x-y),n=b.length;return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2}
+function median(a){const b=[...a].sort((x,y)=>x-y),n=b.length;return n?n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2:0}
 function mean(a){return a.reduce((s,x)=>s+x,0)/(a.length||1)}
 
 const MAX_PRICE=19800;
+const WALLET_MIN=750,WALLET_MAX=25000;
 const profiles=[
  {id:'time',name:'⏱️ 時間不足型',short:'調べる時間を買う',desc:'無料情報は探せるが、探索・比較・整理に使う時間を重く見る。',w:{time:1.35,anxiety:.35,authority:.25,social:.20,transform:.20,implementation:.80,price:.55,freeSearch:.25,skeptic:.25}},
  {id:'anxiety',name:'🛡️ 不安回避型',short:'間違えない安心を買う',desc:'情報量より「これで大丈夫そう」という不確実性の低下に反応する。',w:{time:.45,anxiety:1.35,authority:.65,social:.55,transform:.25,implementation:.75,price:.70,freeSearch:.45,skeptic:.30}},
@@ -20,7 +22,9 @@ const profiles=[
 const defaultOffer={price:4980,timeSaving:.55,guarantee:0,authority:0,socialProof:0,transformation:.20,implementation:.35,scarcity:0,freeEquivalent:1};
 const featureLabels={timeSaving:'時短・整理',guarantee:'返金保証',authority:'専門家・実績',socialProof:'口コミ・購入者数',transformation:'変われる訴求',implementation:'テンプレ・手順',scarcity:'限定・締切'};
 
-function priceCost(price){return Math.log1p(Math.max(0,price)/980)/Math.log1p(19800/980)}
+// 「財布」は所得ではなく、その時点でこの種の購入に回せる可処分予算という玩具変数。
+// profile に依存させないので、価値観タイプと支払能力を混同しない。
+function walletFor(seed,i){const u=unit(seed,'wallet',i);return Math.round(WALLET_MIN+(WALLET_MAX-WALLET_MIN)*Math.pow(u,1.7))}
 function scoreParts(profile,offer,noise=0){
  const w=profile.w;
  const positive={
@@ -34,34 +38,45 @@ function scoreParts(profile,offer,noise=0){
  };
  const freePenalty=offer.freeEquivalent*(.85*w.freeSearch)*(1-.62*offer.timeSaving-.28*offer.implementation);
  const skepticismPenalty=w.skeptic*(.28*offer.authority+.24*offer.socialProof+.38*offer.transformation+.35*offer.scarcity);
- const cost=1.45*w.price*priceCost(offer.price);
- const raw=-1.05+Object.values(positive).reduce((a,b)=>a+b,0)-freePenalty-skepticismPenalty-cost+noise;
- return {raw,positive,freePenalty,skepticismPenalty,cost,prob:logistic(raw)};
+ const desireRaw=-1.05+Object.values(positive).reduce((a,b)=>a+b,0)-freePenalty-skepticismPenalty+noise;
+ const desireProb=logistic(desireRaw);
+ return {desireRaw,positive,freePenalty,skepticismPenalty,desireProb};
 }
-
+function wtpFor(profile,desireProb,seed,i){
+ const heter=.78+.44*unit(seed,'wtp',i);
+ const priceTolerance=clamp(1.15-.38*profile.w.price,.55,1.05);
+ return Math.round(clamp(MAX_PRICE*desireProb*priceTolerance*heter,0,MAX_PRICE));
+}
 function simulateProfile(profile,offer,seed,n=120){
- const rng=mulberry32((seed^hash(profile.id))>>>0),rows=[];
+ const rows=[];
  for(let i=0;i<n;i++){
-  const stable=(rng()-.5)*.60;
+  const stable=(unit(seed,'taste',profile.id,i)-.5)*.60;
   const p=scoreParts(profile,offer,stable);
-  const threshold=rng();
-  const bought=threshold<p.prob;
+  const wallet=walletFor(seed,i),wtp=wtpFor(profile,p.desireProb,seed,i);
+  const wants=unit(seed,'desire-draw',i)<p.desireProb;
+  const affordable=offer.price<=wallet;
+  const willing=offer.price<=wtp;
+  const bought=wants&&affordable&&willing;
   const drivers=Object.entries(p.positive).sort((a,b)=>b[1]-a[1]);
   const top=drivers[0];
-  const reason=bought?driverText(top[0],profile):refusalText(p,profile,offer);
-  rows.push({i,bought,prob:p.prob,raw:p.raw,reason,topDriver:top[0],parts:p});
+  const reason=bought?driverText(top[0],profile):refusalText({p,profile,offer,wants,affordable,willing,wallet,wtp});
+  rows.push({i,bought,wants,affordable,willing,wallet,wtp,desireProb:p.desireProb,reason,topDriver:top[0],parts:p});
  }
- return {profile,rows,purchaseRate:mean(rows.map(x=>x.bought?1:0)),medianProbability:median(rows.map(x=>x.prob))};
+ const wanted=rows.filter(x=>x.wants);
+ return {profile,rows,purchaseRate:mean(rows.map(x=>x.bought?1:0)),desireRate:mean(rows.map(x=>x.wants?1:0)),affordRate:mean(rows.map(x=>x.affordable?1:0)),willingRate:mean(rows.map(x=>x.willing?1:0)),medianProbability:median(rows.map(x=>x.desireProb)),medianWallet:median(rows.map(x=>x.wallet)),medianWtp:median(rows.map(x=>x.wtp)),budgetBlockedRate:wanted.length?mean(wanted.map(x=>x.affordable?0:1)):0,wtpBlockedRate:wanted.length?mean(wanted.map(x=>x.affordable&&!x.willing?1:0)):0};
 }
 function driverText(k,p){
  const map={timeSaving:'「探して比べる時間を減らせるなら、その分には払う。」',guarantee:'「外しても戻せるなら、試す心理コストが下がる。」',authority:'「誰がまとめたかが分かると、自分で全部検証する手間が減る。」',socialProof:'「これだけ選ばれているなら、完全なハズレではなさそう。」',transformation:'「情報そのものより、これで前に進めそうなのが気になる。」',implementation:'「読むだけじゃなく、そのまま使える形なら価値がある。」',scarcity:'「今しかないなら、後回しにしにくい。」'};
  return map[k]||`「${p.short}。」`;
 }
-function refusalText(parts,p,offer){
- if(offer.freeEquivalent && parts.freePenalty>Math.max(...Object.values(parts.positive)))return '「同じ中身が無料であるなら、まずそっちを見る。」';
- if(parts.cost>1.0)return '「便利そうではあるけど、この価格なら自分で調べる。」';
- if(parts.skepticismPenalty>.55)return '「言い方が強いほど、むしろ一回引いて見る。」';
- return '「今の条件だと、買う理由が価格を超えない。」';
+function refusalText(x){
+ const {p,profile,offer,wants,affordable,willing,wallet,wtp}=x;
+ if(wants&&!affordable)return `「欲しい気持ちはある。でも今この購入に使える予算は約${wallet.toLocaleString('ja-JP')}円。」`;
+ if(wants&&!willing)return `「気にはなる。でも自分が払っていい上限は約${wtp.toLocaleString('ja-JP')}円。」`;
+ if(offer.freeEquivalent&&p.freePenalty>Math.max(...Object.values(p.positive)))return '「同じ中身が無料であるなら、まずそっちを見る。」';
+ if(p.skepticismPenalty>.55)return '「言い方が強いほど、むしろ一回引いて見る。」';
+ if(!wants)return '「便利そうではあるけど、今は買いたいほどではない。」';
+ return `「価格${offer.price.toLocaleString('ja-JP')}円が、今の条件では自分の上限を超える。」`;
 }
 function simulate(offer={},seed=20261007,n=120){
  const o={...defaultOffer,...offer};
@@ -69,7 +84,8 @@ function simulate(offer={},seed=20261007,n=120){
  const byProfile=profiles.map(p=>simulateProfile(p,o,seed,n));
  const all=byProfile.flatMap(x=>x.rows);
  const driverCounts={};all.filter(x=>x.bought).forEach(x=>driverCounts[x.topDriver]=(driverCounts[x.topDriver]||0)+1);
- return {seed,offer:o,n,byProfile,overall:mean(all.map(x=>x.bought?1:0)),driverCounts,total:all.length};
+ const wanted=all.filter(x=>x.wants),budgetBlocked=wanted.filter(x=>!x.affordable),wtpBlocked=wanted.filter(x=>x.affordable&&!x.willing);
+ return {seed,offer:o,n,byProfile,overall:mean(all.map(x=>x.bought?1:0)),desireRate:mean(all.map(x=>x.wants?1:0)),affordRate:mean(all.map(x=>x.affordable?1:0)),willingRate:mean(all.map(x=>x.willing?1:0)),medianWallet:median(all.map(x=>x.wallet)),medianWtp:median(all.map(x=>x.wtp)),budgetBlocked:budgetBlocked.length,wtpBlocked:wtpBlocked.length,wanted:wanted.length,driverCounts,total:all.length};
 }
 
 function scenarioSet(seed=20261007,n=120){
@@ -101,12 +117,14 @@ function seedStudy(seeds=[11,29,47,83,131,197,263,347,431,587],n=120){
  return seeds.map(seed=>({seed,result:simulate({...defaultOffer,price:4980,timeSaving:.75,implementation:.75,guarantee:.5,authority:.5,socialProof:.5,transformation:.5,scarcity:0},seed,n)}));
 }
 function selfCheck(){
- const a=simulate(defaultOffer,12345,20),b=simulate(defaultOffer,12345,20),c=simulate(defaultOffer,54321,20);
- const same=JSON.stringify(a.byProfile.map(x=>x.purchaseRate))===JSON.stringify(b.byProfile.map(x=>x.purchaseRate));
- const finite=[a.overall,...a.byProfile.map(x=>x.purchaseRate)].every(Number.isFinite);
- const changed=JSON.stringify(a.byProfile.map(x=>x.purchaseRate))!==JSON.stringify(c.byProfile.map(x=>x.purchaseRate));
+ const a=simulate(defaultOffer,12345,30),b=simulate(defaultOffer,12345,30),c=simulate(defaultOffer,54321,30),hi=simulate({...defaultOffer,price:19800},12345,120),lo=simulate({...defaultOffer,price:980},12345,120);
+ const snap=x=>JSON.stringify(x.byProfile.map(v=>[v.purchaseRate,v.desireRate,v.medianWallet,v.medianWtp]));
+ const same=snap(a)===snap(b),changed=snap(a)!==snap(c);
+ const finite=[a.overall,a.desireRate,a.affordRate,a.willingRate,a.medianWallet,a.medianWtp,...a.byProfile.flatMap(x=>[x.purchaseRate,x.desireRate,x.affordRate,x.willingRate,x.medianWallet,x.medianWtp])].every(Number.isFinite);
  const traits=profiles.every(p=>Object.values(p.w).every(Number.isFinite));
- return {ok:same&&finite&&changed&&traits,sameSeedReproducible:same,finite,differentSeedCanDiffer:changed,traitsFinite:traits};
+ const bounds=a.byProfile.every(x=>[x.purchaseRate,x.desireRate,x.affordRate,x.willingRate].every(v=>v>=0&&v<=1));
+ const priceWorks=hi.overall<lo.overall;
+ return {ok:same&&finite&&changed&&traits&&bounds&&priceWorks,sameSeedReproducible:same,finite,differentSeedCanDiffer:changed,traitsFinite:traits,bounds,priceGateWorks:priceWorks};
 }
-window.InformationPurchaseLab={MAX_PRICE,profiles,defaultOffer,featureLabels,simulate,scenarioSet,ablate,priceSensitivity,seedStudy,selfCheck,scoreParts};
+window.InformationPurchaseLab={MAX_PRICE,WALLET_MIN,WALLET_MAX,profiles,defaultOffer,featureLabels,simulate,scenarioSet,ablate,priceSensitivity,seedStudy,selfCheck,scoreParts,walletFor,wtpFor};
 })();
