@@ -24,7 +24,7 @@ function randomSeed(){try{const a=new Uint32Array(1);crypto.getRandomValues(a);r
 function envWith(overrides={}){return {...BASE_ENV,...overrides}}
 function makeAgent(seed,id,env){
  const typeKey=TYPE_KEYS[id%TYPE_KEYS.length],t=TYPES[typeKey];
- // ability/adaptability use the same draws as No.011 so the same Seed creates the same intrinsic 300 BOTs.
+ // ability/adaptability use the same draws as No.11 so the same Seed creates the same intrinsic 300 BOTs.
  const ability=clamp(.72+U(seed,id,4)*.56,.65,1.35);
  const adaptability=clamp(.62+U(seed,id,5)*.56,.55,1.25);
  const cash=Math.round((950000+U(seed,id,1)*1250000)*env.startBuffer);
