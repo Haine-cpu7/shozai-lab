@@ -69,13 +69,61 @@ function driverText(k,p){
  const map={timeSaving:'「探して比べる時間を減らせるなら、その分には払う。」',guarantee:'「外しても戻せるなら、試す心理コストが下がる。」',authority:'「誰がまとめたかが分かると、自分で全部検証する手間が減る。」',socialProof:'「これだけ選ばれているなら、完全なハズレではなさそう。」',transformation:'「情報そのものより、これで前に進めそうなのが気になる。」',implementation:'「読むだけじゃなく、そのまま使える形なら価値がある。」',scarcity:'「今しかないなら、後回しにしにくい。」'};
  return map[k]||`「${p.short}。」`;
 }
+function refusalProfileText(id,kind,value){
+ const yen=Number.isFinite(value)?value.toLocaleString('ja-JP'):'';
+ const map={
+  time:{
+   budget:`「時短には価値を感じる。でも今この購入に回せるのは約${yen}円まで。」`,
+   wtp:`「便利そう。でも自分の中では約${yen}円を超えると時短代としては高い。」`,
+   free:'「整理は助かるけど、無料で探せるならまず自分で集める。」',
+   skeptic:'「便利でも、言い方が強すぎると一回距離を置く。」',
+   noDesire:'「少し楽にはなりそう。でも今は自分で調べる方を選ぶ。」'
+  },
+  anxiety:{
+   budget:`「安心材料はある。でも今この購入に使える予算は約${yen}円。」`,
+   wtp:`「不安は減りそう。でも自分が払える安心料の上限は約${yen}円。」`,
+   free:'「まずは無料の情報で不安を減らしてから考える。」',
+   skeptic:'「強く勧められるほど、逆に慎重になる。」',
+   noDesire:'「悪くなさそう。でも今の不安を解く決め手まではない。」'
+  },
+  authority:{
+   budget:`「信頼できそう。でも今回この購入に回せる予算は約${yen}円。」`,
+   wtp:`「情報源は気になる。でも肩書き込みでも自分の上限は約${yen}円。」`,
+   free:'「無料でも一次情報や実績を追えそうなら、まずそちらを見る。」',
+   skeptic:'「実績があっても、価格に見合う確信までは持てない。」',
+   noDesire:'「情報源は気になる。でも今は購入の決め手に届かない。」'
+  },
+  social:{
+   budget:`「選ばれているのは分かる。でも今この購入に使える予算は約${yen}円。」`,
+   wtp:`「人気は気になる。でも自分が払っていい上限は約${yen}円。」`,
+   free:'「評判は参考になるけど、無料で追えるならまず様子を見る。」',
+   skeptic:'「みんなが買っていても、それだけでは押し切られない。」',
+   noDesire:'「周りの反応は気になる。でも今は見送る。」'
+  },
+  transform:{
+   budget:`「前に進めそう。でも今この購入に使える予算は約${yen}円。」`,
+   wtp:`「変われそうな感じはある。でも自分の上限は約${yen}円。」`,
+   free:'「変化のきっかけには見えるけど、まずは無料で試せることからやる。」',
+   skeptic:'「変われる物語が強すぎると、少し冷めてしまう。」',
+   noDesire:'「悪くないけど、今すぐ買うほど気持ちは動かない。」'
+  },
+  skeptic:{
+   budget:`「買えないというより、今この用途に切れる予算は約${yen}円まで。」`,
+   wtp:`「内容は分かる。でもこの条件で払っていい上限は約${yen}円。」`,
+   free:'「無料で辿れるなら、まず自分で探す。」',
+   skeptic:'「言い方が強いほど、むしろ買わない理由が増える。」',
+   noDesire:'「便利さは分かる。でも今は自力で十分。」'
+  }
+ };
+ return (map[id]&&map[id][kind])||'';
+}
 function refusalText(x){
  const {p,profile,offer,wants,affordable,willing,wallet,wtp}=x;
- if(wants&&!affordable)return `「欲しい気持ちはある。でも今この購入に使える予算は約${wallet.toLocaleString('ja-JP')}円。」`;
- if(wants&&!willing)return `「気にはなる。でも自分が払っていい上限は約${wtp.toLocaleString('ja-JP')}円。」`;
- if(offer.freeEquivalent&&p.freePenalty>Math.max(...Object.values(p.positive)))return '「同じ中身が無料であるなら、まずそっちを見る。」';
- if(p.skepticismPenalty>.55)return '「言い方が強いほど、むしろ一回引いて見る。」';
- if(!wants)return '「便利そうではあるけど、今は買いたいほどではない。」';
+ if(wants&&!affordable)return refusalProfileText(profile.id,'budget',wallet)||`「欲しい気持ちはある。でも今この購入に使える予算は約${wallet.toLocaleString('ja-JP')}円。」`;
+ if(wants&&!willing)return refusalProfileText(profile.id,'wtp',wtp)||`「気にはなる。でも自分が払っていい上限は約${wtp.toLocaleString('ja-JP')}円。」`;
+ if(offer.freeEquivalent&&p.freePenalty>Math.max(...Object.values(p.positive)))return refusalProfileText(profile.id,'free')||'「同じ中身が無料であるなら、まずそっちを見る。」';
+ if(p.skepticismPenalty>.55)return refusalProfileText(profile.id,'skeptic')||'「言い方が強いほど、むしろ一回引いて見る。」';
+ if(!wants)return refusalProfileText(profile.id,'noDesire')||'「便利そうではあるけど、今は買いたいほどではない。」';
  return `「価格${offer.price.toLocaleString('ja-JP')}円が、今の条件では自分の上限を超える。」`;
 }
 function simulate(offer={},seed=20261007,n=120){
