@@ -7,13 +7,14 @@ function logistic(x){return 1/(1+Math.exp(-x))}
 function median(a){const b=[...a].sort((x,y)=>x-y),n=b.length;return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2}
 function mean(a){return a.reduce((s,x)=>s+x,0)/(a.length||1)}
 
+const MAX_PRICE=19800;
 const profiles=[
- {id:'time',name:'時間不足型',short:'調べる時間を買う',desc:'無料情報は探せるが、探索・比較・整理に使う時間を重く見る。',w:{time:1.35,anxiety:.35,authority:.25,social:.20,transform:.20,implementation:.80,price:.55,freeSearch:.25,skeptic:.25}},
- {id:'anxiety',name:'不安回避型',short:'間違えない安心を買う',desc:'情報量より「これで大丈夫そう」という不確実性の低下に反応する。',w:{time:.45,anxiety:1.35,authority:.65,social:.55,transform:.25,implementation:.75,price:.70,freeSearch:.45,skeptic:.30}},
- {id:'authority',name:'権威依存型',short:'誰が言うかを買う',desc:'専門家・実績・肩書きなど、情報源の権威を強く手掛かりにする。',w:{time:.30,anxiety:.55,authority:1.45,social:.45,transform:.35,implementation:.35,price:.65,freeSearch:.40,skeptic:.15}},
- {id:'social',name:'社会的証明型',short:'みんなの選択を買う',desc:'レビュー数・購入者数・周囲の選択を意思決定の手掛かりにする。',w:{time:.35,anxiety:.45,authority:.40,social:1.45,transform:.55,implementation:.35,price:.65,freeSearch:.40,skeptic:.20}},
- {id:'transform',name:'変身期待型',short:'変われる期待を買う',desc:'知識より「これを買えば前に進める」という自己変化の物語に反応する。',w:{time:.35,anxiety:.40,authority:.35,social:.55,transform:1.50,implementation:.65,price:.60,freeSearch:.35,skeptic:.15}},
- {id:'skeptic',name:'懐疑・自力探索型',short:'まず無料を探す',desc:'同じ情報が無料なら自分で探す。価格・誇張・権威・希少性を割り引いて見る。',w:{time:.20,anxiety:.20,authority:.15,social:.10,transform:.10,implementation:.45,price:1.25,freeSearch:1.45,skeptic:1.20}}
+ {id:'time',name:'⏱️ 時間不足型',short:'調べる時間を買う',desc:'無料情報は探せるが、探索・比較・整理に使う時間を重く見る。',w:{time:1.35,anxiety:.35,authority:.25,social:.20,transform:.20,implementation:.80,price:.55,freeSearch:.25,skeptic:.25}},
+ {id:'anxiety',name:'🛡️ 不安回避型',short:'間違えない安心を買う',desc:'情報量より「これで大丈夫そう」という不確実性の低下に反応する。',w:{time:.45,anxiety:1.35,authority:.65,social:.55,transform:.25,implementation:.75,price:.70,freeSearch:.45,skeptic:.30}},
+ {id:'authority',name:'🎓 権威依存型',short:'誰が言うかを買う',desc:'専門家・実績・肩書きなど、情報源の権威を強く手掛かりにする。',w:{time:.30,anxiety:.55,authority:1.45,social:.45,transform:.35,implementation:.35,price:.65,freeSearch:.40,skeptic:.15}},
+ {id:'social',name:'👥 社会的証明型',short:'みんなの選択を買う',desc:'レビュー数・購入者数・周囲の選択を意思決定の手掛かりにする。',w:{time:.35,anxiety:.45,authority:.40,social:1.45,transform:.55,implementation:.35,price:.65,freeSearch:.40,skeptic:.20}},
+ {id:'transform',name:'✨ 変身期待型',short:'変われる期待を買う',desc:'知識より「これを買えば前に進める」という自己変化の物語に反応する。',w:{time:.35,anxiety:.40,authority:.35,social:.55,transform:1.50,implementation:.65,price:.60,freeSearch:.35,skeptic:.15}},
+ {id:'skeptic',name:'🔎 懐疑・自力探索型',short:'まず無料を探す',desc:'同じ情報が無料なら自分で探す。価格・誇張・権威・希少性を割り引いて見る。',w:{time:.20,anxiety:.20,authority:.15,social:.10,transform:.10,implementation:.45,price:1.25,freeSearch:1.45,skeptic:1.20}}
 ];
 
 const defaultOffer={price:4980,timeSaving:.55,guarantee:0,authority:0,socialProof:0,transformation:.20,implementation:.35,scarcity:0,freeEquivalent:1};
@@ -64,6 +65,7 @@ function refusalText(parts,p,offer){
 }
 function simulate(offer={},seed=20261007,n=120){
  const o={...defaultOffer,...offer};
+ o.price=Math.max(0,Math.min(MAX_PRICE,Number(o.price)||0));
  const byProfile=profiles.map(p=>simulateProfile(p,o,seed,n));
  const all=byProfile.flatMap(x=>x.rows);
  const driverCounts={};all.filter(x=>x.bought).forEach(x=>driverCounts[x.topDriver]=(driverCounts[x.topDriver]||0)+1);
@@ -106,5 +108,5 @@ function selfCheck(){
  const traits=profiles.every(p=>Object.values(p.w).every(Number.isFinite));
  return {ok:same&&finite&&changed&&traits,sameSeedReproducible:same,finite,differentSeedCanDiffer:changed,traitsFinite:traits};
 }
-window.InformationPurchaseLab={profiles,defaultOffer,featureLabels,simulate,scenarioSet,ablate,priceSensitivity,seedStudy,selfCheck,scoreParts};
+window.InformationPurchaseLab={MAX_PRICE,profiles,defaultOffer,featureLabels,simulate,scenarioSet,ablate,priceSensitivity,seedStudy,selfCheck,scoreParts};
 })();
