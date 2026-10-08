@@ -38,6 +38,16 @@
   <p class="small"><b>ここだけ注意：</b> 良い制度を1つ入れれば現実でも同じ結果になる、という意味ではありません。複数の安全網がどう働くかを見る模型です。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><footer class="site-footer">商材実験室 No.12 ガチ研究 — <a href="heaven.html">ゲーム</a> / <a href="arena.html">No.13 対決</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer>
 <script>
 (()=>{const L=window.HeavenLab,money=n=>(n<0?'-':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP'),pct=n=>(n*100).toFixed(1)+'%';function sd(){return(+seed.value||20261006)>>>0}function rows(s){return L.compareScenarios(s)}function renderRows(r){table.innerHTML=`<table class="table"><thead><tr><th>条件</th><th>かなり余裕</th><th>安定以上</th><th>余力低下</th><th>ショック後回復</th><th>純資産中央値</th><th>バッファ中央値</th><th>バッファ下位10%</th><th>選択肢中央値</th></tr></thead><tbody>${r.map(x=>`<tr><td><b>${x.label}</b></td><td>${pct(x.s.flourishRate)}</td><td>${pct(x.s.secureRate)}</td><td>${pct(x.s.strainedRate)}</td><td>${pct(x.s.recoveryRate)}</td><td>${money(x.s.medianNet)}</td><td>${x.s.medianBuffer.toFixed(1)}か月</td><td>${x.s.p10Buffer.toFixed(1)}か月</td><td>${x.s.medianOptions.toFixed(1)}/5</td></tr>`).join('')}</tbody></table>`;const base=r[0],moves=r.slice(1).map(x=>({label:x.label,net:(x.s.medianNet-base.s.medianNet),rec:(x.s.recoveryRate-base.s.recoveryRate),secure:(x.s.secureRate-base.s.secureRate)}));const biggest=moves.slice().sort((a,b)=>Math.abs(b.net)-Math.abs(a.net))[0];plain.innerHTML=`<b>このSeedでは：</b><br>超天国プリセットは、安定以上 <b>${pct(base.s.secureRate)}</b>、ショック後回復 <b>${pct(base.s.recoveryRate)}</b>、純資産中央値 <b>${money(base.s.medianNet)}</b>、生活費バッファ中央値 <b>${base.s.medianBuffer.toFixed(1)}か月</b>。<br><br>1条件だけ悪化させた中で、純資産中央値が最も動いたのは <b>${biggest.label}</b>（${money(biggest.net)}）でした。<br><br><b>ただし「どの政策が最重要」という意味ではなく、このモデルの感度です。</b>`}

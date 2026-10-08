@@ -37,6 +37,16 @@
   <p class="small"><b>ここだけ注意：</b> 現実の貧困家庭の将来を決めつける模型ではありません。悪条件がどう連鎖するかを見るための模型です。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><footer class="site-footer">商材実験室 No.11 ガチ研究 — <a href="trap.html">ゲーム</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer>
 <script>
 (()=>{const L=window.TrapLab,$=s=>document.querySelector(s),money=n=>(n<0?'-':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP'),pct=n=>(n*100).toFixed(1)+'%';function sd(){return(+seed.value||20261006)>>>0}function rows(s){return L.compareScenarios(s)}function renderRows(r){table.innerHTML=`<table class="table"><thead><tr><th>条件</th><th>脱出率</th><th>固着＋危機</th><th>負債あり</th><th>純資産中央値</th><th>選択肢中央値</th></tr></thead><tbody>${r.map(x=>`<tr><td><b>${x.label}</b></td><td>${pct(x.s.escapeRate)}</td><td>${pct(x.s.trappedRate)}</td><td>${pct(x.s.debtRate)}</td><td>${money(x.s.medianNet)}</td><td>${x.s.medianOptions.toFixed(1)}/5</td></tr>`).join('')}</tbody></table>`;const base=r[0],moves=r.slice(1).map(x=>({label:x.label,escape:x.s.escapeRate-base.s.escapeRate,trap:base.s.trappedRate-x.s.trappedRate}));const biggest=moves.slice().sort((a,b)=>Math.abs(b.escape)-Math.abs(a.escape))[0];plain.innerHTML=`<b>このSeedでは：</b><br>地獄プリセットの脱出率は <b>${pct(base.s.escapeRate)}</b>、固着＋危機は <b>${pct(base.s.trappedRate)}</b>。<br><br>条件を1つだけ変えた中で、脱出率の変化が最も大きかったのは <b>${biggest.label}</b>（${biggest.escape>=0?'+':''}${(biggest.escape*100).toFixed(1)}ポイント）でした。<br><br><b>これは現実の優劣ではなく、このモデルの感度です。</b>`}

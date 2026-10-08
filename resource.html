@@ -36,6 +36,16 @@
   <p class="small"><b>ここだけ注意：</b> 現実の家庭環境の効果を何%と測る模型ではありません。どの資源差が履歴に残りやすいかを見る模型です。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><script src="resource-engine.js?v=1.93"></script><script>
 (()=>{'use strict';const L=window.ResourceLab,$=s=>document.querySelector(s),money=n=>(n<0?'−':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP'),pct=x=>(x*100).toFixed(1)+'%';
 function cond(){const sev=+$('#severity').value,f=(w)=>Math.max(.25,1-sev*w);$('#condition').innerHTML=`<div class="soft"><b>初期資金</b><div class="small">標準 ¥1,400,000</div><div class="kpi low">${money(1400000*f(.95))}</div><div class="small">低資源</div></div><div class="soft"><b>学習アクセス</b><div class="kpi low">${pct(f(.70))}</div><div class="small">標準=100%</div></div><div class="soft"><b>時間 / 情報</b><div class="kpi low">${pct(f(.58))} / ${pct(f(.62))}</div><div class="small">標準=100%</div></div><div class="soft"><b>立て直し余力</b><div class="kpi low">${pct(f(.82))}</div><div class="small">標準=100%</div></div>`}

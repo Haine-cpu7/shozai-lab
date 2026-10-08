@@ -34,4 +34,14 @@
   <p class="small"><b>ここだけ注意：</b> 賃金、税金、技術、医療、制度などは別の変数です。人口だけで未来の豊かさは決まりません。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><footer class="site-footer">商材実験室 No.04 ガチ研究 — <a href="japan.html">ゲームへ戻る</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer><script>(()=>{const L=window.JapanMiniLab,$=s=>document.querySelector(s);function man(x){return (x*100).toLocaleString('ja-JP',{minimumFractionDigits:0,maximumFractionDigits:1})+'万人'}const years=[2045,2065,2070],keys=['medium','high','low'];let html=`<tr><td>2025国勢調査確定値</td><td>2025</td><td>${man(L.at(2025,'medium').total)}</td><td>${man(L.at(2025,'medium').child)}</td><td>${man(L.at(2025,'medium').work)}</td><td>${man(L.at(2025,'medium').elder)}</td></tr>`;for(const k of keys){years.forEach((y,i)=>{const d=L.at(y,k);html+=`<tr>${i===0?`<td rowspan="3">${L.SCENARIOS[k].label}</td>`:''}<td>${y}</td><td>${man(d.total)}</td><td>${man(d.child)}</td><td>${man(d.work)}</td><td>${man(d.elder)}</td></tr>`})}$('#checkpointBody').innerHTML=html;const s25=L.at(2025,'medium'),m45=L.at(2045,'medium'),m70=L.at(2070,'medium'),h45=L.at(2045,'high'),l45=L.at(2045,'low');$('#plain1').textContent=`2025年の15〜64歳 ${man(s25.work)} から、出生中位の2070年は ${man(m70.work)}。総人口より大きな割合で減ります。`;$('#plain2').textContent=`出生中位では65歳以上人口は2045年 ${man(m45.elder)} から2070年 ${man(m70.elder)} へ減少します。それでも総人口がより縮むため、高齢者割合は ${(m70.elderShare*100).toFixed(1)}% まで上がります。`;$('#plain3').textContent=`2045年の65歳以上人口は出生高位・中位・低位で同じ ${man(m45.elder)}。出生仮定の差はまず子どもに表れ、その後に現役世代へ効きます。`;})();</script></body></html>

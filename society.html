@@ -75,6 +75,16 @@
   <p class="small"><b>ここだけ注意：</b> これは現実の国を採点する模型ではありません。何を大事にするかで評価が変わる、という比較です。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><footer class="site-footer">商材実験室 No.03 — <a href="society-research.html">ガチ研究ページ</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer>
 <script>
 (()=>{const L=window.SocietyLab,$=s=>document.querySelector(s);let seed=L.randomSeed(),S=L.init(seed),preset='balanced';function yen(n){return '¥'+Math.round(n).toLocaleString('ja-JP')}function pct(n){return Math.round(n*1000)/10+'%'}function opts(){return{incentive:+$('#incentive').value,serviceEfficiency:+$('#service').value,preset:$('#preset').value}}function cls(k){return k==='capitalism'?'world-cap':k==='socialism'?'world-soc':'world-com'}function render(){preset=$('#preset').value;const M=L.summary(S,preset);$('#yearNo').textContent=S.year;$('#seed').textContent=seed;$('#progress').style.width=(S.year/30*100)+'%';$('#worldCards').innerHTML=L.WORLD_ORDER.map(k=>{const m=M[k];return `<div class="card ${cls(k)}"><b>${L.WORLD[k].label}</b><div class="metric"><span>中央値資産</span><b>${yen(m.medianAssets)}</b><span>平均資産</span><b>${yen(m.meanAssets)}</b><span>幸福度中央値</span><b>${m.medianHappy.toFixed(1)}</b><span>幸福度 下位10%</span><b>${m.bottom10Happy.toFixed(1)}</b><span>基本生活充足</span><b>${pct(m.basicRate)}</b><span>資産ジニ係数</span><b>${m.giniAssets.toFixed(2)}</b><span>平均労働</span><b>${m.avgHours.toFixed(1)}h/週</b><span>上方移動</span><b>${pct(m.mobility)}</b></div></div>`}).join('');renderPerson();if(S.year>=30)finish();else{$('#ending').classList.add('hidden');$('#survivalHypothesis').classList.add('hidden')}}function renderPerson(){let id=Math.max(1,Math.min(100,+$('#botId').value||17)),P=L.oneBot(S,id,preset),t=P.traits;$('#personTraits').innerHTML=`BOT No.${id}：能力 ${t.ability.toFixed(2)} / 初期健康 ${t.health0.toFixed(2)} / 働く意欲 ${t.drive.toFixed(2)} / 家庭負担 ${t.family.toFixed(2)} / 初期資産 ${yen(t.initAsset)}`;$('#personCards').innerHTML=L.WORLD_ORDER.map(k=>{const a=P[k];return `<div class="card ${cls(k)}"><b>${L.WORLD[k].short}</b><div class="metric"><span>私有資産</span><b>${yen(a.assets)}</b><span>幸福度</span><b>${a.happiness.toFixed(1)}</b><span>年間生活資源</span><b>${yen(a.resources)}</b><span>労働時間</span><b>${a.hours.toFixed(1)}h/週</b><span>基本生活</span><b>${a.basic>=1?'満たす':'不足'}</b></div></div>`}).join('')}function argmax(M,key,rev=false){let w=L.WORLD_ORDER[0];for(const k of L.WORLD_ORDER)if(rev?M[k][key]<M[w][key]:M[k][key]>M[w][key])w=k;return w}

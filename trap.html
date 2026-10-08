@@ -38,6 +38,16 @@
   <p class="small"><b>ここだけ注意：</b> 現実の貧困家庭の将来を決めつける模型ではありません。悪条件がどう連鎖するかを見るための模型です。</p>
   <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
 </section>
+
+<section id="support-ofuse-v194" class="panel" aria-labelledby="support-ofuse-title" style="background:#fffdf7;border-color:#e7dcc5">
+  <div class="eyebrow">SUPPORT / 研究費</div>
+  <h2 id="support-ofuse-title" style="margin-top:4px">☕ この実験室に研究費を投げる</h2>
+  <p style="margin:10px 0 0">面白かった実験が1つでもあった人向け。商材実験室は全ページ無料のまま、OFUSEから任意で研究費を投げられます。</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+    <a href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;padding:0 14px;background:#111827;color:#fff;text-decoration:none;font-weight:800">OFUSEで研究費を投げる ↗</a>
+  </div>
+  <div class="small muted" style="margin-top:9px">支援しなくても、閲覧できる内容や実験結果は変わりません。</div>
+</section>
 </main><footer class="site-footer">商材実験室 No.11 — <a href="trap-research.html">ガチ研究</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer>
 <script>
 (()=>{const L=window.TrapLab,$=s=>document.querySelector(s),money=n=>(n<0?'-':'')+'¥'+Math.abs(Math.round(n)).toLocaleString('ja-JP'),pct=n=>(n*100).toFixed(1)+'%';let S=L.init((+seed.value||20261006)>>>0);function sum(){return L.summarize(S.agents,S.year,S.env)}function render(){const s=sum();yearNo.textContent=S.year;progress.style.width=(S.year/30*100)+'%';metrics.innerHTML=`<div class="soft"><div class="small">純資産中央値</div><div class="kpi">${money(s.medianNet)}</div></div><div class="soft"><div class="small">負債あり</div><div class="kpi">${pct(s.debtRate)}</div></div><div class="soft"><div class="small">選択肢中央値</div><div class="kpi">${s.medianOptions.toFixed(1)} / 5</div></div><div class="soft"><div class="small">就業率</div><div class="kpi">${pct(s.employedRate)}</div></div>`;field.innerHTML=S.agents.map(a=>`<span class="bot ${a.status}" title="BOT ${a.id} / ${a.type} / 純資産 ${money(a.cash+a.invested-a.debt)} / 選択肢 ${a.options}/5"></span>`).join('');const c=s.counts;statusCounts.innerHTML=`<div class="soft s1"><div class="small">脱出</div><div class="kpi">${c.escape}人</div></div><div class="soft s2"><div class="small">耐えている</div><div class="kpi">${c.survive}人</div></div><div class="soft s3"><div class="small">固着</div><div class="kpi">${c.trapped}人</div></div><div class="soft s4"><div class="small">危機</div><div class="kpi">${c.crisis}人</div></div>`;const rows=L.typeSummary(S);typeTable.innerHTML=`<table class="table"><thead><tr><th>タイプ</th><th>脱出率</th><th>固着＋危機</th><th>純資産中央値</th><th>選択肢中央値</th><th>幸福中央値</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r.label}</b></td><td>${pct(r.escape)}</td><td>${pct(r.trapped)}</td><td>${money(r.medianNet)}</td><td>${r.medianOptions.toFixed(1)}/5</td><td>${r.medianWell.toFixed(1)}</td></tr>`).join('')}</tbody></table>`;renderPerson()}
