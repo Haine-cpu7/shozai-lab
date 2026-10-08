@@ -120,7 +120,7 @@ function hypCard(id,status,detail,takeaway=''){
 function updateHypOverall(){const cards=[...document.querySelectorAll('.hyp-card')],done=cards.filter(c=>c.dataset.status),ov=$('#hypOverall');if(done.length<6){ov.className='status pending';ov.textContent=`検証済み ${done.length}/6`;return}const keys=done.map(c=>c.dataset.status),supported=keys.filter(x=>x==='support').length,partial=keys.filter(x=>x==='partial').length,mixed=keys.filter(x=>x==='mixed').length,rejected=keys.filter(x=>x==='reject').length,uncertain=keys.filter(x=>x==='uncertain').length;ov.className='status '+(supported>=4?'support':rejected>=4?'reject':'uncertain');ov.textContent=`モデル内：支持 ${supported} / 一部 ${partial} / 混在 ${mixed} / 不支持 ${rejected} / 困難 ${uncertain}`}
 function calculateHypotheses(n=100,only=null){
  const bs=base(),baseSeed=seed(),layers=L.LAYER_PRESETS.ai,matched=L.costMatchedHomePrice(bs),ids=only?[only]:['H1','H2','H3','H4','H5','H6'];
- const use=id=>ids.includes(id),count={H1:0,H2:0,H3NW:0,H3DEF:0,H3AMOUNT:0,H4:0,H5:0,H6:0,H6_5K:0,H6_10K:0},diff={home:[],skillNW:[],skillDEF:[],skillAMOUNT:[],h5Ties:[],h6Hours:[]};
+ const use=id=>ids.includes(id),count={H1:0,H2:0,H3NW:0,H3DEF:0,H3AMOUNT:0,H4:0,H5:0,H6:0,H6_5K:0,H6_10K:0},diff={home:[],skillNW:[],skillDEF:[],skillAMOUNT:[],h5Ties:[],h6Hours:[],h1LowPremium:[],h1HighPremium:[]};
  let h2Equal=0;
  for(let i=0;i<n;i++){
   const sd=(baseSeed+Math.imul(i,104729))>>>0;
@@ -130,7 +130,7 @@ function calculateHypotheses(n=100,only=null){
    const lc=L.evaluate(L.run(sd,{...b,popScenario:'low',invest:'cash'},layers)).netWorth;
    const hg=L.evaluate(L.run(sd,{...b,popScenario:'high',invest:'global'},layers)).netWorth;
    const hc=L.evaluate(L.run(sd,{...b,popScenario:'high',invest:'cash'},layers)).netWorth;
-   if(lg-lc>hg-hc)count.H1++;
+   const lowPremium=lg-lc,highPremium=hg-hc;diff.h1LowPremium.push(lowPremium);diff.h1HighPremium.push(highPremium);if(lowPremium>highPremium)count.H1++;
   }
   if(use('H2')){
    const b={...bs,invest:'balanced',skill:'use',side:'none'},rent=L.evaluate(L.run(sd,{...b,housing:'rent'},layers)),home=L.evaluate(L.run(sd,{...b,housing:'buyResilient',housingPriceOverride:matched},layers));
@@ -176,7 +176,17 @@ function calculateHypotheses(n=100,only=null){
  const results={};
  for(const id of ids){
   const w=count[id],status=statusFrom(w,n),shown=`${w}/${n}世界線（95%区間 ${fmtCI(status.ci)}）`;
-  if(id==='H1')results.H1={status,detail:`該当 ${shown}。`,takeaway:w>n/2?`この設定では、人口減少が深い方が世界株の相対優位が大きい世界線が${w}件。ただし株価予測や国内外の普遍的な勝敗を示しません。`:`この設定では、人口減少が深くなるほど「世界株−現金」の純資産差が大きくなる傾向は確認できません。該当は${w}/${n}件で、反対側の結果が多く出ています。`};
+  if(id==='H1'){
+   const highMedian=L.q(diff.h1HighPremium,.5),lowMedian=L.q(diff.h1LowPremium,.5),medianGap=lowMedian-highMedian;
+   const reference=Math.max(Math.abs(highMedian),Math.abs(lowMedian));
+   const relativePct=reference>0?Math.abs(medianGap)/reference*100:null;
+   const sizeText=relativePct===null?'優位幅が両条件とも0円なので割合は出せません':relativePct<1?'世界株−現金の優位幅に対して1%未満と小さい':`優位幅に対して${relativePct.toFixed(2)}%で、小さいとは限らない`;
+   const gapText=`${medianGap>0?'+':''}${money(medianGap)}`;
+   const relativeLabel=relativePct===null?'比率算出不可':relativePct>0&&relativePct<.01?'優位幅比 0.01%未満':`優位幅比 ${relativePct.toFixed(2)}%`;
+   results.H1={status,
+    detail:`該当 ${shown}。<br><b>世界株−現金の純資産差（中央値）：</b>出生高位 ${money(highMedian)} / 出生低位 ${money(lowMedian)}。<br><b>人口条件による差（低位−高位）：</b>${gapText}（${relativeLabel}）。<br><b>読み方：</b>${sizeText}。`,
+    takeaway:`H1が調べるのは「世界株が現金に勝つか」ではなく、人口減少が深いほど世界株の優位幅が広がるかです。今回、出生高位の優位幅中央値は${money(highMedian)}、出生低位は${money(lowMedian)}で、中央値どうしの差は${gapText}。この差は${sizeText}という結果でした。${status.key==='reject'?'「人口減少が深いほど優位幅が拡大する」はモデル内で支持されませんでした。':status.key==='support'?'優位幅が拡大する方向はモデル内で支持されました。':'優位幅が拡大するかはモデル内で判定困難でした。'}この「小さい」は投資の優位幅に対する人口条件の影響だけを指し、人口減少が家計全体に与える影響の小ささを意味しません。`};
+  }
   if(id==='H2')results.H2={status,detail:`赤字年が少ない持ち家 ${shown}。同じ赤字年 ${h2Equal}/${n}件。純資産差中央値 ${money(L.q(diff.home,.5))}（持ち家−賃貸）。費用整合価格 約${money(matched)}。`,takeaway:`費用をそろえた比較では、持ち家の方が赤字年の少ない世界線が${w}/${n}件。ただし家賃・金利・住宅価格の仮定に左右され、実際の住宅購入で有利になると証明したわけではありません。純資産差と年間収支も別の指標です。`};
   if(id==='H3'){
    const a=statusFrom(count.H3NW,n),b=statusFrom(count.H3DEF,n),s=combineH3(a,b),mNW=L.q(diff.skillNW,.5),mAMT=L.q(diff.skillAMOUNT,.5);
