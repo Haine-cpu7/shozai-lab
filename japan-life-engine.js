@@ -70,7 +70,7 @@ function newState(seed,settings={},layers=null){
  let cash=s.startAssets*(1-inv.stockShare),index=s.startAssets*inv.stockShare;
  if(L.housing&&s.housing!=='rent'){const d=Math.min(cash+index,h.down);let left=d,t=Math.min(cash,left);cash-=t;left-=t;if(left>0)index=Math.max(0,index-left);h.mortgage=Math.max(0,h.purchasePrice-d);h.mortgagePayment=annuityPayment(h.mortgage,+s.mortgageRate,35)}
  else{h.homeValue=0;h.mortgage=0;h.mortgagePayment=0}
- return{seed,settings:s,layers:{...L},year:START_YEAR,age:s.startAge,cpi:1,cash,index,debt:0,homeValue:h.homeValue,mortgage:h.mortgage,mortgagePayment:h.mortgagePayment,purchasePrice:h.purchasePrice||0,homeElastic:h.elastic||0,wageReal:s.startWage,pensionReal:0,pensionBaseReal:null,deficitYears:0,extraHours:0,cumTaxReal:0,cumHousingReal:0,cumLivingReal:0,cumTrainingReal:0,cumSideReal:0,cumWageReal:0,retirementCoverageFirst:null,retirementCoverageMin:null,lastHousingReal:0,lastLivingReal:s.livingCost,lastAnnualNeedReal:s.livingCost,shockYears:0,history:[]}
+ return{seed,settings:s,layers:{...L},year:START_YEAR,age:s.startAge,cpi:1,cash,index,debt:0,homeValue:h.homeValue,mortgage:h.mortgage,mortgagePayment:h.mortgagePayment,purchasePrice:h.purchasePrice||0,homeElastic:h.elastic||0,wageReal:s.startWage,pensionReal:0,pensionBaseReal:null,pensionEarningsRefReal:null,deficitYears:0,cumulativeShortfallReal:0,extraHours:0,cumTaxReal:0,cumHousingReal:0,cumLivingReal:0,cumTrainingReal:0,cumSideReal:0,cumWageReal:0,retirementCoverageFirst:null,retirementCoverageMin:null,lastHousingReal:0,lastLivingReal:s.livingCost,lastAnnualNeedReal:s.livingCost,shockYears:0,history:[]}
 }
 function aiCurve(year){return clamp((year-2028)/12,0,1)*clamp((2055-year)/15+.35,.35,1)}
 function aiBoost(s,year){if(!s.layers.ai)return 0;return AI_MACRO[s.settings.aiMacro].boost*(+s.settings.aiMacroScale||0)*aiCurve(year)}
@@ -104,10 +104,11 @@ function deposit(s,amount){const share=INVEST[s.settings.invest].stockShare;s.in
 function step(state){
  if(state.year>=END_YEAR)return state;const s=state,next=s.year+1,pop=popAt(next,s.settings.popScenario,s.layers.pop),inf=inflation(s.seed,next),shock=systemicShock(s,next);s.cpi*=1+inf;s.index=Math.max(0,s.index*(1+marketReturn(s,next,shock)));s.debt*=1.04;
  const working=(s.age+1)<s.settings.retireAge;let wageReal=0;if(working){s.wageReal=Math.max(1_500_000,s.wageReal*(1+wageGrowth(s,pop,next)));wageReal=s.wageReal*skillMultiplier(s,next)*(shock.wageFactor||1);if(shock.job)wageReal*=.45;if(s.layers.ai){const sk=skillCfg(s),shockProb=sk.risk*aiCurve(next);if(U(s.seed,next,52,1)<shockProb)wageReal*=.86}}
+ if(working)s.pensionEarningsRefReal=s.wageReal*skillMultiplier(s,next);
  const taxRate=taxRateFor(s,pop),side=sideOutcome(s,pop,next),taxableReal=Math.max(0,wageReal+Math.max(0,side.netReal)),taxReal=taxableReal*taxRate;
- if(!working&&s.layers.pension){if(s.pensionBaseReal==null){const repl=PENSION[s.settings.pension].replacement*(+s.settings.pensionScale),delay=s.settings.retireAge>=70?1.12:1;s.pensionBaseReal=Math.max(0,s.wageReal*(1-taxRate)*repl*delay)}s.pensionReal=s.pensionBaseReal}else s.pensionReal=0;
+ if(!working&&s.layers.pension){if(s.pensionBaseReal==null){const repl=PENSION[s.settings.pension].replacement*(+s.settings.pensionScale),delay=s.settings.retireAge>=70?1.12:1;s.pensionBaseReal=Math.max(0,(s.pensionEarningsRefReal??s.wageReal)*(1-taxRate)*repl*delay)}s.pensionReal=s.pensionBaseReal}else s.pensionReal=0;
  const sk=skillCfg(s),trainingReal=(s.layers.ai&&working&&next<=START_YEAR+10)?sk.cost:0,trainingHours=(s.layers.ai&&working&&next<=START_YEAR+10)?sk.hours:0,house=housingYear(s,pop,next,inf,shock),livingReal=s.settings.livingCost*(working?1:.92),shockExpenseReal=shock.healthCostReal+shock.careCostReal,incomeReal=wageReal+side.netReal+s.pensionReal-taxReal,annualNeedReal=livingReal+house.costReal+shockExpenseReal,expenseNominal=(livingReal+trainingReal+shockExpenseReal)*s.cpi+house.costNominal,netNominal=incomeReal*s.cpi-expenseNominal;
- if(netNominal>=0)deposit(s,netNominal);else{withdraw(s,-netNominal);s.deficitYears++}
+ if(netNominal>=0)deposit(s,netNominal);else{withdraw(s,-netNominal);s.deficitYears++;s.cumulativeShortfallReal+=(-netNominal)/s.cpi}
  s.extraHours+=trainingHours+side.hours+shock.careHours;s.cumTaxReal+=taxReal;s.cumHousingReal+=house.costReal;s.cumLivingReal+=livingReal;s.cumTrainingReal+=trainingReal;s.cumSideReal+=side.netReal;s.cumWageReal+=wageReal;s.lastHousingReal=house.costReal;s.lastLivingReal=livingReal;s.lastAnnualNeedReal=annualNeedReal;if(shock.macro||shock.health||shock.care||shock.job)s.shockYears++;
  s.year=next;s.age+=1;
  if(!working&&s.layers.pension&&annualNeedReal>0){const cov=s.pensionReal/annualNeedReal;if(s.retirementCoverageFirst==null)s.retirementCoverageFirst=cov;s.retirementCoverageMin=s.retirementCoverageMin==null?cov:Math.min(s.retirementCoverageMin,cov)}
@@ -115,7 +116,7 @@ function step(state){
 }
 function metrics(s,pop=null,extra={}){
  pop=pop||popAt(s.year,s.settings.popScenario,s.layers.pop);const netWorth=(s.cash+s.index+s.homeValue-s.mortgage-s.debt)/s.cpi,liquid=(s.cash+s.index-s.debt)/s.cpi,currentNeed=extra.livingReal!=null?(extra.livingReal+(extra.housingReal||0)+(extra.shockExpenseReal||0)):s.lastAnnualNeedReal,currentCoverage=currentNeed>0?s.pensionReal/currentNeed:0,pensionCoverage=s.retirementCoverageMin??currentCoverage;
- return{year:s.year,age:s.age,pop,netWorth,liquid,homeReal:s.homeValue/s.cpi,mortgageReal:s.mortgage/s.cpi,debtReal:s.debt/s.cpi,wageReal:extra.wageReal??(s.age<s.settings.retireAge?s.wageReal:0),lastWorkingWageReal:s.wageReal,working:extra.working??(s.age<s.settings.retireAge),pensionReal:s.pensionReal,taxRate:extra.taxRate??taxRateFor(s,pop),deficitYears:s.deficitYears,extraHours:s.extraHours,pensionCoverage,pensionCoverageCurrent:currentCoverage,pensionCoverageFirst:s.retirementCoverageFirst??0,retirementCoverageMin:s.retirementCoverageMin??0,annualNeedReal:currentNeed,shockYears:s.shockYears,cumTaxReal:s.cumTaxReal,cumHousingReal:s.cumHousingReal,cumTrainingReal:s.cumTrainingReal,cumSideReal:s.cumSideReal,...extra}
+ return{year:s.year,age:s.age,pop,netWorth,liquid,homeReal:s.homeValue/s.cpi,mortgageReal:s.mortgage/s.cpi,debtReal:s.debt/s.cpi,wageReal:extra.wageReal??(s.age<s.settings.retireAge?s.wageReal:0),lastWorkingWageReal:s.wageReal,working:extra.working??(s.age<s.settings.retireAge),pensionReal:s.pensionReal,taxRate:extra.taxRate??taxRateFor(s,pop),deficitYears:s.deficitYears,cumulativeShortfallReal:s.cumulativeShortfallReal,extraHours:s.extraHours,pensionCoverage,pensionCoverageCurrent:currentCoverage,pensionCoverageFirst:s.retirementCoverageFirst??0,retirementCoverageMin:s.retirementCoverageMin??0,annualNeedReal:currentNeed,shockYears:s.shockYears,cumTaxReal:s.cumTaxReal,cumHousingReal:s.cumHousingReal,cumTrainingReal:s.cumTrainingReal,cumSideReal:s.cumSideReal,...extra}
 }
 function run(seed,settings={},layers=null){const s=newState(seed,settings,layers);while(s.year<END_YEAR)step(s);return s}
 function evaluate(s){return metrics(s)}
@@ -128,6 +129,9 @@ function selfCheck(){
  const s=defaultSettings(),m=costMatchedHomePrice(s);if(!(m>10_000_000&&m<40_000_000))issues.push('cost-matched home price out of range');
  const a=evaluate(run(20261005,s,LAYER_PRESETS.ai)),b=evaluate(run(20261005,s,LAYER_PRESETS.ai));if(Math.abs(a.netWorth-b.netWorth)>.001)issues.push('seed determinism failed');
  if(a.pensionCoverage<0||!Number.isFinite(a.pensionCoverage))issues.push('pension coverage invalid');
+ if(a.cumulativeShortfallReal<0||!Number.isFinite(a.cumulativeShortfallReal))issues.push('shortfall amount invalid');
+ const none=run(20261005,{...s,skill:'none'},LAYER_PRESETS.ai),deep=run(20261005,{...s,skill:'deep'},LAYER_PRESETS.ai);
+ if(!(deep.pensionBaseReal>none.pensionBaseReal))issues.push('skill wage is not reflected in pension reference');
  return{ok:issues.length===0,issues}
 }
 window.JapanLifeLab={START_YEAR,END_YEAR,YEARS,POP,HOUSING,INVEST,SKILL,SIDE,PENSION,AI_MACRO,SHOCK_PROFILES,LAYERS,LAYER_PRESETS,clamp,mean,q,randomSeed,popAt,defaultSettings,normalizeSettings,costMatchedHomePrice,newState,step,run,evaluate,layerSequence,batch,gridPlans,planLabel,selfCheck};
