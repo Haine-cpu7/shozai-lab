@@ -1,0 +1,25 @@
+
+(()=>{'use strict';const L=window.PensionLab,$=q=>document.querySelector(q);if(!L){return}const $all=q=>Array.from(document.querySelectorAll(q));const money=n=>'¥'+Math.round(n).toLocaleString('ja-JP');const pct=(a,n)=>n?((a/n)*100).toFixed(1)+'%':'—';
+const fields=['age','workYears','monthlyGross','monthlyHouseholdInvest','initialInvest','saveRate','otherDeduction','marketMu','marketSigma','retireBudget','endAge','seed'];
+const nfr={age:1,workYears:1,monthlyGross:1,monthlyHouseholdInvest:1,initialInvest:1,saveRate:100,otherDeduction:100,marketMu:100,marketSigma:100,retireBudget:1,endAge:1,seed:1};
+function settings(){let c={};for(const k of fields){const el=$('#'+k);if(el)c[k]=Number(el.value)/nfr[k]};return L.normalized(c)}
+function bar(n,d){return `<div class="bar" role="img" aria-label="資金不足なし ${pct(n,d)}"><i style="width:${100*n/d}%"></i></div>`}
+function render(){const r=L.batch(settings()),c=r.config,p=r.details;$('#testState').textContent=L.selfCheck().ok?'内部チェック OK':'内部チェック要確認';$('#testState').className=L.selfCheck().ok?'testgood':'testbad';
+$('#pensionValue').textContent=money(p.monthlyExtra);$('#premiumValue').textContent=money(p.premiumMonthly);$('#netSalary').textContent=money(p.netSalaryMonthly);$('#workHours').textContent=p.workHours.toLocaleString('ja-JP')+' 時間';
+$('#workingBudget').textContent=`月収 ${money(c.monthlyGross)}、本人の厚生年金保険料 約${money(p.premiumMonthly)}/月、その他控除は総支給額の${Math.round(c.otherDeduction*100)}%という仮定。差し引き後 ${money(p.netSalaryMonthly)}/月。実際の標準報酬等級・税金・扶養判定は個人差があります。`;
+$('#fundingNote').textContent=`全ルートで同じ既存資産 ${money(c.initialInvest)} と家計からの積立 ${money(c.monthlyHouseholdInvest)}/月を使用。働くルートだけ就労${c.workYears}年の給与を得ます。「働いて両方」は手取り給与の${Math.round(c.saveRate*100)}%を追加投資。「同額投資（仮想）」は働かずに、月${money(p.premiumMonthly)}を家計など別の財布から追加調達した設定（${c.workYears}年間で${money(p.shadowOutsideFunding)}）。現実には厚生年金保険料を任意に投資へ振り替えられません。`;
+$('#rates').innerHTML=L.TYPES.map(t=>{let a=r.results[t.id];return `<article class="route"><div class="head"><strong>${t.icon} ${t.name}</strong><span class="rate num">${pct(a.solvent,a.n)}</span></div><div class="small">${c.endAge}歳まで生活費の不足なし</div>${bar(a.solvent,a.n)}<div class="small" style="margin-top:10px">65歳時資産中央値：<b>${money(a.assetsAt65)}</b><br>不足総額中央値：<b>${money(a.shortageMedian)}</b><br>下位10%の65歳資産：<b>${money(a.assetsAt65Low)}</b></div></article>`}).join('');
+$('#resultTable').innerHTML=`<table class="table"><thead><tr><th>ルート</th><th>65歳の資産中央値</th><th>${c.endAge}歳まで不足なし</th><th>不足総額中央値</th><th>初めて不足した年齢（不足発生組中央値）</th><th>65歳後の追加年金／月</th></tr></thead><tbody>${L.TYPES.map(t=>{const a=r.results[t.id],extra=(t.id==='pension'||t.id==='both')?p.monthlyExtra:0;return `<tr><td>${t.name}</td><td>${money(a.assetsAt65)}</td><td>${a.solvent}/${a.n}</td><td>${money(a.shortageMedian)}</td><td>${a.shortAgeMedian?Math.round(a.shortAgeMedian)+'歳':'不足なし'}</td><td>${money(extra)}</td></tr>`}).join('')}</tbody></table>`;
+const i=r.results.invest,pen=r.results.pension,b=r.results.both,s=r.results.shadow;
+const diff=(x,y)=>x-y;let findings=[];
+findings.push(`同じ既存資産・家計積立では、「働いて年金」の65歳時の金融資産中央値は「投資だけ」と同額です。働いて得た手取り給与を全額生活や消費に使う設定だからです。一方で、65歳以降の年金は月${money(p.monthlyExtra)}増えるため、不足なしは ${i.solvent}/${i.n} → ${pen.solvent}/${pen.n} 世界線となりました。`);
+findings.push(`「働いて両方」は手取り給与の${Math.round(c.saveRate*100)}%も積み立てるため、65歳資産の中央値が「投資だけ」より${money(diff(b.assetsAt65,i.assetsAt65))}多くなりました。ただし、これは投資術の勝利ではなく、**働いて追加の原資を稼いだ結果**も含みます。`);
+findings.push(`「同額投資（仮想）」は別の財布から就労時の年金保険料に相当する資金を出したものです。比較上、不足なしは働いて年金 ${pen.solvent}/${pen.n}、同額投資 ${s.solvent}/${s.n}。これは加入／非加入を自由に選べるという意味ではなく、運用リスクと終身収入を分けて見る感度比較です。`);
+findings.push(`ここでの「不足」は基礎年金と、対象ルートの厚生年金上乗せ＋運用資産で設定した生活費を賄えなかった年です。生活費は月${money(c.retireBudget)}、基礎年金は月${money(c.basePension)}の共通仮定。年金・運用結果は制度変更や実際の寿命を予測するものではありません。`);
+$('#whatWeLearn').innerHTML=findings.map((txt,i)=>`<div class="answer"><strong>${['年金を増やす意味','労働と投資の組み合わせ','同額投資の意味','「生活できる」の定義'][i]}</strong><p>${txt.replaceAll('**','')}</p></div>`).join('');
+$('#comparison').textContent=`300世界線での単純比較：仕事＋年金が同額投資（仮想）より「累計不足額」が少ない ${r.compare.pensionVsShadow.aBetter}、同じ ${r.compare.pensionVsShadow.tie}、多い ${r.compare.pensionVsShadow.bBetter}。勝者を先に決めず、市場前提・寿命を変えてください。`;
+if($('#sensitivity')){const rows=[];for(const mu of [.01,.05,.08])for(const endAge of [85,95,100]){const z=L.batch({...c,marketMu:mu,endAge});rows.push({mu,endAge,res:z.results})}$('#sensitivity').innerHTML=`<table class="table"><thead><tr><th>名目期待年率（モデル仮定）</th><th>到達年齢</th><th>投資だけ</th><th>働いて年金</th><th>働いて両方</th><th>同額投資（仮想）</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${Math.round(x.mu*100)}%</td><td>${x.endAge}歳</td>${L.TYPES.map(t=>`<td>${pct(x.res[t.id].solvent,x.res[t.id].n)}</td>`).join('')}</tr>`).join('')}</tbody></table>`}
+$('#runState').textContent=`計算完了 · 固定Seed ${c.seed} · ${c.worlds}世界線`;}
+$('#run').addEventListener('click',()=>{try{render()}catch(e){$('#runState').textContent='計算エラー：'+e.message;console.error(e)}});
+$all('.field input,.field select').forEach(el=>el.addEventListener('change',()=>{$('#runState').textContent='設定変更あり ·「再検証」を押すと更新します'}));render();
+})();
