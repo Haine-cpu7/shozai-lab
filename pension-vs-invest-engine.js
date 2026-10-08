@@ -5,7 +5,7 @@
 (function(root){'use strict';
 const TYPES=[
  {id:'invest',name:'投資だけ',icon:'🌱',short:'投資だけ'},
- {id:'pension',name:'働いて厚生年金',icon:'🏢',short:'働いて年金'},
+ {id:'pension',name:'働いて厚生年金だけ（投資なし）',icon:'🏢',short:'厚生年金だけ'},
  {id:'both',name:'働いて年金＋投資',icon:'🏢🌱',short:'働いて両方'},
  {id:'shadow',name:'保険料相当額を投資（仮想）',icon:'🧪',short:'同額投資（仮想）'}
 ];
@@ -31,23 +31,30 @@ let r=clamp(c.marketMu+c.marketSigma*gaussian(rand),-.80,.70);
 if(rand()<.025)r=Math.max(-.80,r-.25);
 path.push((1+r)/(1+c.inflation)-1);}
 return path}
+// Route definitions:
+// pension = pure pension income (common assumed basic pension + additional earnings-linked pension),
+//           ZERO opening portfolio, ZERO household portfolio contributions, ZERO salary investing.
+// control = same opening portfolio and household investing as invest, PLUS pension accrual;
+//           used only as a matched-input, incremental-pension experiment, NOT a public route.
 function runPath(c,type,path){const p=pensionDetails(c),endWorkAge=c.age+c.workYears;
-let assets=c.initialInvest,shortage=0,shortYears=0,firstShort=null,assetsAtRetirement=0,baseSpendYears=0;
+const purePension=type==='pension';
+const hasExtraPension=type==='pension'||type==='both'||type==='control';
+let assets=purePension?0:c.initialInvest,shortage=0,shortYears=0,firstShort=null,assetsAtRetirement=0;
 for(let age=c.age;age<c.endAge;age++){
  const market=path[age-c.age];
- if(age<c.retireAge){const work=age<endWorkAge && (type==='pension'||type==='both');
- let save=c.monthlyHouseholdInvest*12;
- if(work&&type==='both')save+=p.netSalaryMonthly*c.saveRate*12;
+ if(age<c.retireAge){
+ let save=purePension?0:c.monthlyHouseholdInvest*12;
+ if(age<endWorkAge&&type==='both')save+=p.netSalaryMonthly*c.saveRate*12;
  if(age<endWorkAge&&type==='shadow')save+=p.premiumMonthly*12;
  assets=Math.max(0,assets*(1+market)+save*(1+market/2));
  if(age===c.retireAge-1)assetsAtRetirement=assets;
  }else{
  const pensionFactor=Math.pow(1-c.pensionRealDrag,age-c.retireAge);
- const publicPension=(c.basePension*12+(type==='pension'||type==='both'?p.annualExtra:0))*pensionFactor;
+ const publicPension=(c.basePension*12+(hasExtraPension?p.annualExtra:0))*pensionFactor;
  const required=Math.max(0,c.retireBudget*12-publicPension);
  if(required>assets+1e-7){shortage+=required-assets;shortYears++;if(firstShort===null)firstShort=age;assets=0}
  else assets-=required;
- assets=Math.max(0,assets*(1+market));baseSpendYears++;
+ assets=Math.max(0,assets*(1+market));
  }
 }
 return{endAssets:assets,assetsAtRetirement,shortage,shortYears,firstShort,fullyFunded:shortYears===0}}
@@ -62,11 +69,12 @@ shortageBad:q(values.map(v=>v.shortage),.9),
 shortYearsMedian:q(values.map(v=>v.shortYears),.5),
 shortAgeMedian:q(values.filter(v=>v.firstShort!==null).map(v=>v.firstShort),.5)};
 return sum}
-function batch(settings={}){const c=normalized(settings),p=pensionDetails(c),runs=Object.fromEntries(TYPES.map(t=>[t.id,[]]));
-for(let i=0;i<c.worlds;i++){let path=worldPath(c,i);for(let t of TYPES)runs[t.id].push(runPath(c,t.id,path))}
+function batch(settings={}){const c=normalized(settings),p=pensionDetails(c),runs=Object.fromEntries([...TYPES.map(t=>t.id),'control'].map(id=>[id,[]]));
+for(let i=0;i<c.worlds;i++){const path=worldPath(c,i);for(const id in runs)runs[id].push(runPath(c,id,path))}
 const results=Object.fromEntries(TYPES.map(t=>[t.id,summarize(runs[t.id])]));
+const matched=summarize(runs.control);  // supplemental pension effect with identical invested contributions
 const cmp=(a,b)=>{let x=0,equal=0;for(let i=0;i<c.worlds;i++){const d=runs[a][i].shortage-runs[b][i].shortage;if(d<-.01)x++;else if(Math.abs(d)<.01)equal++}return{aBetter:x,tie:equal,bBetter:c.worlds-x-equal}};
-return{config:c,details:p,results,compare:{pensionVsShadow:cmp('pension','shadow'),bothVsInvest:cmp('both','invest')},runs}}
-function selfCheck(){const errors=[];let c=normalized(),p=pensionDetails(c);if(Math.abs(p.annualExtra-120000*.005481*240)>1e-5)errors.push('pension_formula');let a=batch({...DEFAULT,worlds:10});if(a.results.invest.n!==10)errors.push('world_count');if(a.results.both.solvent<a.results.pension.solvent)errors.push('paired_monotonicity_both');if(a.results.pension.assetsAt65!==a.results.invest.assetsAt65)errors.push('equal_baseline_asset_pre65');if(a.results.shadow.assetsAt65<a.results.invest.assetsAt65)errors.push('shadow_funding');let b=batch({...DEFAULT,worlds:10});if(JSON.stringify(a.results)!==JSON.stringify(b.results))errors.push('seed_determinism');return {ok:errors.length===0,errors}}
+return{config:c,details:p,results,matched,compare:{matchedPensionEffect:cmp('control','invest'),bothVsInvest:cmp('both','invest')},runs}}
+function selfCheck(){const errors=[];let c=normalized(),p=pensionDetails(c);if(Math.abs(p.annualExtra-120000*.005481*240)>1e-5)errors.push('pension_formula');let a=batch({...DEFAULT,worlds:10});if(a.results.invest.n!==10)errors.push('world_count');if(a.results.both.solvent<a.results.pension.solvent)errors.push('paired_monotonicity_both');if(a.results.pension.assetsAt65!==0)errors.push('pension_only_must_have_zero_portfolio');if(a.matched.assetsAt65!==a.results.invest.assetsAt65)errors.push('matched_invest_baseline');if(a.matched.solvent<a.results.invest.solvent)errors.push('matched_pension_monotonicity');if(a.results.shadow.assetsAt65<a.results.invest.assetsAt65)errors.push('shadow_funding');let b=batch({...DEFAULT,worlds:10});if(JSON.stringify(a.results)!==JSON.stringify(b.results))errors.push('seed_determinism');return {ok:errors.length===0,errors}}
 const api={TYPES,DEFAULT,EMPLOYEE_PENSION_RATE,BENEFIT_FACTOR,normalized,pensionDetails,worldPath,runPath,batch,selfCheck,q};root.PensionLab=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
