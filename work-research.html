@@ -27,7 +27,15 @@
 <section id="matrix" class="panel stack hidden"><div><div class="eyebrow">SUPPORT × ASSETS × STRATEGY</div><h2>共同家計と開始資産を分けて見る</h2></div><div id="matrixTable" class="tablewrap"></div><div id="matrixPlain" class="callout"></div></section>
 <section class="panel stack"><div><div class="eyebrow">WHAT THIS MEANS</div><h2>この実験の最終問い</h2></div><div class="callout"><b>「働かなければならない」のではなく、「生活に必要な資源をどこから得るか」を決めなければならないのでは？</b><div class="small" style="color:#d1d5db;margin-top:8px">給料、資産、共同家計、自家生産。入口が違えば、本人に必要な就業時間も変わります。一方で、就業しなくても家事・ケアという work は残り得ます。</div></div></section>
 <section class="panel stack"><div><div class="eyebrow">LIMITS</div><h2>まだ実装していないもの</h2></div><p class="small">社会保険、年金、実際の税制、職場の人間関係、仕事から得る意味や地位、孤独、病気、子どもの事情、離婚・死別、家計内の公平性などは未実装です。したがって、このモデルから「人は働くべき」「働かなくていい」という道徳的結論は出せません。</p></section>
-</main><footer class="site-footer">商材実験室 No.07 ガチ研究 — <a href="work.html">ゲーム</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-06</footer><script>
+
+<section class="panel stack" data-easy-explainer="v1.93">
+  <div><div class="eyebrow">EASY MODE / FOR EVERYONE</div><h2>🧒 小学生でもわかる解説</h2></div>
+  <div class="soft"><b>何をくらべてるの？</b><div class="small" style="margin-top:6px">本人が働く時間、家事・ケア、共同家計の収入、持っている資産を変えて30年を比べます。</div></div>
+  <div class="callout"><b>超かんたんに言うと：</b><div style="margin-top:8px">生活に必要なお金を手に入れる方法は「本人が長時間働く」だけではありません。家計収入や資産があれば、必要な有償労働の量は変わります。家事や自由時間も消えているわけではありません。</div></div>
+  <p class="small"><b>ここだけ注意：</b> 「働かなくていい」が正解という実験ではありません。どの資源を使って生活を支えているかを分けて見ます。</p>
+  <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
+</section>
+</main><footer class="site-footer">商材実験室 No.07 ガチ研究 — <a href="work.html">ゲーム</a> / <a href="index.html">実験一覧</a><br>最終更新: 2026-10-08</footer><script>
 (()=>{const L=window.WorkLab,$=s=>document.querySelector(s),money=n=>'¥'+Math.round(n).toLocaleString('ja-JP'),pct=n=>(n*100).toFixed(0)+'%';
 function sd(i){return((+seed.value||20261005)+Math.imul(i,104729))>>>0}function wilson(w,n){const z=1.96,p=w/n,d=1+z*z/n,c=(p+z*z/(2*n))/d,m=z*Math.sqrt((p*(1-p)+z*z/(4*n))/n)/d;return[c-m,c+m]}function stat(w,n){const c=wilson(w,n);return c[0]>.5?['support','モデル内で支持']:c[1]<.5?['reject','モデル内で支持されず']:['uncertain','モデル内で判定困難']}
 const KIND={design:'<span class="evidence-kind kind-design">設計挙動</span>',emergent:'<span class="evidence-kind kind-emergent">創発比較</span>',external:'<span class="evidence-kind kind-external">外部定義</span>'};

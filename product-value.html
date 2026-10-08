@@ -40,9 +40,17 @@
 <section id="robustResult" class="panel stack hidden"><div><div class="eyebrow">ROBUSTNESS</div><h2>10 Seedで同じ方向が残る？</h2></div><div id="robustTable"></div></section>
 
 <section class="panel stack"><div><div class="eyebrow">MODEL BOUNDARY</div><h2>この実験が言っていないこと</h2></div><p>「情報商材は中身が弱くても必ず儲かる」「周辺価値は全部まやかし」「現実の購入者はこの6タイプに分かれる」とは言えません。</p><p class="small">このモデルで見るのは、<b>売り手利益・買い手の直接金銭ROI・買い手の総合的な受取価値を別々に計算すると、同じ商品でも判定が分かれうる</b>という構造です。評判・返金・獲得コストも玩具モデルの仮定です。</p></section>
+
+<section class="panel stack" data-easy-explainer="v1.93">
+  <div><div class="eyebrow">EASY MODE / FOR EVERYONE</div><h2>🧒 小学生でもわかる解説</h2></div>
+  <div class="soft"><b>何をくらべてるの？</b><div class="small" style="margin-top:6px">商品の直接金銭価値、便利さ、宣伝、買い手のWTP・予算、売り手の利益を別々に計算します。</div></div>
+  <div class="callout"><b>超かんたんに言うと：</b><div style="margin-top:8px">お店がもうかることと、お客さんが得することは別です。中身の直接金銭価値が値段より小さくても、便利さなどで売れて黒字になることがあります。でも「売れた＝買った人も得した」とは限りません。</div></div>
+  <p class="small"><b>ここだけ注意：</b> 売り手が黒字だから良い商品、買い手の直接ROIがマイナスだから無価値、と単純には決めません。総価値と売り手利益を別に見ます。</p>
+  <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
+</section>
 </main>
 <footer class="site-footer">商材実験室 No.21 — 売れること、儲かること、買い手に価格分の価値があることを同じ意味にしない。</footer>
-<script src="product-value-engine.js?v=1.91"></script>
+<script src="product-value-engine.js?v=1.93"></script>
 <script>
 (()=>{'use strict';const L=window.ProductValueLab,$=s=>document.querySelector(s),yen=x=>'¥'+Math.round(x).toLocaleString('ja-JP'),pct=x=>(x*100).toFixed(1)+'%';
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));

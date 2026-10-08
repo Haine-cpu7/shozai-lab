@@ -22,8 +22,16 @@
 <section class="panel stack"><div><div class="eyebrow">BOT VOICE BOUNDARY</div><h2>BOTの台詞は「本音」ではない</h2></div><p class="small">台詞は、計算済みの寄与要因や購入/非購入状態を読みやすくしたものです。台詞が購入ロジックへ逆流することはありません。</p></section>
 <section class="panel stack"><div><div class="eyebrow">MODEL BOUNDARY</div><h2>この結果から言ってはいけないこと</h2></div><p>「現実の購入者はこの6タイプに分かれる」「情報商材の購入者は、情報の見極めに不慣れな人に限られる」「この売り方なら人間の購入率が○%になる」とは言えません。</p><p class="small">言えるのは、<b>無料代替がある世界でも、知識以外の価値を重く設定したBOTでは購入が起こりうる</b>という、このモデル内部の因果だけです。</p></section>
 <section class="panel stack"><div><div class="eyebrow">TAKEAWAY</div><h2>この結果からわかること</h2></div><div id="takeaway" class="callout">基準条件を実行すると表示します。</div><div><h2 style="margin-top:8px">つまりどういうことか</h2><p id="plainTake" class="muted">まだ結論は出していません。</p></div></section>
+
+<section class="panel stack" data-easy-explainer="v1.93">
+  <div><div class="eyebrow">EASY MODE / FOR EVERYONE</div><h2>🧒 小学生でもわかる解説</h2></div>
+  <div class="soft"><b>何をくらべてるの？</b><div class="small" style="margin-top:6px">同じ無料情報を全員が知っているのに、売り方だけ変えたとき誰が買うかを見ます。</div></div>
+  <div class="callout"><b>超かんたんに言うと：</b><div style="margin-top:8px">人は「知識そのもの」だけにお金を払うとは限りません。探す時間を減らす、安心したい、専門家を信じたい、みんなが買っている、変われそう、などにも価値を感じます。さらに「欲しい」「その値段まで払いたい」「今払える」は別です。</div></div>
+  <p class="small"><b>ここだけ注意：</b> 買った人を「だまされた人」と決める実験ではありません。何に価値を置いたかと、財布の条件を分けて見ます。</p>
+  <p class="small" style="opacity:.78">難しい数字や研究用語が分からなくても、まずここだけ読めば「この実験で何を見ているか」が分かるようにしています。</p>
+</section>
 </main><footer class="site-footer">商材実験室 / INFORMATION PRODUCT LAB — 世界線を増やしても、間違った前提が正しくなるわけではない。</footer>
-<script src="information-purchase-engine.js?v=1.91"></script><script>
+<script src="information-purchase-engine.js?v=1.93"></script><script>
 (()=>{'use strict';const L=window.InformationPurchaseLab,$=s=>document.querySelector(s),pct=x=>(x*100).toFixed(1)+'%';const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 profiles.innerHTML=L.profiles.map(p=>`<div class="soft"><b>${esc(p.name)}</b><div class="small">${esc(p.desc)}</div></div>`).join('');
 function setQ(id,ok,detail){const e=$(id);e.className='status '+(ok?'supported':'notsupported');e.textContent=(ok?'支持':'支持されず')+(detail?' / '+detail:'')}
