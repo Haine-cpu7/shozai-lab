@@ -910,3 +910,15 @@ No.06へ通常モデルとは別のストレステストを追加。
 - トップページ `index.html` の「ほかの制作物」に `note / 研究ノート` カードを追加。
 - URL: `https://note.com/_haine`
 - 位置づけは「商材実験室が本体 / note は研究ノート」。
+
+
+## v2.06 — No.23 AI副業って、本当に稼げる？（2026-10-09）
+
+- No.23 のゲーム `ai-side-hustle.html` と研究 `ai-side-hustle-research.html` を追加。
+- `ai-side-hustle-engine.js` : 24か月、100/300/500世界線、6BOT、固定Seed、同じ副業のAI有無比較。
+- `ai-side-hustle-ui.js` : ブラウザー内操作、研究結果、CSV保存。
+- 4ジャンル（記事・素材・開発・教材）、人力同種BOT、副業なしBOT。
+- 操作できる変数：市場競争、需要、AI制作速度、AI成約倍率、AIコスト、対人営業時間、月の作業時間、時給換算、Seed。
+- 実在の副業市場の期待値や単価の統計予測ではありません。事前仮説とモデル限界は研究ページ参照。
+- No.23とHOMEの内部リンク、sitemap.xml、JSON-LD、OGP、任意OFUSEリンクを追加。
+- 既存 No.01〜No.22 のゲーム計算を変更しない。
