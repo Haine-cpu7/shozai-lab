@@ -70,14 +70,10 @@ function draw(shouldScroll){const c=read();updateLabels(c);const pane=byId('resu
  if(document.body.dataset.mode==='research'){latest=E.audit(c);pane.innerHTML=researchData(latest)}else{latest=E.simulate(c);showGame(latest)}
  if(shouldScroll===true)byId('resultAnchor')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function csv(){const a=latest?.sim||latest;if(!a)return;const lines=['route,world,cash_yen,revenue_yen,fees_yen,ai_cost_yen,economic_profit_yen,output_units,visits,sales,hours,contact_hours,backlog_hours'];
- for(const r of E.ROUTES)for(let i=0;i<a.config.worlds;i++){const v=a.worlds[r.id][i];lines.push([r.id,i+1,v.cash.toFixed(2),v.revenue.toFixed(2),v.fees.toFixed(2),v.cost.toFixed(2),v.economic.toFixed(2),v.units,v.visits,v.sales,v.hours,v.contact.toFixed(2),v.backlog.toFixed(2)].join(','))}
- const data=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(data),el=document.createElement('a');el.href=url;el.download='no23-ai-side-hustle-worldlines.csv';el.click();setTimeout(()=>URL.revokeObjectURL(url),1200);
-}
 function defaults(){for(const [k,v] of Object.entries(E.DEFAULT)){const el=byId(k);if(el)el.value=String(v)}draw(true)}
 window.addEventListener('DOMContentLoaded',()=>{
  const btn=byId('run');if(btn)btn.addEventListener('click',()=>draw(true));
- byId('reset')?.addEventListener('click',defaults);byId('csv')?.addEventListener('click',csv);
+ byId('reset')?.addEventListener('click',defaults);
  for(const el of document.querySelectorAll('input,select'))el.addEventListener('change',()=>updateLabels(read()));
  draw(false);
 });
