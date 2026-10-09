@@ -1,4 +1,4 @@
-/* v2.06 No.23 visual UI: runs entirely locally; no backend, no analytics. */
+/* v2.08 No.23 visual UI: runs entirely locally; no backend, no analytics. */
 (function(){'use strict';
 const E=window.AISideLab,byId=id=>document.getElementById(id),money=v=>Math.round(v).toLocaleString('ja-JP')+'円',integer=v=>Math.round(v).toLocaleString('ja-JP');
 let latest=null;
@@ -59,12 +59,30 @@ function showGame(sim){
  '<p class="notice">現金利益＝売上－仮定したプラットフォーム手数料－AIツール利用料。時間価値控除後＝現金利益－実際に使った時間×設定時給。税金・設備償却・社会保険・外注費は含みません。</p>';
 }
 function pairedText(sim){const c=sim.config,d=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'cash'),vol=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'units'),social=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'contact');return '<div class="metrics3"><div class="metric"><div class="sub">AIで増えた制作数（中央値差）</div><b>'+vol.median.toFixed(0)+' '+E.BASE[c.kind].unit+'</b></div><div class="metric"><div class="sub">AIの現金利益 − 人力の現金利益</div><b class="'+(d.median>=0?'gain':'loss')+'">'+money(d.median)+'</b></div><div class="metric"><div class="sub">AIのほうが現金利益で上回った割合</div><b>'+Math.round(d.positive*100)+'%</b><div class="sub">同一Seedの'+c.worlds+'世界線</div></div></div><p class="sub">対人対応時間の中央値差：'+social.median.toFixed(1)+'時間。集客・単価・AIの品質差を固定したモデル内の比較です。</p>'}
+function humanReadableResult(a){
+ const c=a.config, rows=a.sim.summaries;
+ const ai=rows.find(x=>x.id==='ai_'+c.kind), human=rows.find(x=>x.id==='human');
+ const units=E.paired(a.sim.worlds['ai_'+c.kind],a.sim.worlds.human,'units').median;
+ const amount=v=>Math.abs(v)>=10000?'約'+(Math.abs(v)/10000).toFixed(1)+'万円':money(Math.abs(v));
+ const cashText=v=>Math.abs(v)<0.5?'ほぼ収支ゼロ':amount(v)+'の'+(v<0?'赤字':'黒字');
+ const first=units>0?'AIを使えば、同じ時間でより多くの作品を作れます。しかし、<b>たくさん作れることと、稼げることは別問題</b>でした。':
+  units<0?'今回の設定では、AIの制作量が人力を下回りました。<b>制作量と利益は別々に確認する必要があります。</b>':
+  '今回の設定では、AIと人力の制作量は同程度でした。<b>制作量と利益は別々に確認する必要があります。</b>';
+ const cost=c.aiCost>0?'AIツール代を回収するには、制作量だけでなく、実際に作品が見られ、売れることが重要です。':
+  '利益を出すには、制作量だけでなく、実際に作品が見られ、売れることが重要です。';
+ const conclusion=c.aiSpeed>1?'AIは作業を速くする道具であって、利益を保証する道具ではありません。':
+  'AIを導入するだけで、利益が保証されるわけではありません。';
+ return '<section class="finding" style="margin-top:18px" aria-labelledby="no23-readable-result"><div class="eyebrow">RESULTS / わかりやすいまとめ</div><h3 id="no23-readable-result">🔬 今回の実験からわかったこと</h3>'+ 
+  '<p>'+first+'</p><p>今回の条件では、<b>'+ai.label+'は'+c.months+'か月で'+cashText(ai.cash)+'</b>、<b>'+human.label+'は'+cashText(human.cash)+'</b>でした。</p>'+ 
+  '<p>'+cost+'</p><p><b>結論：'+conclusion+'</b></p>'+ 
+  '<p class="sub">※架空の条件によるシミュレーション結果です。設定を変更して再実行すると、このまとめも更新されます。金額は'+c.worlds+'世界線の中央値です。</p></section>';
+}
 function researchData(a){const c=a.config;
  let h=metrics(c);h+='<div class="section-head"><div><div class="eyebrow">PRE-REGISTERED / 仮説</div><h2>H1〜H6 の検証</h2></div></div>';
  for(const f of a.findings){const s=statusFromMetric(f,c);let detail='';if(['H1','H2','H3','H4'].includes(f.key))detail='中央値差：<strong>'+ (f.key==='H1'?f.metric.median.toFixed(0)+' '+E.BASE[c.kind].unit:money(f.metric.median))+'</strong>／正方向の世界線 <strong>'+Math.round(f.metric.positive*100)+'%</strong>';
  else detail='中央値：<strong>'+money(f.metric.median)+'</strong>／該当する世界線 <strong>'+Math.round(f.metric.positive*100)+'%</strong>';
  h+='<article class="finding"><div class="finding-top"><span class="key">'+f.key+'</span><b>'+f.title+'</b>'+pill(s[0],s[1])+'</div><p>'+f.statement+'</p><div class="sub">'+f.type+'｜'+detail+'</div></article>'}
- return h+'<p class="notice"><b>研究上の注記：</b> H1/H3/H4には比較方向を直接組み込んだ<strong>設計挙動</strong>が含まれます。「設計どおり」は新しい科学的発見ではありません。H2/H5は複数の仮定と乱数を組み合わせたモデル内の比較です。100世界線は実在の100人ではありません。</p>';
+ return h+humanReadableResult(a)+'<p class="notice"><b>研究上の注記：</b> H1/H3/H4には比較方向を直接組み込んだ<strong>設計挙動</strong>が含まれます。「設計どおり」は新しい科学的発見ではありません。H2/H5は複数の仮定と乱数を組み合わせたモデル内の比較です。100世界線は実在の100人ではありません。</p>';
 }
 function draw(shouldScroll){const c=read();updateLabels(c);const pane=byId('results');if(pane)pane.innerHTML='<p>計算しています…</p>';
  if(document.body.dataset.mode==='research'){latest=E.audit(c);pane.innerHTML=researchData(latest)}else{latest=E.simulate(c);showGame(latest)}
