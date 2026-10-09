@@ -1,4 +1,4 @@
-/* v2.08 No.23 visual UI: runs entirely locally; no backend, no analytics. */
+/* v2.09 No.23 visual UI: runs entirely locally; no backend, no analytics. */
 (function(){'use strict';
 const E=window.AISideLab,byId=id=>document.getElementById(id),money=v=>Math.round(v).toLocaleString('ja-JP')+'円',integer=v=>Math.round(v).toLocaleString('ja-JP');
 let latest=null;
@@ -58,7 +58,7 @@ function showGame(sim){
  '<div class="section-head"><div><div class="eyebrow">PAIRED COMPARISON</div><h2>同じ副業・同じ作業時間でAIだけ変える</h2></div></div>'+pairedText(sim)+
  '<p class="notice">現金利益＝売上－仮定したプラットフォーム手数料－AIツール利用料。時間価値控除後＝現金利益－実際に使った時間×設定時給。税金・設備償却・社会保険・外注費は含みません。</p>';
 }
-function pairedText(sim){const c=sim.config,d=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'cash'),vol=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'units'),social=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'contact');return '<div class="metrics3"><div class="metric"><div class="sub">AIで増えた制作数（中央値差）</div><b>'+vol.median.toFixed(0)+' '+E.BASE[c.kind].unit+'</b></div><div class="metric"><div class="sub">AIの現金利益 − 人力の現金利益</div><b class="'+(d.median>=0?'gain':'loss')+'">'+money(d.median)+'</b></div><div class="metric"><div class="sub">AIのほうが現金利益で上回った割合</div><b>'+Math.round(d.positive*100)+'%</b><div class="sub">同一Seedの'+c.worlds+'世界線</div></div></div><p class="sub">対人対応時間の中央値差：'+social.median.toFixed(1)+'時間。集客・単価・AIの品質差を固定したモデル内の比較です。</p>'}
+function pairedText(sim){const c=sim.config,d=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'cash'),vol=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'units'),social=E.paired(sim.worlds['ai_'+c.kind],sim.worlds.human,'contact');return '<div class="metrics3"><div class="metric"><div class="sub">AIで増えた制作数（中央値差）</div><b>'+vol.median.toFixed(0)+' '+E.BASE[c.kind].unit+'</b></div><div class="metric"><div class="sub">AIの現金利益 − 人力の現金利益</div><b class="'+(d.median>=0?'gain':'loss')+'">'+money(d.median)+'</b></div><div class="metric"><div class="sub">AIのほうが現金利益で上回った割合</div><b>'+Math.round(d.positive*100)+'%</b><div class="sub">同じ条件で試した'+c.worlds+'通りの架空の市場</div></div></div><p class="sub">対人対応時間の中央値差：'+social.median.toFixed(1)+'時間。集客・単価・AIの品質差を固定したモデル内の比較です。</p>'}
 function humanReadableResult(a){
  const c=a.config, rows=a.sim.summaries;
  const ai=rows.find(x=>x.id==='ai_'+c.kind), human=rows.find(x=>x.id==='human');
