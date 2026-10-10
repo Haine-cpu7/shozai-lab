@@ -59,6 +59,16 @@ html{scroll-behavior:smooth}body.v06{background:#edf4e6;color:#233c2e;line-heigh
 .lab-home-link:hover{color:#144d31;border-color:currentColor}
 .lab-about{max-width:1100px;margin:20px auto 38px;border:1px solid #cfdfcf;background:#fffefb;border-radius:16px;padding:17px 20px;font-size:.85rem;color:#506353}
 .lab-about h2{font-size:1.1rem;margin:0 0 6px;color:#29533a}.lab-about p{margin:7px 0}.lab-about a{color:#225b44}
+
+/* v2.12: the optional-support card is in normal document flow below the game. */
+.lab-ofuse{max-width:1100px;margin:0 auto 46px;padding:21px 22px;border:1px solid #e4dbc5;border-radius:16px;background:#fffdf7;box-shadow:0 6px 23px rgba(37,72,51,.06);color:#435746}
+.lab-ofuse-kicker{font-size:.68rem;letter-spacing:.11em;font-weight:900;color:#758b6e}
+.lab-ofuse h2{font-size:1.17rem;line-height:1.45;margin:5px 0 10px;color:#28523a}
+.lab-ofuse p{font-size:.87rem;line-height:1.8;margin:0 0 13px}
+.lab-ofuse-link{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:10px 18px;background:#263f32;color:#fff!important;text-decoration:none;font-size:.87rem;font-weight:850;border-radius:10px;transition:background .15s ease}
+.lab-ofuse-link:hover,.lab-ofuse-link:focus-visible{background:#38664c}
+.lab-ofuse-note{font-size:.75rem;margin-top:10px;color:#768678}
+@media(max-width:680px){.lab-ofuse{margin:0 10px 32px;padding:18px 17px}.lab-ofuse-link{width:100%}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"BOTのまち。","inLanguage":"ja-JP","isAccessibleForFree":true,"genre":["社会シミュレーション","箱庭ゲーム","思考実験"],"description":"無料の2D箱庭ゲーム「BOTのまち。」。競争・社会保障・教育・富の集中・資源不足を変え、BOTたちの500年間を観察。格差、企業倒産、家系の歴史、町の衰退と再生を楽しむ社会シミュレーションゲームです。 結果は架空のモデルに基づき、現実の政策効果や将来を予測するものではありません。","url":"https://haine-cpu7.github.io/shozai-lab/bot-machi.html","image":"https://haine-cpu7.github.io/shozai-lab/bot-machi-preview.png","isPartOf":{"@type":"WebSite","@id":"https://haine-cpu7.github.io/shozai-lab/#website","name":"商材実験室","url":"https://haine-cpu7.github.io/shozai-lab/"},"@id":"https://haine-cpu7.github.io/shozai-lab/bot-machi.html#game","gamePlatform":"Web browser","mainEntityOfPage":{"@type":"WebPage","@id":"https://haine-cpu7.github.io/shozai-lab/bot-machi.html#webpage","url":"https://haine-cpu7.github.io/shozai-lab/bot-machi.html"}}</script>
 </head>
@@ -120,6 +130,14 @@ html{scroll-behavior:smooth}body.v06{background:#edf4e6;color:#233c2e;line-heigh
   <p>商材実験室の23の研究で生まれた問いから作った<strong>架空の500年観察ゲーム</strong>です。各研究の計算エンジンをそのまま足し合わせたものではなく、独立した簡易モデルです。結果は社会制度の優劣、現実の将来、政策の効果を証明しません。</p>
   <p>町のルールや事件を変えて、繁栄・困窮・人口・企業・家系がどのように変わるかを眺めてください。数字の結果はモデルの前提や乱数に依存します。</p>
   <p><a href="index.html#themes">23の実験一覧へ戻る →</a>　／　<a href="society.html">No.03 社会制度の実験 →</a></p>
+</section>
+
+<section class="lab-ofuse" id="support-ofuse" aria-labelledby="support-ofuse-title">
+  <div class="lab-ofuse-kicker">SUPPORT / 任意の研究費</div>
+  <h2 id="support-ofuse-title">☕ BOTのまちに研究費を投げる</h2>
+  <p>「BOTのまち。」は無料で遊べます。もし面白かったら、OFUSEから任意で研究・開発費を送れます。</p>
+  <a class="lab-ofuse-link" href="https://ofuse.me/10da80e3" target="_blank" rel="noopener noreferrer">OFUSEで研究費を投げる ↗</a>
+  <div class="lab-ofuse-note">支援しなくても、遊べる内容やシミュレーション結果は変わりません。</div>
 </section>
 
 <script>
