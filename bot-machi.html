@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#edf4e6">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/bot-machi.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="商材実験室">
+<meta property="og:title" content="BOTのまち。｜500年を眺める社会実験ゲーム">
+<meta property="og:description" content="競争・保障・教育・富の集中・資源不足。条件を変えてBOTたちの500年を観察する無料2D箱庭ゲーム。">
+<meta property="og:url" content="https://haine-cpu7.github.io/shozai-lab/bot-machi.html">
+<meta property="og:image" content="https://haine-cpu7.github.io/shozai-lab/bot-machi-preview.png">
+<meta property="og:image:alt" content="BOTのまち：500年を観察する2D箱庭ゲーム">
+<meta name="twitter:card" content="summary_large_image">
+<title>BOTのまち。｜500年を眺める社会実験ゲーム｜商材実験室</title>
+<meta name="description" content="500年のBOT社会で会計接続した企業倒産・富の集中・資源不足・家系断絶を観測する2D箱庭ゲーム。仕事、教育、格差、投資、安心、自由のつながりを観測しよう。">
+<style>
+:root{--ink:#27332c;--muted:#657269;--line:#d7e3d4;--cream:#f8fbf5;--paper:#fffefb;--mint:#e8f4e5;--green:#39734f;--dark:#254833;--orange:#c87537;--danger:#ae6554;--shadow:0 8px 28px rgba(37,72,51,.07)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Hiragino Sans','Meiryo',sans-serif;background:linear-gradient(140deg,#e7f2dc 0,#f4f8ed 26%,#f9f9f3 100%);color:var(--ink);line-height:1.62}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #8dcbb2;outline-offset:2px}button:disabled{cursor:not-allowed;opacity:.48}.page{max-width:1480px;margin:auto;padding:0 26px}.masthead{padding:28px 8px 21px}.brandline{font-weight:850;letter-spacing:.15em;font-size:.67rem;display:flex;align-items:center;gap:12px;color:#4d7862}.logo{display:inline-grid;place-items:center;font-size:22px;width:36px;height:36px;border-radius:12px;background:#2d684c;color:white;letter-spacing:normal}.badge{letter-spacing:normal;background:#fef0cf;border:1px solid #e9d8a9;padding:1px 9px;border-radius:18px;color:#86642a}.heading{display:flex;align-items:end;justify-content:space-between;gap:20px}.heading h1{font-size:clamp(2.6rem,4.4vw,4.2rem);line-height:1.2;letter-spacing:-.055em;margin:7px 0 1px}.dot{color:#e09d52}.subtitle{margin:4px 0;color:#617367;font-size:1rem}.header-orn{display:flex;gap:5px;align-items:flex-end;font-size:2.8rem;transform:rotate(-3deg);opacity:.75}.header-orn span{font-size:1.7rem}.intro{display:flex;gap:14px;border:1px solid #bad8ba;background:#f3faf0;border-radius:18px;padding:16px 19px;margin-bottom:20px;box-shadow:var(--shadow);font-size:.91rem}.intro-emoji{font-size:1.65rem;flex-shrink:0}.dim{font-size:.82rem;color:#738176}.game-grid{display:grid;grid-template-columns:minmax(0,1.87fr) minmax(308px,1fr);gap:18px;align-items:start}.main-column,.sidebar{min-width:0;display:grid;gap:18px}section.world-card,section.metrics,section.people-card,section.history-card,section.lab-panel,section.compare-panel,section.research-panel{border:1px solid var(--line);border-radius:20px;background:var(--paper);box-shadow:var(--shadow);overflow:hidden}.world-head{padding:16px 19px 13px;background:#fcfff8}.section-kicker{font-size:.67rem;letter-spacing:.12em;color:#73947b;font-weight:850}.world-info{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:2px}.world-name{font-size:1.13rem;font-weight:900}.world-year{color:#657568;font-size:.86rem}.world-year strong{font-size:1.5rem;color:var(--green);font-variant-numeric:tabular-nums}.canvas-wrap{position:relative;overflow:hidden;background:#b4d89b}#world{display:block;width:100%;height:auto;aspect-ratio:960 / 570;image-rendering:pixelated;cursor:crosshair;touch-action:manipulation}.world-notice{position:absolute;top:10px;right:10px;max-width:46%;border-radius:14px;background:#fffefaee;padding:7px 12px;color:#54674d;font-size:.71rem;pointer-events:none;box-shadow:0 2px 7px #305b3021}.map-legend{position:absolute;left:9px;bottom:9px;display:flex;gap:8px;flex-wrap:wrap;background:#f7fff4db;backdrop-filter:blur(4px);border-radius:10px;padding:6px 10px;font-size:.69rem;font-weight:600;pointer-events:none}.control-bar{display:flex;gap:8px;flex-wrap:wrap;padding:14px 16px}.control-bar button,.event-buttons button,.presets button,.seed-row button,.wide{border:1px solid #cddbc9;border-radius:11px;background:#f8fbf6;color:var(--ink);padding:9px 11px;font-size:.79rem;font-weight:800;transition:transform .1s,background .15s,border-color .15s}.control-bar button:hover,.event-buttons button:hover,.presets button:hover,.seed-row button:hover,.wide:hover{background:#eaf4e9;transform:translateY(-1px)}.control-bar button.primary{border-color:#326746;background:#356f4b;color:white}.control-bar button.primary:hover{background:#215638}.control-bar button.primary span{margin-left:5px}.control-bar button.ghost{border-style:dashed;color:#55655c}.control-bar button.running{background:#ffe5bf;border-color:#d5ad6c}.event-bar{border-top:1px solid #e5ebe0;padding:13px 17px 14px;display:grid;gap:9px;color:#56675a;font-size:.8rem;font-weight:750}.event-buttons{display:flex;gap:6px;flex-wrap:wrap}.event-buttons button{font-size:.75rem;padding:7px 9px;border-color:#eadcc6;background:#fffaf1}.event-active{font-size:.72rem;color:#9b714e;font-weight:650;min-height:18px}.metrics,.people-card,.history-card,.lab-panel,.compare-panel,.research-panel{padding:20px}.metrics-head,.section-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.metrics h2,.people-card h2,.history-card h2,.sidebar h2{font-size:1.2rem;margin:2px 0 0;letter-spacing:-.03em}.metric-count{white-space:nowrap;background:#ebf3e7;color:#47704f;padding:5px 10px;font-size:.76rem;border-radius:12px;font-weight:800}.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.metric{background:#f4f8f1;border:1px solid #e6ede1;border-radius:13px;padding:12px 10px;display:grid;gap:2px}.metric span{font-size:.72rem;color:#567060;font-weight:750}.metric strong{font-size:1.54rem;line-height:1.35;color:#305e47;font-variant-numeric:tabular-nums}.metric small{font-size:.63rem;color:#88938a}.chart-wrap{margin-top:18px;border:1px solid #e9ede6;padding:12px;border-radius:14px}.chart-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:.82rem}.mini-legend{display:flex;gap:10px;color:#87958a;font-size:.66rem}.mini-legend span::before{content:'';display:inline-block;width:12px;height:3px;margin:0 4px 3px 0;background:#438b6c}.mini-legend .line-b::before{background:#d49a62}.mini-legend .line-c::before{background:#c66e77}#chart{display:block;width:100%;height:auto;aspect-ratio:920 / 205}.insight{padding:15px;margin-top:14px;background:#f1f8ee;border-left:4px solid #5c9875;border-radius:9px;color:#45604b;font-size:.84rem}.tiny{font-size:.69rem;color:#95a095}.people-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}.person-detail{border-radius:14px;background:#eff6eb;border:1px solid #deead9;padding:15px;min-height:186px;font-size:.83rem}.person-name{font-weight:900;font-size:1.1rem;display:flex;align-items:center;gap:7px}.person-name .mini-avatar{display:grid;place-items:center;border-radius:12px;font-size:1.45rem;width:40px;height:40px;background:#d2e8c4}.person-meta{font-size:.69rem;color:#72917b}.person-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:11px}.person-stats>div{display:flex;justify-content:space-between;border-bottom:1px solid #d5e5d0;padding-bottom:4px}.person-stats span{color:#758476}.person-stats b{font-variant-numeric:tabular-nums}.person-quote{font-weight:750;margin:11px 0 0;font-size:.77rem;color:#596b55}.voices{display:grid;gap:8px;align-content:start}.voice{border:1px solid #e6e7da;border-radius:11px;background:#fdfbf6;padding:10px 12px;font-size:.75rem}.voice strong{color:#5b7565;display:block;font-size:.7rem}.voice p{margin:3px 0 0;color:#455047}.diary{display:grid;gap:9px;max-height:242px;overflow:auto}.diary-entry{display:grid;grid-template-columns:52px 1fr;gap:13px;font-size:.79rem;padding:8px 4px;border-bottom:1px dashed #e3e9de}.diary-year{font-size:.73rem;color:#9b9b7c;font-weight:800}.diary-entry p{margin:0}.lab-panel,.compare-panel,.research-panel{padding:21px}.side-note{font-size:.8rem;color:#738075;margin:8px 0 17px}.presets{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:19px}.presets button{padding:11px 5px;font-size:.72rem}.presets button.selected{background:#dcefe0;border-color:#62a481;color:#2f6d49;box-shadow:inset 0 0 0 1px #77ac82}.rules{display:grid;gap:17px}.rule{display:block}.rule>span{display:flex;justify-content:space-between;align-items:center;font-size:.83rem}.rule output{padding:2px 8px;border-radius:8px;background:#ebf1e8;color:#3b7b54;font-variant-numeric:tabular-nums;font-size:.81rem;font-weight:850}.rule input{display:block;width:100%;accent-color:#468966;margin:11px 0 3px;cursor:pointer}.rule small{color:#87958a;font-size:.69rem}.tip{background:#fff9e9;border:1px solid #f3e8cd;border-radius:12px;padding:10px 12px;margin-top:20px;font-size:.73rem;color:#887858}.field-label{display:block;font-size:.7rem;font-weight:850;margin:13px 0 7px;color:#69796d}.seed-row{display:flex;gap:7px;margin-bottom:10px}.seed-row input{width:100%;min-width:0;border:1px solid #d7e1d3;border-radius:10px;padding:9px 10px;background:#fff;font-size:.84rem;color:#345b40}.seed-row button{flex-shrink:0}.wide{width:100%}.secondary{background:#356b4d;color:white;border-color:#356b4d}.secondary:hover{background:#245b3d!important}.comparisons{margin-top:15px;display:grid;gap:8px}.compare-empty{color:#89988c;font-size:.77rem;padding:12px 4px}.comparison{border:1px solid #dfe8dc;background:#f8faf5;border-radius:11px;padding:11px;font-size:.73rem}.comparison .cmp-top{display:flex;justify-content:space-between;gap:8px}.comparison .cmp-top b{color:#3f6850}.comparison .cmp-top span{color:#97a599}.comparison .cmp-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:6px;color:#63756a}.text-button{background:none;border:none;color:#89968e;font-size:.7rem;text-decoration:underline;margin-top:10px;padding:3px}.research-links{display:grid;gap:7px}.research-links>div{display:grid;gap:3px;padding:10px 11px;background:#f5f8f2;border:1px solid #e7eee4;border-radius:10px}.research-links b{font-size:.76rem;color:#50745d}.research-links span{font-size:.7rem;color:#7b877b}.research-link{display:block;text-decoration:none;background:#e8f3e8;border-radius:11px;padding:11px;text-align:center;margin-top:14px;color:#36644c;font-weight:850;font-size:.77rem}.research-link:hover{background:#dbeede}footer{padding:35px 8px 46px;max-width:980px;color:#738173;font-size:.72rem}footer strong{color:#517361}footer p{margin:6px 0}.mobile-only{display:none}@media(max-width:1020px){.game-grid{grid-template-columns:1fr}.sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.research-panel{grid-column:1/-1}.research-links{grid-template-columns:repeat(2,1fr)}}@media(max-width:670px){.page{padding:0 11px}.masthead{padding:20px 5px 13px}.brandline{letter-spacing:.08em;font-size:.59rem;gap:8px}.logo{width:31px;height:31px}.heading h1{font-size:2.65rem}.subtitle{font-size:.8rem}.mobile-only{display:block}.header-orn{font-size:1.6rem}.header-orn span{font-size:1.25rem}.intro{font-size:.8rem;padding:12px;gap:9px}.intro-emoji{font-size:1.25rem}.dim{font-size:.72rem}.game-grid,.main-column,.sidebar{gap:12px}.sidebar{grid-template-columns:1fr}.research-panel{grid-column:auto}.research-links{grid-template-columns:1fr}.world-head{padding:11px 12px}.world-name{font-size:.93rem}.world-year{font-size:.7rem}.world-year strong{font-size:1.3rem}.world-notice{font-size:.53rem;padding:5px 7px;max-width:56%}.map-legend{left:5px;bottom:5px;gap:5px;padding:4px 6px;font-size:.55rem}.control-bar{padding:11px;gap:6px}.control-bar button{font-size:.71rem;padding:8px 9px;flex-grow:1}.event-bar{padding:10px}.event-buttons button{font-size:.68rem}.metrics,.people-card,.history-card,.lab-panel,.compare-panel,.research-panel{padding:14px}.metrics h2,.people-card h2,.history-card h2,.sidebar h2{font-size:1.08rem}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.metric strong{font-size:1.4rem}.people-layout{grid-template-columns:1fr}.people-layout .voices{grid-template-columns:1fr 1fr}.voice{font-size:.7rem}.mini-legend{gap:5px;font-size:.58rem}.metric-count{font-size:.66rem}.chart-wrap{padding:8px}.diary{max-height:210px}}
+
+/* v0.2 — long-run observation */
+.severity-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 4px}.severity-grid span{font-size:.78rem;color:#5a685d;background:#eef3eb;border:1px solid #d8e6d3;padding:9px 11px;border-radius:11px;display:flex;justify-content:space-between;gap:5px}.severity-grid b{color:#bd5450;font-size:1rem}.fast-button{background:#e8e2c9!important;color:#59492b!important;border-color:#ddc894!important}.person-alert{font-size:.78rem;color:#a93636;background:#fff0ed;border:1px solid #f2ceca;border-radius:9px;padding:6px 10px;margin:8px 0}.control-bar{flex-wrap:wrap}.control-bar button{white-space:nowrap}
+@media(max-width:740px){.severity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.control-bar button{flex:1 0 auto}}
+
+/* v0.3: population and infrastructure */
+#populationChart{width:100%;height:auto;display:block;aspect-ratio:920 / 145}.severity-grid span:nth-last-child(-n+5){background:#f2f5ee}.severity-grid span:nth-last-child(-n+5) b{color:#58705e}.severity-grid span:last-child b{color:#a45b49}
+
+.lineage-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px}.lineage-entry{display:grid;padding:9px;border:1px solid #e1eadc;border-radius:10px;background:#f3f9ef;gap:2px;font-size:.7rem}.lineage-entry b{color:#416e52}.lineage-entry span{color:#497b5a;font-weight:800}.lineage-entry small{color:#879489}.lineage-entry.gone{background:#f7f3f1;border-color:#eeded9}.lineage-entry.gone span{color:#ad6d5f}@media(max-width:600px){.lineage-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.firm-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:12px}.firm-entry{border:1px solid #e4e9e0;background:#f8faf4;padding:10px;border-radius:11px;font-size:.7rem;display:grid;gap:3px}.firm-entry b{color:#44654c}.firm-entry span{color:#79877c}.soft-divider{height:1px;border:0;background:#e4eade;margin:18px 0}@media(max-width:680px){.firm-list{grid-template-columns:1fr}}
+.ledger-box{margin-top:18px;border:1px solid #cdddcf;background:#f5faf2;padding:14px;border-radius:14px}.ledger-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.ledger-cell{background:white;border:1px solid #e5ece2;border-radius:9px;padding:8px;font-size:.73rem}.ledger-cell span{display:block;color:#748477;font-size:.67rem}.ledger-cell strong{font-variant-numeric:tabular-nums;font-size:.9rem;color:#38694c}@media(max-width:720px){.ledger-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* v0.6.1: the economic model stays intact. These are presentation-only layers. */
+:root{--ink:#24372e;--deep:#173c2e;--green:#29704c;--leaf:#4d9c68;--paper:#fffdf7;--line:#dce7d6;--shadow:0 14px 36px rgba(25,58,34,.08)}
+html{scroll-behavior:smooth}body.v06{background:#edf4e6;color:#233c2e;line-height:1.55}body.v06:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 12% 8%,#d0ebc6 0,transparent 32%),radial-gradient(circle at 86% 70%,#dfe6c8 0,transparent 35%)}
+.app-shell{max-width:1540px;margin:auto;padding:0 24px}.app-header{display:flex;align-items:center;justify-content:space-between;padding:17px 6px 12px;gap:18px}.brand-lockup{display:flex;align-items:center;gap:14px}.brand-icon{width:52px;height:52px;border:3px solid #fbfff1;background:#2d684c;color:#fff;box-shadow:0 4px 0 #184d38;border-radius:17px;display:grid;place-items:center;font-weight:900;font-size:32px}.brand-eyebrow{display:block;font-weight:900;letter-spacing:.18em;color:#547969;font-size:10px;margin-bottom:2px}.app-header h1{font-size:2rem;font-weight:950;letter-spacing:-.055em;line-height:1.15;margin:0}.app-header h1>span{color:#d49a49}.app-header h1 small{font-size:.7rem;color:#678f75;vertical-align:middle;letter-spacing:0;background:#e5f0dc;border-radius:7px;padding:4px 7px;margin-left:6px}.header-caption{color:#6e8174;font-size:.81rem;text-align:right;font-weight:700}
+.nav-wrap{position:static;background:#f6faf2;border:1px solid #d2e3ce;border-bottom:2px solid #c8dec2;border-radius:16px;padding:7px 10px;box-shadow:0 2px 7px #2456370a;margin-bottom:12px}.game-nav{display:flex;gap:8px;padding:1px 2px 7px;border-bottom:1px solid #d7e6d3}.tab-button{flex:1;border:1px solid transparent;background:none;padding:11px 7px;color:#6a826e;border-radius:12px;font-size:.88rem;font-weight:950;transition:.15s}.tab-button.active{color:#fff;background:#266b4b;box-shadow:0 3px 0 #194f36}.tab-button:not(.active):hover{background:#e3efdd;color:#315f45}.world-hud{display:grid;grid-template-columns:1.12fr repeat(4,.8fr) 1.2fr;gap:8px;align-items:center;padding:7px 2px 1px}.hud-year{padding:0 9px}.mini-label{font-size:.56rem;color:#7b9b81;font-weight:900;letter-spacing:.16em}.hud-year strong{display:block;color:#2a7150;font-size:1.21rem;line-height:1.18;font-variant-numeric:tabular-nums}.hud-year strong small{font-size:.62rem;color:#81958a}.progress-track{height:4px;overflow:hidden;border-radius:6px;background:#d5e6cf;margin-top:5px}.progress-fill{height:100%;background:#d4a051;border-radius:8px;transition:width .15s}.hud-stat{display:grid;gap:1px;text-align:center;border-left:1px solid #d9e8d5}.hud-stat span{font-size:.68rem;color:#79917e;font-weight:850}.hud-stat b{color:#265c43;font-size:1rem;font-variant-numeric:tabular-nums}.hud-state{color:#396e52;background:#e0eddb;border:1px solid #d3e1cd;border-radius:10px;padding:7px 8px;text-align:center;font-size:.72rem;font-weight:850}
+.tab-panel[hidden]{display:none!important}.game-main{min-height:70vh;padding-bottom:10px}.play-tip{background:#fff9e9;border:1px solid #efe6ca;border-radius:13px;padding:8px 13px;display:flex;align-items:center;gap:10px;margin-bottom:11px;box-shadow:0 3px 0 #e5dbc6;font-size:.76rem;color:#796f52}.play-tip strong{display:block;color:#6b5f3f;font-size:.82rem}.tip-sparkle{color:#c18b47;font-size:25px}.play-tip div{flex:1}.play-tip button{background:#ffedd1;border:1px solid #e8d2aa;border-radius:10px;font-weight:900;color:#776142;padding:9px 12px;white-space:nowrap}
+.town-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(318px,.84fr);gap:15px;align-items:start}.town-main,.town-sidebar{display:grid;gap:14px;min-width:0}.town-sidebar{align-content:start}.world-card{border:1px solid #bed3b6!important;border-radius:18px!important;box-shadow:0 7px 0 #bdd6b4,0 18px 30px #305a2920!important;background:#fffef9!important}.world-head{padding:12px 18px!important;background:#f9fdf4!important}.world-info{margin-top:0!important}.world-name{font-weight:950!important;color:#2a5d46}.world-year strong{font-size:1.4rem!important}.world-card .canvas-wrap{border-top:2px solid #d2e4c7;border-bottom:2px solid #ccdcbc;background:#afda99}.canvas-wrap #world{image-rendering:pixelated}.map-legend{bottom:10px!important;left:12px!important;box-shadow:0 2px 6px #355c2538;font-size:.66rem!important;background:#fffef1e8!important}.world-notice{max-width:48%!important;font-size:.68rem!important;top:12px!important;right:12px!important;background:#fffdf0ef!important}.scene-tag{position:absolute;top:12px;left:12px;border-radius:9px;background:#265e47d8;border:1px solid #f6f8e9a8;padding:5px 10px;color:#fffbea;font-size:.68rem;font-weight:900;pointer-events:none;box-shadow:0 2px 9px #24443335}.control-bar{gap:8px!important;padding:13px!important;background:#fcfdf8}.control-bar button{font-size:.78rem!important;padding:9px 10px!important;min-height:40px}.control-bar button.primary{background:#266b4b;border-color:#266b4b}.control-bar button#endBtn{background:#f5e5bb!important;border-color:#dfc888!important}.event-drawer{border-top:1px dashed #d8e5d3}.event-drawer>summary{list-style:none;padding:14px 17px;cursor:pointer;color:#597359;font-size:.8rem;font-weight:900;display:flex;align-items:center;gap:12px}.event-drawer>summary::-webkit-details-marker{display:none}.event-drawer>summary:before{content:'＋';color:#397652;background:#ecf5e5;display:grid;place-items:center;font-size:1.2rem;width:23px;height:23px;border:1px solid #cbddc6;border-radius:6px}.event-drawer[open]>summary:before{content:'−'}.event-drawer>summary span{font-size:.7rem;color:#95a48f;font-weight:650;margin-left:auto}.event-bar{border-top:1px solid #ecf0e7;padding:12px 16px 15px!important;background:#fffefa}.event-buttons button{min-height:37px;font-size:.72rem!important}
+.town-info-card,.resident-card,.chronicle-card,.business-card,.instruction-card,.explain-card{border:1px solid #d8e5d1;border-radius:18px;background:#fffefa;box-shadow:0 7px 20px #3d63310e;padding:18px}.town-info-card h2,.resident-card h2{font-size:1.06rem;margin:2px 0 12px;letter-spacing:-.03em}.panel-kicker{font-size:.63rem;letter-spacing:.16em;font-weight:950;color:#639679}.town-mood{padding:11px 12px;border:1px solid #e2e8d5;border-radius:12px;background:#eff6e8;font-size:.83rem;font-weight:760;color:#47664d}.condition-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.condition-list div{background:#f5f8ef;border:1px solid #e8ecdf;border-radius:10px;padding:10px;display:grid;gap:4px}.condition-list span{font-size:.69rem;color:#69816f}.condition-list b{font-size:1.13rem;color:#2b634b;font-variant-numeric:tabular-nums}.town-info-card small{font-size:.67rem;color:#879587}
+.resident-title{margin:0 0 10px}.resident-title h2{margin-bottom:2px}.finger{font-size:.64rem;color:#8d9a83}.resident-card .person-detail{background:#f3f7e9!important;min-height:0;padding:13px;font-size:.77rem}.resident-card .person-stats{grid-template-columns:1fr 1fr;gap:4px 7px}.resident-card .person-stats>div{font-size:.66rem}.resident-card .person-stats b{font-size:.68rem;text-align:right}.resident-card .person-name{font-size:.92rem}.resident-card .person-meta{font-size:.6rem}.resident-card .mini-avatar{width:33px;height:33px;font-size:1.1rem}.small-head{font-size:.69rem;font-weight:900;margin:12px 0 7px;color:#617e68}.resident-card .voices{gap:6px}.resident-card .voice{padding:8px;font-size:.68rem;background:#fffbf0}.resident-card .voice p{font-size:.68rem}.focus-ping{animation:focusV06 .5s ease-out}@keyframes focusV06{0%{box-shadow:0 0 0 4px #e7b45c}100%{box-shadow:0 7px 20px #3d63310e}}
+.business-card{padding:0;overflow:hidden}.business-card>summary{cursor:pointer;list-style:none;font-weight:900;padding:16px;color:#34634a;font-size:.82rem}.business-card>summary span{float:right;font-size:.7rem;color:#88a18b}.business-card>summary::-webkit-details-marker{display:none}.business-inner{padding:0 15px 15px}.business-inner .firm-list{grid-template-columns:1fr}.business-inner p{font-size:.7rem;color:#768472}
+.chronicle-card{padding:13px 16px}.card-topline{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.84rem;font-weight:950;color:#476b50}.card-topline button{border:0;background:none;color:#558d65;text-decoration:underline;font-size:.68rem;font-weight:800}.chronicle-list{margin-top:10px;display:grid;gap:6px}.chronicle-item{display:flex;align-items:start;gap:12px;border-top:1px dashed #e3ebdf;padding-top:7px}.chronicle-item span{font-size:.66rem;font-weight:900;min-width:42px;color:#7a997c}.chronicle-item p{margin:0;font-size:.74rem;color:#5c705e}
+.page-hero{display:flex;justify-content:space-between;align-items:center;gap:15px;background:#f9fdf4;border:1px solid #cfe1c7;border-radius:18px;padding:20px 23px;margin-bottom:17px}.page-hero h2{font-size:1.55rem;margin:4px 0;letter-spacing:-.04em;color:#254d38}.page-hero p{font-size:.79rem;color:#7c8c7d;margin:0}.go-town{background:#2b704f;color:#fff;border:1px solid #1f573d;border-bottom:4px solid #194a33;border-radius:10px;padding:12px 17px;font-size:.8rem;font-weight:900;white-space:nowrap}.go-town:hover{background:#1a593e}.go-town.full{width:100%;margin-top:18px}.rules-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,1fr);gap:16px;align-items:start}.rules-info{display:grid;gap:14px}.rules-grid .lab-panel{padding:24px!important}.rules-grid .presets{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.rules-grid .presets button{min-height:52px;font-size:.79rem}.rules-grid .rules{grid-template-columns:1fr 1fr;gap:28px 24px}.rules-grid .rule{padding:16px;background:#f7faf3;border:1px solid #e5eee0;border-radius:13px}.rules-grid .rule input{margin:16px 0 7px}.rules-grid .tip{font-size:.76rem}.instruction-card h3{margin:4px 0 13px;font-size:1.09rem;color:#2b6349}.society-snapshot{display:grid;gap:11px}.society-snapshot>div{display:grid;grid-template-columns:100px 1fr 28px;gap:8px;align-items:center;font-size:.77rem;font-weight:800}.society-snapshot>div b{text-align:right;color:#26684b}.level-track{background:#e2eddb;height:7px;border-radius:8px;overflow:hidden}.level-track span{display:block;height:100%;background:linear-gradient(90deg,#82b994,#34835c);border-radius:8px}.society-summary{border-left:4px solid #c8a363;background:#fcf7eb;padding:10px 12px;font-size:.75rem;color:#81714d;margin-top:18px;border-radius:6px}.explain-card{background:#eef5e8;color:#5c745c}.explain-card span{font-size:.83rem;font-weight:950}.explain-card p{font-size:.76rem;margin:9px 0 0}
+.records-grid{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(300px,.92fr);gap:15px;align-items:start}.records-main,.records-side{display:grid;gap:15px;min-width:0}.records-main .metrics,.records-main .history-card,.records-side .compare-panel,.records-side .research-panel{padding:22px}.records-main .severity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.records-main .metric-grid{gap:10px}.records-main .metric strong{font-size:1.48rem}.records-main .people-card{display:none}.app-footer{font-size:.69rem;color:#7f907e;border-top:1px solid #d9e5d5;padding:26px 6px 40px;display:flex;justify-content:space-between;gap:30px}.app-footer p{margin:0;max-width:650px}.app-footer strong{color:#387357}
+@media(max-width:1150px){.town-grid{grid-template-columns:minmax(0,1.4fr) minmax(300px,.85fr)}.records-grid{grid-template-columns:1fr}.records-side{grid-template-columns:1fr 1fr}.world-hud{grid-template-columns:1fr repeat(4,.75fr)}.hud-state{display:none}}
+@media(max-width:940px){.town-grid{grid-template-columns:1fr}.town-sidebar{grid-template-columns:1fr 1fr}.resident-card{grid-row:span 2}.rules-grid{grid-template-columns:1fr}.rules-info{grid-template-columns:1fr 1fr}.world-card .canvas-wrap #world{width:100%}}
+@media(max-width:680px){.app-shell{padding:0 10px}.app-header{padding:14px 4px 12px}.brand-icon{width:39px;height:39px;font-size:25px;border-radius:12px}.brand-eyebrow{font-size:.55rem;letter-spacing:.08em}.app-header h1{font-size:1.55rem}.header-caption{display:none}.nav-wrap{padding:6px 6px 8px;margin-bottom:11px;border-radius:13px}.game-nav{gap:3px;padding-bottom:7px}.tab-button{padding:9px 4px;font-size:.7rem;border-radius:9px}.world-hud{grid-template-columns:repeat(4,1fr);gap:4px;padding:7px 0 1px}.hud-year{grid-column:1/-1;display:flex;align-items:center;gap:9px;padding:0 4px 5px}.hud-year strong{font-size:1.1rem;white-space:nowrap}.progress-track{flex:1;margin-top:0}.hud-stat{padding:0 2px}.hud-stat span{font-size:.57rem}.hud-stat b{font-size:.83rem}.play-tip{padding:9px 10px;font-size:.68rem;gap:8px}.play-tip strong{font-size:.74rem}.play-tip button{font-size:.67rem;white-space:normal;max-width:107px}.tip-sparkle{font-size:16px}.town-main,.town-sidebar,.records-main,.records-side{gap:11px}.town-sidebar,.records-side,.rules-info{grid-template-columns:1fr}.world-head{padding:10px 12px!important}.world-name{font-size:.88rem!important}.world-notice{max-width:58%!important;font-size:.50rem!important;top:8px!important;right:6px!important;padding:5px 7px!important}.scene-tag{font-size:.49rem;padding:4px 6px;top:8px;left:6px}.map-legend{font-size:.51rem!important;gap:5px!important;left:6px!important;bottom:6px!important;padding:4px!important}.control-bar{padding:9px!important;gap:5px!important}.control-bar button{min-height:36px!important;padding:7px 8px!important;font-size:.69rem!important}.event-drawer>summary{padding:12px;font-size:.74rem}.event-drawer>summary span{font-size:.61rem}.condition-list{grid-template-columns:repeat(2,minmax(0,1fr))}.town-info-card,.resident-card,.chronicle-card,.instruction-card,.explain-card{padding:14px}.page-hero{padding:15px;align-items:start;flex-direction:column}.page-hero h2{font-size:1.34rem}.page-hero button{width:100%}.rules-grid .lab-panel{padding:15px!important}.rules-grid .presets{grid-template-columns:repeat(2,1fr)}.rules-grid .rules{grid-template-columns:1fr;gap:10px}.rules-grid .rule{padding:12px}.records-main .metric-grid{grid-template-columns:repeat(2,1fr)}.records-main .severity-grid{grid-template-columns:repeat(2,1fr)}.records-main .metrics,.records-main .history-card,.records-side .compare-panel,.records-side .research-panel{padding:13px}.records-side{grid-template-columns:1fr}.app-footer{display:block;padding:18px 4px 33px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tab-button,.progress-fill{transition:none}}
+
+
+/* 商材実験室へ戻る導線：ゲームの固定UIは増やさない */
+.lab-home-link{display:inline-block;margin:0 0 12px;color:#2d694a;text-decoration:none;font-size:.82rem;font-weight:800;border-bottom:1px solid #9bbb9e;padding:2px 0}
+.lab-home-link:hover{color:#144d31;border-color:currentColor}
+.lab-about{max-width:1100px;margin:20px auto 38px;border:1px solid #cfdfcf;background:#fffefb;border-radius:16px;padding:17px 20px;font-size:.85rem;color:#506353}
+.lab-about h2{font-size:1.1rem;margin:0 0 6px;color:#29533a}.lab-about p{margin:7px 0}.lab-about a{color:#225b44}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"BOTのまち。","inLanguage":"ja-JP","isAccessibleForFree":true,"genre":["社会シミュレーション","箱庭ゲーム","思考実験"],"description":"23のBOT実験から生まれた、500年を観測する架空の社会シミュレーションゲーム。現実の政策効果を予測しません。","url":"https://haine-cpu7.github.io/shozai-lab/bot-machi.html","image":"https://haine-cpu7.github.io/shozai-lab/bot-machi-preview.png","applicationCategory":"GameApplication","operatingSystem":"Web browser","isPartOf":{"@type":"WebSite","name":"商材実験室","url":"https://haine-cpu7.github.io/shozai-lab/"}}</script>
+</head>
+<body class="v06">
+<div class="app-shell">
+<a class="lab-home-link" href="index.html#bot-machi-feature">← 商材実験室にもどる</a>
+<header class="app-header">
+  <div class="brand-lockup"><span class="brand-icon" aria-hidden="true">✳</span><div><span class="brand-eyebrow">INFORMATION PRODUCT LAB / 社会観察ゲーム</span><h1>BOTのまち<span>。</span> <small>v0.6.1</small></h1></div></div>
+  <div class="header-caption">同じ住人、違う社会。<br>500年間、何が起こる？</div>
+</header>
+<div class="nav-wrap">
+<nav class="game-nav" aria-label="ゲームの画面切り替え">
+  <button class="tab-button active" type="button" data-tab="town" aria-selected="true">🏡 <span>まちを眺める</span></button>
+  <button class="tab-button" type="button" data-tab="rules" aria-selected="false">⚙️ <span>社会をつくる</span></button>
+  <button class="tab-button" type="button" data-tab="records" aria-selected="false">📖 <span>500年の記録</span></button>
+</nav>
+<div class="world-hud" aria-label="現在のまちの状況">
+  <div class="hud-year"><span class="mini-label">WORLD TIME</span><strong><span id="hudYear">0</span><small> / 500年</small></strong><div class="progress-track"><div id="hudProgress" class="progress-fill" style="width:0%"></div></div></div>
+  <div class="hud-stat"><span>👥 人口</span><b id="hudPop">36人</b></div>
+  <div class="hud-stat"><span>☀️ 満足度</span><b id="hudHappy">—</b></div>
+  <div class="hud-stat"><span>🍞 困窮</span><b id="hudPoor">—</b></div>
+  <div class="hud-stat"><span>💎 格差</span><b id="hudGini">—</b></div>
+  <div class="hud-state" id="hudStatus">🏡 観測開始</div>
+</div>
+</div>
+<main class="game-main">
+<section class="tab-panel active" data-panel="town" aria-label="まちを眺める">
+  <div class="play-tip"><span class="tip-sparkle">✦</span><div><strong>ここから500年、好きに眺めてみよう。</strong> 住民をクリックして暮らしを観察。社会を変えたり事件を起こすと、町にも変化が現れます。</div><button type="button" data-jump="rules">社会のルールを変える ↗</button></div>
+  <div class="town-grid">
+    <div class="town-main"><section class="world-card">
+<div class="world-head"><div class="section-kicker">LIVE WORLD / 架空の社会実験</div><div class="world-info"><span class="world-name" id="worldName">いつものまち</span><span class="world-year"><strong id="year">0</strong> 年目 / 500年</span></div></div>
+<div class="canvas-wrap"><canvas aria-label="BOTが暮らす架空の2Dの町。住人をクリックして詳細を表示できます" height="570" id="world" width="960"></canvas><div class="world-notice" id="worldNotice">住人をタップすると人生が見られます。貧困も繁栄も、結末は決めていません。</div><div class="scene-tag" id="sceneTag">🌤️ 住民の暮らしを観察中</div><div class="map-legend"><span>🏡 住まい</span><span>🏫 学び</span><span>🏥 健康</span><span>🏢 仕事</span><span>🌲 余暇</span></div></div>
+<div class="control-bar"><button class="primary" id="stepBtn">１年進める <span>→</span></button><button id="fiveBtn">10年進める</button><button id="fiftyBtn">50年進める</button><button class="fast-button" id="endBtn">⏩ 500年まで一気に</button><button id="autoBtn">▶ 自動観察</button><button class="ghost" id="resetBtn" title="同じ初期BOTからやり直す">↺ 同じ住人で最初から</button></div>
+<details class="event-drawer"><summary>⚡ 世界に事件を起こす <span>不況・AI・産業撤退など</span></summary><div class="event-bar"><div class="event-buttons"><button data-event="recession">📉 不況</button><button data-event="industry">🏭 産業撤退</button><button data-event="ai">🤖 AI普及</button><button data-event="school">📚 学び支援</button><button data-event="health">🏥 医療費高騰</button><button data-event="leisure">🌿 余暇革命</button><button data-event="drought">🌾 10年の不作</button><button data-event="bankrun">🏦 金融危機</button><button data-event="breakthrough">⚙️ 技術革新</button></div><div class="event-active" id="eventActive">現在、特別な事件は起きていません。</div></div>
+</details></section>
+       <section class="chronicle-card"><div class="card-topline"><span>📜 まちの近況</span><button type="button" data-jump="records">すべての記録を見る →</button></div><div id="townChronicle" class="chronicle-list">住人の物語はここから始まります。</div></section>
+    </div>
+    <aside class="town-sidebar" aria-label="住人を観察する">
+      <section class="town-info-card"><div class="panel-kicker">TOWN WATCH</div><h2>いま、このまちは？</h2><div id="townMood" class="town-mood">🏡 12家族が暮らし始めました。</div><div class="condition-list"><div><span>🏠 暮らしが苦しい家</span><b id="uiTroubledHomes">—</b></div><div><span>✨ 余裕のある家</span><b id="uiRichHomes">—</b></div><div><span>🏚️ 空き家</span><b id="uiEmptyHomes">—</b></div><div><span>🏢 動いている企業</span><b id="uiBusinesses">—</b></div></div><small>住まいの見た目は住民の生活状況に連動します。</small></section>
+      <section class="resident-card" id="residentCard"><div class="panel-kicker">PEOPLE / 今日の住民</div><div class="resident-title"><h2>ひとりの人生をのぞく</h2><span class="finger">👆 町の住民をクリック</span></div><div class="person-detail" id="personDetail">住人の姿を選んでください。</div><div class="small-head">この町の声</div><div class="voices" id="voices"></div></section>
+      <details class="business-card"><summary>🏢 企業の暮らしを見る <span>開く ＋</span></summary><div class="business-inner"><div class="firm-list" id="firmList"></div><p>企業の雇用・売上・資金は、住民の生活と連動しています。</p></div></details>
+    </aside>
+  </div>
+</section>
+<section class="tab-panel" data-panel="rules" hidden aria-label="社会をつくる">
+  <div class="page-hero"><div><span class="panel-kicker">DESIGN YOUR WORLD</span><h2>どんな社会にする？</h2><p>極端でもいい。条件を変えて、500年間の暮らしを観察しよう。</p></div><button class="go-town" type="button" data-jump="town">🏡 まちに戻る →</button></div>
+  <div class="rules-grid"><div><section class="lab-panel"><span class="section-kicker">RULE DESIGN / 社会のルール</span><h2>どんな社会にする？</h2><p class="side-note">これは政治体制の再現ではなく、極端なルールを比べる<strong>架空の箱庭</strong>です。</p><div class="presets"><button class="preset" data-preset="market">💰 市場重視</button><button class="preset selected" data-preset="balance">🏡 ほどほど</button><button class="preset" data-preset="shared">🤝 共同配分</button><button class="preset" data-preset="ruthless">💀 超苛烈</button><button class="preset" data-preset="richgap">💎 大格差・豊か</button><button class="preset" data-preset="scarce">🍞 平等・不足</button></div><div class="rules"><label class="rule"><span><b>競争の報酬</b><output id="marketValue">55</output></span><input id="market" max="100" min="0" type="range" value="55"/><small>成果・技能による収入の差の大きさ</small></label><label class="rule"><span><b>生活の保障</b><output id="safetyValue">55</output></span><input id="safety" max="100" min="0" type="range" value="55"/><small>支援・医療への公共支出の厚さ</small></label><label class="rule"><span><b>学びの機会</b><output id="schoolValue">60</output></span><input id="school" max="100" min="0" type="range" value="60"/><small>家庭の資産に左右されにくい学び</small></label><label class="rule"><span><b>時間の自由</b><output id="freedomValue">55</output></span><input id="freedom" max="100" min="0" type="range" value="55"/><small>自分の時間を取りやすい働き方</small></label><label class="rule"><span><b>富の集中</b><output id="concentrationValue">28</output></span><input id="concentration" max="100" min="0" type="range" value="28"/><small>企業の配当と高技能の報酬が、一部の家系に集中する強さ</small></label><label class="rule"><span><b>資源の厳しさ</b><output id="scarcityValue">22</output></span><input id="scarcity" max="100" min="0" type="range" value="22"/><small>町に必要な物資の供給がどれほど足りないか</small></label></div><div class="tip">⚠️ 💀 超苛烈＝競争100・保障0・資源85。💎 大格差＝企業利益が集中するが物資は豊か。🍞 平等・不足＝富の集中が小さくても物資が足りない。結果はゲーム内の仮定に依存し、滅亡も繁栄もあらかじめ決めていません。</div><div class="tip">💡 ルールの変更は、<strong>次の年から</strong>反映されます。同じ住人で最初からやり直すと比較しやすいよ。</div></section></div><aside class="rules-info"><div class="instruction-card"><div class="panel-kicker">YOUR WORLD</div><h3>今の社会設定</h3><div id="societySnapshot" class="society-snapshot">6つのルールを設定できます。</div><div id="societySummary" class="society-summary">変更は次の年から反映されます。</div><button type="button" class="go-town full" data-jump="town">🏡 この社会を観察する →</button></div><div class="explain-card"><span>🔎 研究メモ</span><p>社会設定のプリセットは、複数の条件を同時に動かします。影響を比較したいときは、ひとつずつ動かしてみよう。</p><p>町が繁栄しても、全員が幸せとは限りません。</p></div></aside></div>
+</section>
+<section class="tab-panel" data-panel="records" hidden aria-label="500年の記録">
+ <div class="page-hero"><div><span class="panel-kicker">HISTORY & RESEARCH</span><h2>500年の記録</h2><p>町の繁栄と、住民の人生は同じではない。数字と家系の歴史を追ってみよう。</p></div><button class="go-town" type="button" data-jump="town">🏡 まちに戻る →</button></div>
+ <div class="records-grid"><div class="records-main"><section class="metrics"><div class="metrics-head"><div><span class="section-kicker">OBSERVATION / このまちの変化</span><h2>数字は、みんなの人生の跡。</h2></div><span class="metric-count" id="popChip">住民 36人</span></div><div class="metric-grid"><article class="metric"><span>暮らしの満足度</span><strong id="happy">—</strong><small>0〜100のゲーム用指標</small></article><article class="metric"><span>手元現金の格差</span><strong id="gini">—</strong><small>0に近いほど均等</small></article><article class="metric"><span>困っている人</span><strong id="poor">—</strong><small>生活資金が足りず、暮らしに支障が出た割合</small></article><article class="metric"><span>自由な時間</span><strong id="free">—</strong><small>0〜100のゲーム用指標</small></article></div><div class="severity-grid"><span>🚨 深刻な困窮 <b id="severe">—</b></span><span>💎 上位10%の現金占有 <b id="topShare">—</b></span><span>🍞 物資充足率 <b id="foodSupply">—</b></span><span>🏢 現存する会社 <b id="firms">—</b></span><span>🏦 住民・企業の借入 <b id="debtTotal">—</b></span><span>🏭 累積企業倒産 <b id="firmFailures">—</b></span><span>🌳 初代から続く家系 <b id="founderLines">—</b></span><span>📖 延べ困窮 <b id="hardshipYears">—</b></span><span>📊 居住期間の年平均困窮 <b id="averageHardship">—</b></span><span>🍂 物資不足の年数 <b id="foodCrisisYears">—</b></span><span>💥 累積破綻 <b id="bankrupt">—</b></span><span>🌱 累積誕生 <b id="births">—</b></span><span>🕯️ 累積死亡 <b id="deaths">—</b></span><span>🧳 移住者 <b id="migrants">—</b></span><span>🚶 累積転出 <b id="departures">—</b></span><span>🏚️ 最少人口 <b id="lowestPop">—</b></span><span>🛠️ 町の基盤 <b id="infrastructure">—</b></span><span>💰 町の蓄え <b id="treasury">—</b></span><span>💼 仕事の勢い <b id="jobs">—</b></span><span>🌏 町外取引の純流入 <b id="externalNet">—</b></span><span>🧮 お金の収支差 <b id="auditDifference">—</b></span><span>📍 町の状態 <b id="townStatus">—</b></span><span>📈 最悪の困窮率 <b id="peakPoor">—</b></span><span>🕯️ 困窮20％超の年 <b id="crisisYears">—</b></span></div><div class="ledger-box"><div class="chart-head"><strong>💰 この1年間のお金の流れ</strong><span class="tiny">企業・家計・町役場・銀行・町外との受け渡し</span></div><div class="ledger-grid" id="ledgerDetail">最初の1年を進めると表示されます。</div><p class="tiny">⚖️ 収支差は、町内のすべての現金の増減と、町外との取引の差です。0なら内部の受け渡しが一致。企業の採算や住民の幸福を保証する数値ではありません。</p></div><div class="chart-wrap"><div class="chart-head"><strong>年ごとの記録</strong><div class="mini-legend"><span class="line-a">満足度</span><span class="line-b">格差 ×100</span><span class="line-c">困窮率</span></div></div><canvas height="205" id="chart" width="920"></canvas></div><div class="chart-wrap"><div class="chart-head"><strong>人口の500年史</strong><span class="tiny">町の存続も結果のひとつ</span></div><canvas height="145" id="populationChart" width="920"></canvas></div><div class="insight" id="insight">はじめに1年進めると、ここに観察メモが表示されます。</div></section><section class="history-card"><div class="section-row"><div><span class="section-kicker">FAMILY TREE / 12の家系</span><h2>初代の家系はどうなった？</h2></div></div><div class="lineage-list" id="lineageList"></div><p class="side-note">🌿 初代から続く家系だけを追跡しています。家が空いた後に移住した人は、新しい家系になります。</p><hr class="soft-divider"/><div class="section-row"><div><span class="section-kicker">DIARY / この街で起きたこと</span><h2>観察日記</h2></div></div><div class="diary" id="diary"></div></section></div><aside class="records-side"><section class="compare-panel"><span class="section-kicker">PARALLEL WORLDS / 比べてみる</span><h2>別の世界線と比較</h2><p class="side-note">500年の途中でも保存OK。同じ初代住人と乱数系列から再挑戦。子孫の誕生・移住は政策や歴史に応じて変わります。</p><label class="field-label" for="seed">世界線番号（同じ番号なら初代住人と基礎乱数が同じ）</label><div class="seed-row"><input id="seed" inputmode="numeric" max="999999999" min="1" type="number" value="20261010"/><button id="newSeedBtn" title="新しい住人を生成">🎲</button></div><button class="wide secondary" id="saveBtn">📌 今の結果を比較ボードに残す</button><div class="comparisons" id="comparisons"></div><button class="text-button" id="clearSaves">比較ボードを空にする</button></section><section class="research-panel"><span class="section-kicker">CONNECTED STUDIES / 元ネタ</span><h2>23の実験とつながる</h2><div class="research-links"><div><b>No.03・16・19</b><span>制度・機会・初期資源 → 格差</span></div><div><b>No.07・08・14・17</b><span>仕事・努力・成果・時間 → 働き方</span></div><div><b>No.02・05・15・22</b><span>資産・市場・老後 → 暮らしの余力</span></div><div><b>No.04・06・10・11・12</b><span>人口・時代・生活環境 → 選択肢</span></div><div><b>No.20・21・23</b><span>情報の価値・AI・収益化 → 仕事の変化</span></div></div><a class="research-link" href="https://haine-cpu7.github.io/shozai-lab/" rel="noopener noreferrer" target="_blank">商材実験室の23実験を見る ↗</a></section></aside></div>
+</section>
+</main>
+<footer class="app-footer"><div><strong>BOTのまち v0.6.1</strong> · 商材実験室から生まれた観察ゲーム</div><p>架空のBOTと仮定に基づく箱庭シミュレーションです。現実の制度・政策の効果を証明するものではありません。経済計算はv0.5を継承しています。</p></footer>
+</div>
+
+<section class="lab-about" id="game-limits" aria-labelledby="game-limits-title">
+  <h2 id="game-limits-title">このゲームについて</h2>
+  <p>商材実験室の23の研究で生まれた問いから作った<strong>架空の500年観察ゲーム</strong>です。各研究の計算エンジンをそのまま足し合わせたものではなく、独立した簡易モデルです。結果は社会制度の優劣、現実の将来、政策の効果を証明しません。</p>
+  <p>町のルールや事件を変えて、繁栄・困窮・人口・企業・家系がどのように変わるかを眺めてください。数字の結果はモデルの前提や乱数に依存します。</p>
+  <p><a href="index.html#themes">23の実験一覧へ戻る →</a>　／　<a href="society.html">No.03 社会制度の実験 →</a></p>
+</section>
+
+<script>
+
+(()=>{'use strict';
+const $=id=>document.getElementById(id);const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const round=n=>Math.round(n);const P={
+ market:{market:94,safety:5,school:10,freedom:16,concentration:52,scarcity:25,name:'市場重視のまち'},
+ balance:{market:55,safety:55,school:60,freedom:55,concentration:28,scarcity:22,name:'ほどほどのまち'},
+ shared:{market:18,safety:92,school:90,freedom:70,concentration:12,scarcity:30,name:'共同配分のまち'},
+ ruthless:{market:100,safety:0,school:0,freedom:0,concentration:100,scarcity:85,name:'💀 超苛烈なまち'},
+ richgap:{market:95,safety:12,school:35,freedom:35,concentration:100,scarcity:0,name:'💎 大格差・豊かなまち'},
+ scarce:{market:5,safety:95,school:95,freedom:55,concentration:3,scarcity:100,name:'🍞 平等・物資不足のまち'}
+};
+const NAMES=['むぎ','カイ','こはる','ルカ','みつ','アオ','ハル','すず','ソラ','リオ','ゆず','トウ','なぎ','サク','モモ','レン','ひなた','ウミ','ニコ','トキ','フウ','サナ','セナ','マコ','ユウ','シノ','ナナ','ユキ','コウ','アキ','リツ','ミオ','ヒナ','オト','タケ','トモ'];
+const HAIR=['#614e3f','#3c4148','#97764f','#765a70','#785646','#4b675d'];const SHIRTS=['#e99374','#69b1a2','#a08ac7','#e7b45f','#7d9dd4','#b4ad72','#e8a1a4','#70a7ba'];const EMOJIS=['🍡','📚','🥕','🧵','☕','🎨','🛠️','🎹','🌱','🍎','📷','🧃'];
+const HOME=[[89,103],[290,87],[400,104],[585,95],[816,104],[104,246],[287,247],[615,237],[816,243],[109,398],[384,408],[821,412]];
+const FACILITIES=[{x:481,y:219,label:'おしごと',kind:'office'},{x:694,y:370,label:'図書館',kind:'school'},{x:482,y:402,label:'病院',kind:'clinic'},{x:695,y:92,label:'市場',kind:'market'},{x:276,y:395,label:'公園',kind:'park'},{x:691,y:229,label:'工房',kind:'factory'}];
+const EVENTS={recession:{name:'📉 景気後退',desc:'収入が減り、特に余裕のない家に影響します',duration:4},industry:{name:'🏭 主力産業の撤退',desc:'20年間、雇用・税収・町の消費が弱まります',duration:20},ai:{name:'🤖 AI普及',desc:'生産性が増える一方、技能によって恩恵が異なります',duration:6},school:{name:'📚 学び支援',desc:'家庭環境による学びの差が小さくなります',duration:6},health:{name:'🏥 医療費高騰',desc:'医療コストが上がり、健康面の負荷が増えます',duration:4},leisure:{name:'🌿 余暇革命',desc:'働く時間は減るが、自分の時間が増えます',duration:6},
+ drought:{name:'🌾 不作',desc:'10年間、必要な物資の供給が減ります',duration:10},
+ bankrun:{name:'🏦 金融危機',desc:'8年間、企業への融資と投資が弱まります',duration:8},
+ breakthrough:{name:'⚙️ 技術革新',desc:'12年間、生産性は改善しますが恩恵は均等ではありません',duration:12}};
+function hash(seed,...xs){let v=(Number(seed)>>>0)||1;for (const x of xs){const s=String(x);for(let i=0;i<s.length;i++){v=Math.imul(v^s.charCodeAt(i),16777619)>>>0;}}v^=v>>>16;v=Math.imul(v,2246822507)>>>0;v^=v>>>13;v=Math.imul(v,3266489909)>>>0;v^=v>>>16;return (v>>>0)/4294967296;}
+const sample=(year,id,t)=>hash(state.seed,year,id,t);
+let state; let saved=[];let timer=null;let frame=0;let personPositions=[];
+const MAX_YEARS=500;
+// 1 year = one simulation step. All stochastic draws use stable (seed,year,id,key).
+// This is a fictional stress-test model, not a historical reconstruction or policy forecast.
+function initialPerson(id,seed){
+ const family=Math.floor(id/3),index=id%3,r=k=>hash(seed,'init',id,k),f=k=>hash(seed,'family',family,k);
+ const age=index===0?Math.round(25+f('parent1')*16):index===1?Math.round(23+f('parent2')*19):Math.round(2+f('child')*12);
+ const tier=family%4===0?2:family%4===1?0:1;
+ const wealth=tier===2?320:tier===1?100:24;
+ return {id,name:NAMES[id%NAMES.length],family,dynasty:family,hardshipYears:0,dividend:0,debt:0,goodsReceived:1,age,cash:age<18?0:wealth+(tier===2?f('wealth')*520:tier===1?f('wealth')*130:f('wealth')*42)+r('money')*24,
+   skill:clamp(.21+r('skill')*.35+tier*.07,.12,.85),ability:.35+r('ability')*.63,effort:.32+r('effort')*.62,
+   health:.66+r('health')*.33,personality:Math.floor(r('personality')*4),wealthClass:tier,job:Math.floor(r('job')*4),happy:65,free:55,earn:0,lastNet:0,studying:age<22,
+   alive:true,born:false,bankrupts:0,recovery:0,unemployed:false,unmet:false,severe:false,descendants:0,origin:'founder'};
+}
+function initialFirms(seed){return Array.from({length:4},(_,i)=>({id:i,name:['みどり工房','北の商会','町の製作所','あさひ物流'][i],cash:650+hash(seed,i,'firmcash')*420,debt:0,
+  capacity:5+Math.round(hash(seed,i,'capacity')*4),productivity:.74+hash(seed,i,'productivity')*.55,
+  ownerDynasty:[0,4,8,0][i],age:0,losses:0,lastProfit:0,lastDividend:0,sales:0,payroll:0,materials:0,workers:0,output:0}));}
+let workToken=0;
+function newWorld(seed=20261010){
+ pause();const val=round(clamp(Number(seed)||20261010,1,999999999));
+ state={seed:val,year:0,people:Array.from({length:36},(_,i)=>initialPerson(i,val)),nextId:36,nextDynasty:12,pol:readPolicy(),events:[],firms:initialFirms(val),firmSerial:4,firmClosures:0,foodStore:30,foodSupply:1,foodPrice:1,foodCrisisYears:0,hardshipPersonYears:0,majorEventYears:0,bank:{cash:6800,loans:0,interest:0,badDebt:0,loansIssued:0},externalNet:0,externalSpent:0,externalEarned:0,lastAudit:0,auditFailures:0,flows:{wages:0,wageTaxes:0,profitTaxes:0,benefits:0,consumption:0,exports:0,imports:0,publicSpending:0,dividends:0,unitsConsumed:0,unitsProduced:0,employed:0,jobSlots:0},
+ logs:[{year:0,text:'12家族・36人のBOTが暮らし始めた。500年の間に世代は何度も入れ替わる。'}],series:[],selected:0,lastReport:null,lastFundingRatio:1,
+ economy:1,localJobs:.93,infrastructure:.84,treasury:260,extinctAt:null,lowestPop:36,cumulativeBirths:0,cumulativeDeaths:0,cumulativeMigrants:0,cumulativeDepartures:0,cumulativeBankrupt:0};
+ state.initialMoney=moneyInTown();$('seed').value=val;updateStats();renderAll();
+}
+function readPolicy(){return Object.fromEntries(['market','safety','school','freedom','concentration','scarcity'].map(k=>[k,Number($(k).value)/100]));}
+function applyPolicy(pre){for(const [k,v] of Object.entries(P[pre])){if(k==='name')continue;$(k).value=v;$(k+'Value').textContent=v;}document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('selected',b.dataset.preset===pre));if(state){state.pol=readPolicy();$('worldName').textContent=P[pre].name;renderV06HUD();}}
+function active(k,y=state.year){return state.events.some(e=>e.kind===k&&e.end>=y);}
+function eventsSummary(){const es=state.events.filter(e=>e.end>=state.year).map(e=>`${EVENTS[e.kind].name}（あと${Math.max(0,e.end-state.year)}年）`);$('eventActive').textContent=es.length?'進行中：'+es.join('、'):'現在、特別な事件は起きていません。';}
+const cap=val=>clamp(val,0,100);
+function familiesOf(people){
+ const m=new Map();for(const a of people){if(!a.alive)continue;
+ let f=m.get(a.family);if(!f){f={members:[],adults:0,children:0,liquid:0,earn:0,wealth:0};m.set(a.family,f);}f.members.push(a);
+ if(a.age>=18){f.adults++;f.liquid+=Math.max(0,a.cash);f.wealth+=a.cash;f.earn+=a.earn;}else f.children++;
+ }return m;
+}
+function familyResources(a,families){const f=families.get(a.family);if(!f)return 0;return f.wealth/Math.max(1,f.adults+.5*f.children);}
+function computeHappy(a,pol,families){
+ const cash=a.age<18?familyResources(a,families):a.cash;
+ const resources=cap(18+Math.log1p(Math.max(0,cash))/Math.log(3500)*70-(cash<0?28:0)-(a.unmet?23:0)-(a.severe?14:0));
+ const security=cap(14+pol.safety*51*(state.lastFundingRatio??1)+(cash>160?15:0)-(a.unemployed?10:0)-(a.recovery>0?13:0));
+ const freedom=cap(26+pol.freedom*65-(a.age>=18&&a.age<65?a.effort*12:0)+(active('leisure')?13:0));
+ const health=cap(a.health*100);const weights=[[.40,.25,.15,.20],[.21,.38,.22,.19],[.21,.19,.42,.18],[.19,.25,.20,.36]][a.personality];
+ return {happy:cap(resources*weights[0]+security*weights[1]+freedom*weights[2]+health*weights[3]),free:freedom};
+}
+function updateStats(){
+ const ppl=state.people.filter(a=>a.alive),n=ppl.length;const families=familiesOf(ppl);
+ for(const a of ppl){const h=computeHappy(a,state.pol,families);a.happy=h.happy;a.free=h.free;}
+ const assets=ppl.filter(a=>a.age>=18).map(a=>Math.max(0,a.cash)).sort((a,b)=>a-b),adults=assets.length,total=assets.reduce((a,b)=>a+b,0);
+ let gini=(adults&&total)?assets.reduce((v,x,i)=>v+(2*(i+1)-adults-1)*x,0)/(adults*total):0;gini=clamp(gini,0,1);
+ const topN=Math.max(1,Math.ceil(adults*.10));const sortedAssets=assets.slice().sort((a,b)=>b-a);
+ const topShare=total>0?100*sortedAssets.slice(0,topN).reduce((t,v)=>t+v,0)/total:0;
+ const founderDynasties=new Set(ppl.filter(a=>a.dynasty<12).map(a=>a.dynasty));
+ const m={topShare,food:state.foodSupply*100,foodPrice:state.foodPrice,activeFirms:state.firms.length,firmClosures:state.firmClosures,debtTotal:state.bank.loans,audit:state.lastAudit,founderLines:founderDynasties.size,hardshipYears:state.hardshipPersonYears,foodCrisisYears:state.foodCrisisYears,happy:n?ppl.reduce((v,a)=>v+a.happy,0)/n:0,free:n?ppl.reduce((v,a)=>v+a.free,0)/n:0,gini,
+  poor:n?ppl.filter(a=>a.unmet).length/n*100:0,severe:n?ppl.filter(a=>a.severe).length/n*100:0,
+  unemployed:ppl.filter(a=>a.age>=18&&a.age<65&&a.unemployed).length,
+  pop:n,median:n?assets[Math.floor(n/2)]:0,
+  births:state.cumulativeBirths,bankrupt:state.cumulativeBankrupt,migrants:state.cumulativeMigrants,departures:state.cumulativeDepartures,
+  infrastructure:state.infrastructure*100,jobs:state.localJobs*100,treasury:state.treasury,extinctAt:state.extinctAt};
+ state.lowestPop=Math.min(state.lowestPop,n);state.lastReport=m;if(state.series.at(-1)?.year===state.year)state.series[state.series.length-1]={year:state.year,...m};else state.series.push({year:state.year,...m});
+}
+function pushLog(txt){state.logs.unshift({year:state.year,text:txt});state.logs=state.logs.slice(0,35);}
+function bornPerson(family,parent,year,origin='birth'){
+ const id=state.nextId++,v=k=>sample(year,id,k),publicSchool=state.pol.school*state.lastFundingRatio;
+ const parentCash=Math.max(0,parent?.cash||0);
+ const p={id,name:NAMES[(id+Math.floor(v('name')*NAMES.length))%NAMES.length],family,dynasty:origin==='migrant'?state.nextDynasty++:(parent?.dynasty??family),hardshipYears:0,dividend:0,debt:0,goodsReceived:1,age:origin==='migrant'?Math.round(20+v('age')*12):0,cash:origin==='migrant'?Math.round(18+v('cash')*85):0,
+ skill:origin==='migrant'?.26+v('skill')*.4:clamp(.17+v('skill')*.08+.13*(parent?.skill||.3)+Math.log1p(parentCash)/Math.log(4000)*.13+.10*publicSchool,.15,.75),
+ ability:clamp(.3+.35*(parent?.ability||v('able'))+.30*v('ability'),.3,.98),effort:.34+v('effort')*.6,health:.67+v('health')*.32,
+ personality:Math.floor(v('persona')*4),wealthClass:parent?.wealthClass||1,job:Math.floor(v('job')*4),happy:60,free:55,earn:0,lastNet:0,studying:true,alive:true,born:origin==='birth',
+ bankrupts:0,recovery:0,unemployed:false,unmet:false,severe:false,descendants:0,origin};
+ state.people.push(p);return p;
+}
+// Separate market concentration from material scarcity so equality and poverty are not synonyms.
+// 企業は雇用枠・投資資金・倒産を持つ。配当を受ける家系と労働で稼ぐ家系は異なる。
+// v0.5 ledger economy; every coin transfer has a payer and a recipient.
+function moneyInTown(){return state.treasury+state.bank.cash+state.firms.reduce((s,f)=>s+f.cash,0)+state.people.reduce((s,a)=>s+a.cash,0);}
+function auditLedger(){state.lastAudit=moneyInTown()-(state.initialMoney+state.externalNet);if(Math.abs(state.lastAudit)>0.005)state.auditFailures++;}
+function bankLoan(borrower,want,maxDebt){
+ const amount=Math.max(0,Math.min(want,maxDebt-(borrower.debt||0),state.bank.cash));
+ if(amount>0){borrower.cash+=amount;borrower.debt=(borrower.debt||0)+amount;state.bank.cash-=amount;state.bank.loans+=amount;state.bank.loansIssued+=amount;state.flows.borrowed=(state.flows.borrowed||0)+amount;}
+ return amount;
+}
+function serviceDebt(borrower){
+ const debt=borrower.debt||0;if(debt<=0)return;
+ const interest=Math.min(Math.max(0,borrower.cash)*.08,debt*(active('bankrun')?.13:.045));
+ if(interest>0){borrower.cash-=interest;state.bank.cash+=interest;state.bank.interest+=interest;}
+ const repay=Math.min(debt,Math.max(0,borrower.cash-(borrower.capacity?115:70))*.29);
+ if(repay>0){borrower.cash-=repay;borrower.debt-=repay;state.bank.cash+=repay;state.bank.loans-=repay;state.flows.repaid=(state.flows.repaid||0)+repay;}
+}
+function writeOff(borrower){
+ const loss=Math.max(0,borrower.debt||0);if(loss){state.bank.loans-=loss;state.bank.badDebt+=loss;state.flows.badDebt=(state.flows.badDebt||0)+loss;borrower.debt=0;}
+ return loss;
+}
+function transferToFirms(sum,kind='local'){
+ if(sum<=0)return 0;
+ const firms=state.firms;if(!firms.length){state.externalNet-=sum;state.externalSpent+=sum;return sum;}
+ const w=firms.map(f=>Math.max(0.001,kind==='goods'?(f.output||.001):f.capacity));const total=w.reduce((x,y)=>x+y,0);
+ for(let i=0;i<firms.length;i++){const v=sum*w[i]/total;firms[i].cash+=v;firms[i].sales=(firms[i].sales||0)+v;}
+ return sum;
+}
+function startFirmsYear(y,pol,ppl){
+ let workforce=ppl.filter(a=>a.age>=18&&a.age<65);
+ const unfriendly=active('industry',y)?0.55:1;
+ const downturn=active('recession',y)?0.8:1;
+ const firms=state.firms;
+ for(const f of firms){f.lastDividend=0;f.lastProfit=0;f.sales=0;f.payroll=0;f.materials=0;f.output=0;f.workers=0;f.begCash=f.cash;f.age++;
+  if(f.age>15){const upgrade=hash(state.seed,y,f.id,'upgrade')<.065?0.035:0;f.productivity=clamp(f.productivity*.997+upgrade,.26,1.8);}}
+ // A job is real only if a firm with a position and payroll funding hires the BOT.
+ workforce.sort((a,b)=>(b.skill+.27*hash(state.seed,y,b.id,'priority'))-(a.skill+.27*hash(state.seed,y,a.id,'priority')));
+ for(const a of ppl){a.unemployed=false;a.earn=0;a.dividend=0;a.jobFirm=null;}
+ for(const a of workforce){
+  const candidates=firms.filter(f=>f.workers<f.capacity);
+  if(!candidates.length||hash(state.seed,y,a.id,'jobDemand')>clamp(.97-.15*(1-state.infrastructure)-.14*(1-state.economy)-(active('bankrun',y)?.16:0),.46,1)){
+    a.unemployed=true;continue;
+  }
+  const f=candidates[Math.floor(hash(state.seed,y,a.id,'firmMatch')*candidates.length)];
+  const effort=(a.effort-.5)*(6+8*pol.market),skill=(a.skill-.5)*(12+62*pol.market);
+  const rank=clamp((a.skill-.35)/.52,0,1);
+  const distribution=clamp(1-pol.concentration*(.35+.34*pol.market)*(1-rank)+.30*pol.concentration*rank*pol.market,.35,1.45);
+  const nominal=Math.max(12,(69+skill+effort)*(.79+.21*state.economy)*(1-.22*pol.freedom)*distribution*unfriendly*downturn*(active('ai',y)?(.8+.45*a.skill):1));
+  if(f.cash<nominal+75)bankLoan(f,Math.min(200,nominal+145-f.cash),Math.max(180,320+f.capacity*45));
+  const wage=Math.min(nominal,Math.max(0,f.cash-8));
+  if(wage<9){a.unemployed=true;continue;}
+  f.cash-=wage;f.payroll+=wage;f.workers++;a.cash+=wage;a.earn=wage;a.jobFirm=f.id;
+  // Payroll taxes must be deducted from exactly the income paid.
+  const tax=Math.min(a.cash,wage*(.028+.235*pol.safety));a.cash-=tax;state.treasury+=tax;state.flows.wages+=wage;state.flows.wageTaxes+=tax;
+ }
+ const totalSlots=firms.reduce((t,f)=>t+f.capacity,0);
+ state.localJobs=workforce.length?clamp(workforce.filter(a=>!a.unemployed).length/workforce.length,0,1):0;
+ state.flows.employed=workforce.filter(a=>!a.unemployed).length;
+ state.flows.jobSlots=totalSlots;
+}
+function createGoods(y,pol,ppl){
+ const supplyShock=active('drought',y)?.55:1;
+ let total=0;
+ for(const f of state.firms){
+  // Output requires employees, viable roads and a scarce raw-material input.
+  const scarcity=1-.76*pol.scarcity;
+  const tech=(active('breakthrough',y)?1.40:1)*(active('ai',y)?1.12:1);
+  f.output=f.workers*(2.65+.35*f.productivity)*scarcity*supplyShock*tech*(.68+.32*state.infrastructure);
+  total+=f.output;
+  // Raw materials are imported: the cost leaves the town, and is shown in the trade ledger.
+  const materialCost=Math.min(f.cash*.28,f.output*(2.1+3.9*pol.scarcity));
+  f.cash-=materialCost;f.materials+=materialCost;state.externalNet-=materialCost;state.externalSpent+=materialCost;state.flows.imports+=materialCost;
+ }
+ const unitsNeeded=ppl.reduce((s,a)=>s+(a.age<18?.70:1),0);
+ // First reserve goods for town residents; only surplus can be sold outside.
+ const exportUnits=Math.min(Math.max(0,total-unitsNeeded*.95),total*(.09+.22*pol.market))*
+  (active('industry',y)?.45:1)*(active('bankrun',y)?.7:1);
+ const exportPrice=35*(.9+.25*state.economy);
+ for(const f of state.firms){const exported=total>0?exportUnits*f.output/total:0;const rev=exported*exportPrice;
+  f.output-=exported;f.cash+=rev;f.sales+=rev;state.externalNet+=rev;state.externalEarned+=rev;state.flows.exports+=rev;}
+ state.foodStore=Math.max(0,Math.min(120,state.foodStore*.80));
+ const soldSupply=state.firms.reduce((s,f)=>s+f.output,0);
+ // Stock is limited and explicitly decreases when used.
+ const stockUsed=Math.min(state.foodStore,Math.max(0,unitsNeeded-soldSupply));state.foodStore-=stockUsed;
+ state.availableUnits=soldSupply+stockUsed;
+ const expectedRatio=unitsNeeded?state.availableUnits/unitsNeeded:1;
+ state.foodPrice=clamp(38*(1+.46*pol.scarcity+1.05*Math.max(0,1-expectedRatio)),28,110);
+ state.flows.unitsProduced=total;state.flows.unitsNeeded=unitsNeeded;state.flows.unitsExported=exportUnits;
+}
+function distributePublicMoney(y,pol,ppl){
+ // Tax revenues and treasury reserves fund real transfers. No private 'phantom contributions'.
+ const families=familiesOf(ppl);
+ const unemployed=ppl.filter(a=>a.age>=18&&a.age<65&&a.unemployed);
+ const vulnerable=ppl.filter(a=>a.age>=65);
+ const budget=Math.max(0,state.treasury-12);
+ let promised=0;const aid=[];
+ for(const a of [...unemployed,...vulnerable]){const need=a.age>=65?43:48;
+  const amount=need*pol.safety*(.75+(a.cash<95?.5:0));aid.push([a,amount]);promised+=amount;}
+ const familyAid=[];
+ for(const [id,f] of families){if(f.children&&f.adults){const amount=f.children*19*pol.safety;const parent=f.members.filter(a=>a.age>=18).sort((a,b)=>a.cash-b.cash)[0];familyAid.push([parent,amount]);promised+=amount;}}
+ const reliefRatio=promised>0?Math.min(1,budget*.51/promised):1;
+ for(const [a,need] of [...aid,...familyAid]){const paid=need*reliefRatio;if(paid<=0)continue;
+  const v=Math.min(state.treasury,paid);state.treasury-=v;a.cash+=v;state.flows.benefits+=v;}
+ state.lastFundingRatio=reliefRatio;
+}
+function householdsBuyGoods(y,pol,ppl){
+ const families=familiesOf(ppl);const orders=[];
+ for(const [family,f] of families){
+  const need=f.members.reduce((s,a)=>s+(a.age<18?.70:1),0);
+  const liquid=f.members.filter(a=>a.age>=18).reduce((s,a)=>s+Math.max(0,a.cash),0);
+  const adults=f.members.filter(a=>a.age>=18);
+  // Welfare-heavy settings prioritize subsistence more evenly; rich-owner settings prioritize purchasing power.
+  const power=Math.log1p(liquid/Math.max(1,need));
+  const score=Math.max(.03,(1.8-pol.concentration*1.1)+power*(.18+1.3*pol.concentration)*(.4+.6*pol.market));
+  orders.push({family,f,need,liquid,adults,score,allocated:0,bought:0});
+ }
+ // Goods allocation is an iterative weighted market, but payment is still mandatory.
+ let available=state.availableUnits;let competitors=orders.slice();
+ for(let turn=0;turn<12&&available>.0001&&competitors.length;turn++){
+  const denom=competitors.reduce((s,o)=>s+o.need*o.score,0);let used=0;
+  for(const o of competitors){const outstanding=o.need-o.allocated;const share=available*(o.need*o.score)/Math.max(.001,denom);
+   const qty=Math.min(outstanding,share);o.allocated+=qty;used+=qty;}
+  available-=used;competitors=competitors.filter(o=>o.need-o.allocated>.0001);
+ }
+ let sold=0,totalPaid=0;
+ for(const o of orders){
+  const borrowingCap=Math.max(0,o.adults.reduce((s,a)=>s+Math.max(0,120-a.debt),0));
+  const target=Math.min(o.allocated*state.foodPrice,o.liquid+Math.min(borrowingCap,Math.max(0,o.allocated*state.foodPrice-o.liquid)));
+  const shortfall=Math.max(0,target-o.liquid);
+  if(shortfall){const needy=o.adults.filter(a=>a.debt<120).sort((a,b)=>a.debt-b.debt);let remaining=shortfall;
+    for(const a of needy){remaining-=bankLoan(a,remaining,120);if(remaining<.001)break;}}
+  const possible=o.adults.reduce((s,a)=>s+Math.max(0,a.cash),0);
+  const paid=Math.min(o.allocated*state.foodPrice,possible);
+  let left=paid;
+  for(const a of o.adults.sort((a,b)=>b.cash-a.cash)){
+   const take=Math.min(Math.max(0,a.cash),left);a.cash-=take;left-=take;if(left<.001)break;
+  }
+  o.bought=paid/state.foodPrice;sold+=o.bought;totalPaid+=paid;
+  o.f.eachMemberShortfall=1-o.bought/Math.max(.001,o.need);
+  for(const a of o.f.members){a.goodsReceived=o.bought/Math.max(.001,o.need);a.unmet=a.goodsReceived<.83||o.f.eachMemberShortfall>.17;}
+ }
+ transferToFirms(totalPaid,'goods');state.flows.consumption=totalPaid;
+ state.flows.unitsConsumed=sold;state.foodSupply=state.flows.unitsNeeded?clamp(sold/state.flows.unitsNeeded,0,1):1;
+ // Goods unsold may become inventory; must originate in real production.
+ const unsold=Math.max(0,state.availableUnits-sold);
+ state.foodStore=clamp(state.foodStore+unsold,0,120);
+ if(state.foodSupply<.9)state.foodCrisisYears++;
+}
+function publicServices(y,pol,ppl){
+ const usable=state.firms.length>0;
+ const maintenance=10+ppl.length*.55;
+ const school=pol.school*ppl.length*.36;
+ const clinic=pol.safety*ppl.length*.35;
+ const requested=maintenance+school+clinic;
+ const paid=usable?Math.min(requested,Math.max(0,state.treasury-2)):0;
+ state.treasury-=paid;transferToFirms(paid);
+ const ratio=requested>0?paid/requested:1;
+ state.lastFundingRatio=Math.min(state.lastFundingRatio,ratio);
+ state.flows.publicSpending=paid;
+ const maintained=usable?Math.min(1,paid/maintenance):0;
+ const old=state.infrastructure;
+ state.infrastructure=clamp(state.infrastructure+.027*(maintained-.66)-.012*(1-state.economy)-(active('industry',y)?.005:0),.03,1);
+ if(old>=.30&&state.infrastructure<.30)pushLog('🏚️ 町の税収と公共サービスが不足し、道路・施設が衰えてきた。');
+}
+function closeFirmsAndPayOwners(y,pol,ppl){
+ let closures=0;const stay=[];
+ for(const f of state.firms){
+  const before=f.begCash||0;
+  // Gross receipts genuinely reflect resident purchases, exports and public contracts.
+  f.lastProfit=f.sales-f.payroll-f.materials;
+  const profitTax=Math.min(f.cash,Math.max(0,f.lastProfit)*(.025+.17*pol.safety));
+  f.cash-=profitTax;state.treasury+=profitTax;state.flows.profitTaxes+=profitTax;
+  serviceDebt(f);
+  const owners=ppl.filter(a=>a.alive&&a.dynasty===f.ownerDynasty&&a.age>=18);
+  if(f.lastProfit>0&&f.cash>220&&owners.length){
+   const dividend=Math.min(f.cash-170,Math.max(0,f.lastProfit)*(.05+.48*pol.concentration));
+   if(dividend>0){f.cash-=dividend;for(const a of owners){a.cash+=dividend/owners.length;a.dividend+=dividend/owners.length;}state.flows.dividends+=dividend;}
+  }
+  if(f.cash<85&&f.debt>180)f.losses++;else if(f.lastProfit< -55)f.losses++;else f.losses=Math.max(0,f.losses-1);
+  if((f.losses>=6&&f.cash<90)||(f.workers===0&&f.cash<20)||(f.debt>280+f.capacity*40&&f.cash<85)){
+    const receiver=owners[0];if(receiver){receiver.cash+=f.cash;}else state.treasury+=f.cash;f.cash=0;
+    writeOff(f);closures++;state.firmClosures++;if(closures<=3)pushLog('🏭 '+f.name+'が倒産。売上・雇用・資金の不足が重なった。');
+  }else{
+    // Growth is funded by this firm's own money (not free capacity).
+    if(f.cash>520&&f.capacity<28&&hash(state.seed,y,f.id,'growth')<.13*(.5+.8*pol.market)){f.cash-=110;state.externalNet-=110;state.externalSpent+=110;state.flows.imports+=110;f.capacity+=1;}
+    stay.push(f);
+  }
+ }
+ state.firms=stay;
+ if(y%2===0&&stay.length<7){
+  const founders=ppl.filter(a=>a.alive&&a.age>=22&&a.age<66&&a.cash>400&&a.skill>.49);
+  const chance=clamp(.025+.075*pol.market+.04*(state.localJobs<.65?1:0)-.09*pol.scarcity-(active('bankrun',y)?.06:0),0,.16);
+  if(founders.length&&hash(state.seed,y,'startup','happen')<chance){
+   const founder=founders[Math.floor(hash(state.seed,y,'startup','founder')*founders.length)];
+   const capital=Math.min(450,founder.cash*.32);founder.cash-=capital;const id=state.firmSerial++;
+   state.firms.push({id,name:'新産業'+id+'号',cash:capital,debt:0,capacity:3+Math.floor(hash(state.seed,y,id,'staff')*4),productivity:.70+.6*hash(state.seed,y,id,'tech'),ownerDynasty:founder.dynasty,age:0,losses:0,lastProfit:0,lastDividend:0,sales:0,payroll:0,output:0,workers:0});
+   if(y%5===0||stay.length===0)pushLog('🛠️ '+founder.name+'の家系が自己資金を出して起業した。');
+  }
+ }
+ return closures;
+}
+function progressOne(render=true){
+ if(state.year>=MAX_YEARS){pause();return;}
+ const y=++state.year,pol=state.pol;
+ state.flows={wages:0,wageTaxes:0,profitTaxes:0,benefits:0,consumption:0,exports:0,imports:0,publicSpending:0,dividends:0,employed:0,jobSlots:0,unitsProduced:0,unitsNeeded:0,unitsConsumed:0,unitsExported:0};
+ if(state.extinctAt){state.localJobs=0;state.infrastructure=Math.max(.03,state.infrastructure-.006);auditLedger();updateStats();if(render)renderAll();return;}
+ const ppl=state.people.filter(a=>a.alive);
+ const oldPoor=(state.lastReport?.poor||0)/100;
+ const macro=sample(y,'economy','cycle');const crisis=sample(y,'economy','crash')<.024;
+ state.economy=clamp(.8*state.economy+.2*(.80+macro*.42-.1*oldPoor-.13*(1-state.infrastructure)-(active('industry',y)?.1:0))-(crisis?.055:0),.38,1.23);
+ // Age before labor matching: ages determine who works, consumes and draws support.
+ for(const a of ppl){a.age++;a.goodsReceived=1;a.unmet=false;a.severe=false;a.dividend=0;}
+ startFirmsYear(y,pol,ppl);
+ createGoods(y,pol,ppl);
+ distributePublicMoney(y,pol,ppl);
+ householdsBuyGoods(y,pol,ppl);
+ publicServices(y,pol,ppl);
+ const closures=closeFirmsAndPayOwners(y,pol,ppl);
+ let deaths=0,defaults=0,distressed=0;
+ const fMap=familiesOf(ppl);
+ for(const a of ppl){
+  // Medical services cost money: their payments go to actual providers or leave the town.
+  const healthEvent=active('health',y);
+  const medIssue=sample(y,a.id,'medical')<(.045+(1-a.health)*.075);
+  const bill=(medIssue?8+sample(y,a.id,'bill')*37:0)+(healthEvent?17:0);
+  const billCovered=pol.safety*state.lastFundingRatio*.66;
+  const paid=Math.min(Math.max(0,a.cash),bill*(1-billCovered));
+  a.cash-=paid;transferToFirms(paid);state.flows.medical=(state.flows.medical||0)+paid;
+  if(paid+billCovered*bill<bill*.9)a.health=Math.max(.1,a.health-.02);
+  serviceDebt(a);
+  // Distress is based on actual delivered goods AND liquid savings / loan pressure.
+  const foodShort=(a.goodsReceived||0)<.83;
+  a.unmet=foodShort || (a.age>=18&&a.cash<22&&a.debt>75);
+  a.severe=(a.goodsReceived||0)<.49 || (a.cash<8&&a.debt>110&&a.health<.46);
+  if(a.unmet){a.hardshipYears++;state.hardshipPersonYears++;distressed++;}
+  if(a.debt>110&&a.cash<9&&a.recovery===0){writeOff(a);a.recovery=7;a.bankrupts++;defaults++;state.cumulativeBankrupt++;}
+  a.recovery=Math.max(0,a.recovery-1);a.lastNet=a.cash-(a.previousCash??a.cash);a.previousCash=a.cash;
+  const home=fMap.get(a.family);const parentAssets=clamp(Math.log1p(Math.max(0,home?.wealth||0))/Math.log(5000),0,1);
+  const accessibleSchool=clamp(pol.school*state.lastFundingRatio*.72+parentAssets*(1-.55*pol.school)*.50+(active('school',y)?.26:0),0,1);
+  const learning=a.age<23?.005+.024*accessibleSchool+.009*a.ability:a.age<48?.002*a.effort:0;
+  a.skill=clamp(a.skill+learning*(a.unmet?.63:1)-(a.severe?.008:0),.1,.99);
+  const healthLoss=.006+(a.unmet?.024:0)+(a.severe?.018:0)+(a.age>68?.008:0)+(1-state.infrastructure)*.015;
+  const healthGain=pol.safety*state.lastFundingRatio*.017+(!a.unmet&&a.cash>100?.005:0);
+  a.health=clamp(a.health-healthLoss+healthGain,.10,1);
+  const deathRate=a.age>85?.08+(a.age-85)*.027:a.age>72?.009+(a.age-72)*.003:a.age>45?.002:0;
+  const extra=(a.health<.25?.015:0)+(a.severe?.016:0)+(a.unmet&&pol.safety<.2?.006:0);
+  if(sample(y,a.id,'death')<deathRate+extra||a.age>108){
+    a.alive=false;a.exitYear=y;a.exitReason='死亡';deaths++;state.cumulativeDeaths++;
+    const heirs=ppl.filter(q=>q.alive&&q.family===a.family&&q.id!==a.id).sort((u,v)=>u.age-v.age);
+    const money=Math.max(0,a.cash);const tax=money*.08*pol.safety;a.cash=0;state.treasury+=tax;
+    if(heirs.length){for(const h of heirs.slice(0,3))h.cash+=(money-tax)/Math.min(3,heirs.length);}else state.treasury+=money-tax;
+    writeOff(a);
+  }
+ }
+ // Children have no bank account: household members collectively pay for essentials.
+ // Departures move money outside the town, explicitly recorded as external leakage.
+ let departed=0;
+ for(const a of state.people){if(!a.alive||a.age<18||a.age>70)continue;
+  const risk=a.severe?(.028+.060*(1-pol.safety)+.040*(1-state.infrastructure)+.06*(1-state.foodSupply)):a.unmet&&a.unemployed?(.012+.034*(1-state.localJobs)):0;
+  if(sample(y,a.id,'leave')<risk){a.alive=false;a.exitYear=y;a.exitReason='転出';state.cumulativeDepartures++;departed++;
+   state.externalNet-=a.cash;state.externalSpent+=a.cash;state.flows.leavers=(state.flows.leavers||0)+a.cash;a.cash=0;writeOff(a);}
+ }
+ const surviving=state.people.filter(a=>a.alive),fAfter=familiesOf(surviving);
+ let births=0;
+ for(let family=0;family<12;family++){
+  const group=fAfter.get(family)?.members||[],potential=group.filter(a=>a.age>=20&&a.age<=44),kids=group.filter(a=>a.age<17);
+  if(potential.length&&kids.length<3&&surviving.length+births<110){
+   const cash=potential.reduce((sum,a)=>sum+a.cash,0)/potential.length;
+   const resources=clamp((cash+80)/300,0,1);
+   const distress=group.filter(a=>a.unmet).length/Math.max(1,group.length);
+   const health=potential.reduce((sum,a)=>sum+a.health,0)/potential.length;
+   const chance=clamp(.145*(.18+.95*resources)*(.65+.35*state.economy)*(.78+.22*pol.safety)*clamp(health/.7,.35,1.2)*(.28+.72*state.foodSupply)
+            +.012*pol.school-.065*distress-.022*(1-state.infrastructure),0,.23);
+   if(sample(y,family,'birth')<chance){const guardian=potential[Math.floor(sample(y,family,'guardian')*potential.length)];bornPerson(family,guardian,y);births++;state.cumulativeBirths++;}
+  }
+ }
+ let immigrants=0;
+ if(y%4===0&&surviving.length>0){
+  const occupied=new Set(state.people.filter(a=>a.alive).map(a=>a.family));
+  const attraction=clamp(.02+.045*pol.safety+.06*pol.school+.06*state.infrastructure+.07*(state.localJobs-.5)-.21*oldPoor+.03*pol.market-.12*(1-state.foodSupply),0,.20);
+  for(let fam=0;fam<12;fam++){if(occupied.has(fam)||state.people.filter(a=>a.alive).length+2>110)continue;
+   if(sample(y,fam,'arrival')<attraction){const p=bornPerson(fam,null,y,'migrant'),q=bornPerson(fam,null,y,'migrant');immigrants+=2;state.cumulativeMigrants+=2;
+     state.externalNet+=p.cash+q.cash;state.externalEarned+=p.cash+q.cash;state.flows.entrants=(state.flows.entrants||0)+p.cash+q.cash;}
+  }
+ }
+ if(!state.people.some(a=>a.alive)){state.extinctAt=y;state.localJobs=0;pushLog('🏚️ 町が無人になった。人口は自動で補充されない。');}
+ if(crisis)pushLog('📉 全域で不況が起き、賃金と需要が落ち込んだ。');
+ if(defaults)pushLog('💥 '+defaults+'人が借入を返済できず、銀行が債権を償却した。');
+ if(closures)pushLog('🏭 '+closures+'社が倒産。会社の雇用枠が減少した。');
+ if(departed&&y%5===0)pushLog('🧳 '+departed+'人が仕事や生活の事情で転出した。');
+ if(state.foodSupply<.6&&y%5===0)pushLog('🍞 物資が足りず、実際に買えなかった家族がいる。');
+ if(y===1)pushLog('💰 給与・消費・税金・企業売上は、相手の口座と同額でつながっている。');
+ if(y%25===0)pushLog(`📜 ${y}年経過。住民${state.people.filter(a=>a.alive).length}人、企業${state.firms.length}社。`);
+ if(immigrants)pushLog('🧳 '+immigrants+'人が外から資金を持って移住した。');
+ if(births&&y%9===0)pushLog('🌱 '+births+'人のBOTが生まれた。');
+ if(deaths&&y%11===0)pushLog('🕯️ '+deaths+'人が一生を終え、相続または町の財産になった。');
+ // Account conservation includes initial bank reserves, private deposits and every external cash flow.
+ auditLedger();state.events=state.events.filter(e=>e.end>=y);updateStats();
+ if(y===MAX_YEARS){pushLog('🏁 500年が経過。会計が一致する世界で、何が起きただろう？');stopUI();}
+ if(render)renderAll();
+}
+
+function chart(){
+ const c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height;ctx.clearRect(0,0,W,H);const L=29,R=12,T=13,B=26;
+ ctx.font='16px sans-serif';ctx.fillStyle='#82978c';ctx.textAlign='right';
+ for(let i=0;i<=4;i++){const y=T+i*(H-T-B)/4;ctx.strokeStyle='#e5efe3';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(W-R,y);ctx.stroke();ctx.fillText(String(100-i*25),L-5,y+5);}
+ ctx.textAlign='center';for(let yr=0;yr<=MAX_YEARS;yr+=100){const x=L+(W-L-R)*yr/MAX_YEARS;ctx.fillText(yr+'年',x,H-5);}
+ for(const [key,color,mul] of [['happy','#438b6c',1],['gini','#d49a62',100],['poor','#c66e77',1]]){
+  ctx.lineWidth=3;ctx.strokeStyle=color;ctx.beginPath();
+  for(const [i,v] of state.series.entries()){if(state.extinctAt&&v.year>=state.extinctAt)break;const x=L+(W-L-R)*v.year/MAX_YEARS,y=T+(H-T-B)*(1-clamp(v[key]*mul,0,100)/100);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+  ctx.stroke();const v=(state.extinctAt?state.series.find(v=>v.year===state.extinctAt-1):state.series.at(-1));if(v){const x=L+(W-L-R)*v.year/MAX_YEARS,y=T+(H-T-B)*(1-clamp(v[key]*mul,0,100)/100);ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();}
+ }
+}
+const readable=v=>Number(v).toFixed(2);
+function renderStats(){
+ $('year').textContent=state.year;const m=state.lastReport;
+ $('happy').textContent=m.pop?round(m.happy)+' / 100':'—';$('gini').textContent=m.pop?m.gini.toFixed(2):'—';$('poor').textContent=m.pop?round(m.poor)+'%':'—';$('free').textContent=m.pop?round(m.free)+' / 100':'—';
+ $('popChip').textContent=m.pop===0?`🏚️ 無人の町（${state.extinctAt}年目）`:`住民 ${m.pop}人`;
+ $('infrastructure').textContent=round(m.infrastructure)+'%';$('treasury').textContent=round(m.treasury)+'コイン';$('jobs').textContent=round(m.jobs);$('departures').textContent=m.departures+'人';$('lowestPop').textContent=state.lowestPop+'人';
+ $('townStatus').textContent=m.pop===0?'無人':m.infrastructure<28?'機能不全':m.infrastructure<55?'衰退傾向':m.pop<15?'人口減少':'存続中';
+ $('deaths').textContent=state.cumulativeDeaths+'人';$('severe').textContent=m.pop?round(m.severe)+'%':'—';$('peakPoor').textContent=round(Math.max(...state.series.map(v=>v.poor)))+'%';$('crisisYears').textContent=state.series.filter(v=>v.year>0&&v.poor>=20).length+'年';$('bankrupt').textContent=m.bankrupt+'件';$('births').textContent=m.births+'人';$('migrants').textContent=m.migrants+'人';
+ $('topShare').textContent=m.pop?round(m.topShare)+'%':'—';$('foodSupply').textContent=m.pop?round(m.food)+'%':'—';
+ $('firms').textContent=m.activeFirms+'社';$('firmFailures').textContent=m.firmClosures+'社';
+ $('founderLines').textContent=m.founderLines+'/12家系';$('hardshipYears').textContent=m.hardshipYears+'人年';
+ $('foodCrisisYears').textContent=m.foodCrisisYears+'年';$('averageHardship').textContent=(state.year?m.hardshipYears/Math.min(state.year,state.extinctAt||state.year):0).toFixed(2)+'人/年';$('debtTotal').textContent=round(m.debtTotal)+'コイン';$('externalNet').textContent=round(state.externalNet)+'コイン';$('auditDifference').textContent=(Math.abs(m.audit)<.005?'0.00':m.audit.toFixed(2))+'コイン';$('auditDifference').style.color=Math.abs(m.audit)>.01?'#c33':'#39734f';
+ $('firmList').innerHTML=state.firms.length?state.firms.slice(0,7).map(f=>`<div class="firm-entry"><b>🏢 ${f.name}</b><span>雇用枠 ${f.capacity}人分 · 利益 ${round(f.lastProfit)} · 資金 ${round(f.cash)} · 所有家系 ${f.ownerDynasty+1}</span></div>`).join(''):'<div class="firm-entry">🏚️ 町の民間企業はありません。新規起業の余地は残されています。</div>';
+ const msg=m.pop===0?`🏚️ ${state.extinctAt}年目に無人化しました。人口は自動補充されません。`:m.infrastructure<35?`🏚️ 町の基盤が弱っています。税収・雇用・転出・出生の連鎖に注目。`:state.year===0?'500年の観測を始めよう。条件を変えるときは、同じ世界線番号でやり直せます。':m.poor>45?'🚨 町の半数近くが困窮しています。所得、税収、医療、学び、次世代への影響を見ましょう。':m.severe>12?'💥 深刻な困窮が増えています。失業や借金の連鎖に注目。':m.food<65?'🍞 物資不足です。富が均等でも、食べるものが足りなければ困窮します。':m.topShare>65?'💎 上位10%が富の大部分を保有。町の安定と住民それぞれの暮らしを分けて観察しよう。':m.gini>.53?'手元現金の格差が拡大しています。資産の中央値だけでなく、困窮率も見ましょう。':m.happy>75?'満足度は高い。でも、置き去りの住人がいないか、顔をクリックして調べてみよう。':'制度・教育・保障・時間の影響は複雑です。同じ初期条件で別の政策を試してみましょう。';
+ $('insight').textContent='🔎 観察メモ：'+msg;
+ const flow=state.flows||{};const show=(label,value)=>`<div class="ledger-cell"><span>${label}</span><strong>${round(value||0)} コイン</strong></div>`;
+ $('ledgerDetail').innerHTML=show('企業 → 住民：給与',flow.wages)+show('住民 → 企業：買い物',flow.consumption)+show('企業 → 住民：配当',flow.dividends)+show('住民・企業 → 役場：税', (flow.wageTaxes||0)+(flow.profitTaxes||0))+show('役場 → 住民：給付',flow.benefits)+show('役場 → 企業：公共サービス',flow.publicSpending)+show('町外 → 企業：輸出',flow.exports)+show('企業 → 町外：原材料等',flow.imports)+show('住民・企業 → 銀行：借入残高',state.bank.loans)+show('今年の新規借入',flow.borrowed)+show('今年の元金返済',flow.repaid)+show('今年の貸倒処理',flow.badDebt)+show('移住時の持込資金',flow.entrants)+show('転出による資金流出',flow.leavers);
+ chart();populationChart();
+}
+function populationChart(){const c=$('populationChart'),ctx=c.getContext('2d'),W=c.width,H=c.height,L=35,R=14,T=13,B=24;ctx.clearRect(0,0,W,H);
+ ctx.font='13px sans-serif';ctx.fillStyle='#7a8f81';ctx.strokeStyle='#e5efe3';ctx.textAlign='right';for(let j=0;j<=3;j++){let v=j*40,y=T+(H-T-B)*(1-v/120);ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(W-R,y);ctx.stroke();ctx.fillText(v,L-5,y+4);}
+ ctx.strokeStyle='#7b84b4';ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<state.series.length;i++){const r=state.series[i],x=L+(W-L-R)*r.year/MAX_YEARS,y=T+(H-T-B)*(1-clamp(r.pop,0,120)/120);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();
+ ctx.textAlign='center';ctx.fillStyle='#7a8f81';for(let yr=0;yr<=500;yr+=100){ctx.fillText(yr+'年',L+(W-L-R)*yr/MAX_YEARS,H-5);}}
+function voiceFor(a){
+ if(a.severe)return ['毎年の支払いに追われて、学ぶ余裕もない。','借金を整理したけど、また失敗したらどうしよう。','病院には行きたい。でも生活費が先。'][a.id%3];
+ if(a.recovery>0)return '破綻したあと、また生活を立て直しているところ。';
+ if(a.unmet)return ['働いても生活費が足りない年がある。','家族のことを考えると、仕事を休めない。','今年は少しだけ貯められるかな。'][a.id%3];
+ if(a.age<18)return ['みんなと同じように勉強できるかな。','うちの本棚は小さいけど、学校は好き。','大人になったら何をしようかな。'][a.id%3];
+ if(a.age>64)return a.cash>160?'老後に余裕があると、散歩も落ち着いて楽しめる。':'年を取っても安心できる仕組みがほしいな。';
+ if(a.dividend>20)return '持っている会社から配当が入る。働く収入とは別なんだ。';
+ if(a.cash>1000)return '少しずつ貯めて、次の世代に何を残そう。';
+ if(a.unemployed)return '仕事が見つからなかった。次の年はどうかな。';
+ if(a.skill>.72)return '学んだことが、仕事につながってきた。';
+ return ['今日もぼちぼちやっていこう。','自分の選択で、未来はどれくらい変わる？','比べなくても、案外いい一日。','明日は少し楽だといいな。'][a.id%4];
+}
+function renderLineages(){
+ const list=[];
+ for(let i=0;i<12;i++){
+  const all=state.people.filter(a=>a.dynasty===i);
+  const living=all.filter(a=>a.alive),born=all.filter(a=>a.origin==='birth').length;
+  const last=all.reduce((v,a)=>Math.max(v,a.exitYear||0),0);
+  const status=living.length?`🌿 存続 ${living.length}人`:`🕯️ 断絶 ${last}年目`;
+  list.push(`<div class="lineage-entry ${living.length?'alive':'gone'}"><b>初代 家${i+1}</b><span>${status}</span><small>子孫の誕生 ${born}人</small></div>`);
+ }
+ $('lineageList').innerHTML=list.join('');
+}
+function renderPeople(){
+ const a=state.people.find(a=>a.id===state.selected&&a.alive)||state.people.find(a=>a.alive);
+ if(!a){$('personDetail').textContent='この町にまだ住人はいません。';$('voices').textContent='';return;}
+ state.selected=a.id;const icon=EMOJIS[a.id%EMOJIS.length];
+ const status=a.severe?'🚨 深刻な困窮':a.unmet?'⚠️ 困窮中':a.recovery>0?'💥 再建中':a.unemployed?'💼 求職中':'🌱 暮らしを継続中';
+ $('personDetail').innerHTML=`<div class="person-name"><span class="mini-avatar">${icon}</span><div>${a.name}<div class="person-meta">${a.age}歳 · ${a.family+1}番目の家 · 家系${a.dynasty+1} · ${['お金派','安心派','自由派','健康派'][a.personality]}</div></div></div><div class="person-alert">${status} ・ 家系の歴史も引き継ぎ中</div><div class="person-stats"><div><span>手元の現金</span><b>${round(a.cash)} コイン</b></div><div><span>暮らしの満足</span><b>${round(a.happy)}/100</b></div><div><span>学び・技能</span><b>${round(a.skill*100)}/100</b></div><div><span>健康</span><b>${round(a.health*100)}/100</b></div><div><span>銀行からの借入</span><b>${round(a.debt||0)} コイン</b></div><div><span>年の収入</span><b>${round(a.earn)} コイン</b></div><div><span>時間の自由</span><b>${round(a.free)}/100</b></div><div><span>破綻回数</span><b>${a.bankrupts} 回</b></div><div><span>困窮した年数</span><b>${a.hardshipYears} 年</b></div><div><span>今年の企業配当</span><b>${round(a.dividend)} コイン</b></div><div><span>出自</span><b>${a.origin==='founder'?'初代':a.origin==='migrant'?'移住':'この町生まれ'}</b></div></div><p class="person-quote">「${voiceFor(a)}」</p>`;
+ const living=state.people.filter(q=>q.alive);
+ let samplePeople=[living.filter(q=>q.severe).sort((x,y)=>x.cash-y.cash)[0],living.filter(q=>q.unmet&&!q.severe)[0],living.filter(q=>q.cash>1000)[0],living[Math.floor((state.year*7)%living.length)]].filter(Boolean);
+ samplePeople=[...new Map(samplePeople.map(q=>[q.id,q])).values()].slice(0,3);
+ $('voices').innerHTML=samplePeople.map(q=>`<div class="voice"><strong>${EMOJIS[q.id%EMOJIS.length]} ${q.name} · ${q.age}歳 ${q.severe?'🚨':q.unmet?'⚠️':''}</strong><p>「${voiceFor(q)}」</p></div>`).join('');
+}
+function renderDiary(){$('diary').innerHTML=state.logs.slice(0,10).map(x=>`<div class="diary-entry"><span class="diary-year">${x.year}年目</span><p>${x.text}</p></div>`).join('');}
+function getWorldLabel(){const p=state.pol;const x=Object.entries(P).find(([k,v])=>['market','safety','school','freedom','concentration','scarcity'].every(t=>Math.abs(p[t]*100-v[t])<1));return x?x[1].name:'自分で決めたまち';}
+function renderAll(){$('worldName').textContent=getWorldLabel();renderStats();renderPeople();renderLineages();renderDiary();eventsSummary();renderV06HUD();}
+function stopUI(){if(timer){clearInterval(timer);timer=null;}$('autoBtn').textContent='▶ 自動観察';$('autoBtn').classList.remove('running');}
+function pause(){workToken++;stopUI();}
+function auto(){if(timer){pause();return;}if(state.year>=MAX_YEARS)return;
+ timer=setInterval(()=>{progressOne();if(state.year>=MAX_YEARS)pause();},85);
+ $('autoBtn').textContent='Ⅱ 停止';$('autoBtn').classList.add('running');
+}
+function advance(count){pause();const token=++workToken,end=Math.min(MAX_YEARS,state.year+count);
+ if(end<=state.year)return;
+ $('worldNotice').textContent=`🕰️ ${end}年目まで時間を進めています…`;
+ const chunk=()=>{if(workToken!==token)return;const n=Math.min(20,end-state.year);
+ for(let i=0;i<n;i++)progressOne(false);renderAll();
+ if(state.year<end){setTimeout(chunk,0);}else{$('worldNotice').textContent=`${end}年まで観測しました。別の社会のルールでも試せます。`;} };
+ chunk();
+}
+function eventStart(kind){if(state.year>=MAX_YEARS)return;const ev=EVENTS[kind];if(!ev)return;
+ state.events=state.events.filter(e=>e.kind!==kind);state.events.push({kind,end:state.year+ev.duration});
+ pushLog(`${ev.name}が始まった。${ev.desc}。`);renderDiary();eventsSummary();renderV06HUD();$('worldNotice').textContent=`${ev.name}！ ${ev.duration}年間影響します`;
+}
+function saveState(){const m=state.lastReport;const rec={key:String(Date.now()),year:state.year,seed:state.seed,label:getWorldLabel(),topShare:round(m.topShare),food:round(m.food),founderLines:m.founderLines,firmClosures:m.firmClosures,hardshipYears:m.hardshipYears,debtTotal:round(m.debtTotal),moneyAudit:m.audit,happy:round(m.happy),gini:readable(m.gini),poor:round(m.poor),severe:round(m.severe),free:round(m.free),bankrupt:m.bankrupt,pop:m.pop,infrastructure:round(m.infrastructure),departures:m.departures,extinctAt:state.extinctAt};saved.unshift(rec);saved=saved.slice(0,7);try{localStorage.setItem('botmachi_comparisons_v3',JSON.stringify(saved));}catch(e){}renderCompare();}
+function renderCompare(){$('comparisons').innerHTML=saved.length?saved.map(r=>`<div class="comparison"><div class="cmp-top"><b>${r.label}</b><span>${r.year}年 / 世界線${r.seed}</span></div><div class="cmp-stats"><span>満足 ${r.happy}</span><span>格差 ${r.gini}</span><span>困窮 ${r.poor}%</span><span>重度 ${r.severe||0}%</span><span>破綻 ${r.bankrupt||0}</span><span>人口 ${r.pop??'—'}</span><span>街の基盤 ${r.infrastructure??'—'}%</span><span>転出 ${r.departures||0}</span><span>余暇 ${r.free}</span><span>富の集中 ${r.topShare??'—'}%</span><span>物資充足 ${r.food??'—'}%</span><span>初代家系 ${r.founderLines??'—'}/12</span><span>借入 ${r.debtTotal??'—'}</span><span>収支差 ${r.moneyAudit===undefined?'—':r.moneyAudit.toFixed(2)}</span><span>企業倒産 ${r.firmClosures??'—'}社</span></div></div>`).join(''):'<div class="compare-empty">まだ保存した世界はありません。<br>50年や500年観測したら残してみよう。</div>';}
+function prepareCompare(){try{saved=JSON.parse(localStorage.getItem('botmachi_comparisons_v3')||'[]');if(!Array.isArray(saved))saved=[];saved=saved.filter(r=>r&&typeof r.label==='string').slice(0,7);}catch(e){saved=[];}renderCompare();}
+
+// v0.6.1 — presentation only. All market, taxation, demographic and banking formulas remain v0.5.
+let activeV06Tab='town';
+function openV06Tab(name,scroll=true){
+ if(!['town','rules','records'].includes(name))return;
+ activeV06Tab=name;
+ document.querySelectorAll('.tab-button').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));});
+ document.querySelectorAll('.tab-panel').forEach(p=>{const on=p.dataset.panel===name;p.hidden=!on;p.classList.toggle('active',on);});
+ if(name==='records'){chart();populationChart();}
+ if(scroll){document.querySelector('.nav-wrap').scrollIntoView({behavior:'smooth',block:'start'});}
+}
+function focusV06Resident(){
+ const c=$('residentCard');c.classList.remove('focus-ping');void c.offsetWidth;c.classList.add('focus-ping');
+ if(window.innerWidth<=850)c.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function homeVisuals(){
+ const homes=[];for(let i=0;i<12;i++){
+  const ppl=state.people.filter(a=>a.alive&&a.family===i);
+  const adult=ppl.filter(a=>a.age>=18);
+  const cash=adult.reduce((s,a)=>s+Math.max(0,a.cash),0);
+  const struggling=ppl.some(a=>a.severe||a.unmet);
+  const avg=adult.length?cash/adult.length:0;
+  let type=!ppl.length?'empty':(struggling||avg<36)?'poor':avg>900&&!struggling?'rich':'normal';
+  homes.push({i,ppl,cash,avg,type,missing:ppl.length===0});
+ }
+ return homes;
+}
+function renderV06HUD(){
+ if(!state||!state.lastReport)return;
+ const m=state.lastReport;
+ $('hudYear').textContent=state.year;$('hudProgress').style.width=(state.year/500*100)+'%';
+ $('hudPop').textContent=m.pop+'人';$('hudHappy').textContent=m.pop?Math.round(m.happy)+'/100':'—';
+ $('hudPoor').textContent=m.pop?Math.round(m.poor)+'%':'—';$('hudGini').textContent=m.pop?m.gini.toFixed(2):'—';
+ $('hudStatus').textContent=m.pop===0?'🏚️ 無人のまち':m.infrastructure<30?'🛠️ 基盤が弱っています':m.poor>=35?'🚨 困窮が広がっています':m.food<65?'🍞 物資が不足中':m.topShare>65?'💎 富が集中しています':'🏡 町は存続中';
+ const homes=homeVisuals();
+ $('uiTroubledHomes').textContent=homes.filter(h=>h.type==='poor').length+'軒';
+ $('uiRichHomes').textContent=homes.filter(h=>h.type==='rich').length+'軒';
+ $('uiEmptyHomes').textContent=homes.filter(h=>h.type==='empty').length+'軒';
+ $('uiBusinesses').textContent=m.activeFirms+'社';
+ let mood=state.year===0?'🌱 12家族・36人の物語がはじまる。':m.pop===0?'🏚️ 住人がいなくなりました。再挑戦もできます。':m.food<60?'🍞 物資が不足。家計の余裕があっても暮らしが揺らぎます。':m.topShare>65?'💎 富が一部の家系に集中しています。住民の顔を見てみよう。':m.poor>25?'🚨 支払いに苦しむ人が増えています。':m.pop<24?'🍂 人口が減り、空き家が目立ってきました。':'🌿 今日も住民が仕事や学びに出かけています。';
+ $('townMood').textContent=mood;
+ $('sceneTag').textContent=m.pop===0?'🏚️ 無人のまち':m.poor>25?'⚠️ 暮らしに変化':m.topShare>65?'💎 家々に格差':'🌿 暮らしを観察中';
+ const recent=state.logs.slice(0,3);$('townChronicle').innerHTML=recent.map(x=>`<div class="chronicle-item"><span>${x.year}年目</span><p>${x.text}</p></div>`).join('');
+ const p=state.pol;
+ const snap=[['⚡ 競争',p.market],['🤝 保障',p.safety],['📚 学び',p.school],['🌿 自由',p.freedom],['💎 富集中',p.concentration],['🍞 資源難',p.scarcity]];
+ $('societySnapshot').innerHTML=snap.map(([name,val])=>`<div><span>${name}</span><div class="level-track"><span style="width:${val*100}%"></span></div><b>${Math.round(val*100)}</b></div>`).join('');
+ const notes=[];if(p.market>=.85)notes.push('成果に応じた収入差が大きい');if(p.concentration>=.85)notes.push('企業利益が一部に集まりやすい');if(p.safety<=.15)notes.push('公的保障がほとんどない');if(p.scarcity>=.75)notes.push('生活物資が不足しやすい');if(p.school>=.75)notes.push('教育を広く支える');
+ $('societySummary').textContent=(notes.length?notes.join(' ・ '):'極端ではないルールを組み合わせた社会')+'。実際に何が起きるかは、500年間の観測で確かめよう。';
+}
+// Additional house appearance is driven by living residents' actual cash and hardship flags.
+function drawHomeCondition(i){
+ const h=homeVisuals()[i],x=HOME[i][0],y=HOME[i][1];if(!h||h.type==='empty')return;
+ const wealth=h.type==='rich',poor=h.type==='poor';
+ if(wealth){
+  // Bigger facade / terrace / tiled roof and flourishing garden.
+  rect(x-43,y-54,7,41,'#ead7b0');rect(x+34,y-54,7,41,'#ead7b0');
+  rect(x-40,y-67,82,8,'#3d8a79');rect(x-31,y-75,63,9,'#559b88');
+  rect(x-6,y-84,14,10,'#e5c79f');rect(x-8,y-87,18,5,'#39806e');
+  rect(x-42,y-5,86,7,'#c7b795');rect(x-43,y-5,8,6,'#97bf87');rect(x+37,y-5,8,6,'#97bf87');
+  for(let t=0;t<4;t++){rect(x-47+t*7,y+4,4,4,'#f3d1a4');rect(x+24+t*7,y+4,4,4,t%2?'#e7b7a7':'#ffffcb');}
+  rect(x-31,y-42,7,10,'#e7efb9');rect(x+25,y-42,7,10,'#e7efb9');
+  rect(x-29,y-21,5,4,'#69916d');rect(x+21,y-21,5,4,'#69916d');
+  g.fillStyle='#245c47';g.font='bold 13px sans-serif';g.textAlign='center';g.fillText('✦',x+28,y-78);
+ }else if(poor){
+  // Patch roof, warped shutter and weeds; no change to living expenses.
+  rect(x-27,y-65,22,5,'#8e7e72');rect(x-29,y-60,11,3,'#6c665f');
+  rect(x+12,y-41,17,17,'#7c8978');rect(x+15,y-39,3,14,'#b4a489');
+  rect(x-31,y-8,12,5,'#8d8b65');rect(x+27,y-10,7,7,'#9a9a72');
+  rect(x-10,y+5,4,5,'#738660');rect(x+10,y+5,4,5,'#738660');
+  rect(x+31,y-53,5,20,'#a49a87');
+ }else{
+  // Ordinary occupied homes have a small flower patch and a mailbox.
+  rect(x-33,y-5,6,8,'#a0b880');rect(x-35,y-10,9,6,'#e7b49b');
+  rect(x+32,y-15,4,18,'#867957');rect(x+28,y-19,11,6,'#dee7be');
+ }
+}
+function drawFacilityCondition(f){
+ if(f.kind==='factory'||f.kind==='office'||f.kind==='market'){
+   if(state.firms.length===0){
+     rect(f.x-28,f.y-41,57,26,'#6a716e9c');
+     rect(f.x-27,f.y-42,53,6,'#80696d');
+     g.font='bold 12px sans-serif';g.textAlign='center';g.fillStyle='#fff6e1';g.fillText('休業中',f.x,f.y-22);
+   }else if(state.firms.length>=6&&f.kind==='market'){
+     rect(f.x-39,f.y-63,80,10,'#e39d64');for(let i=0;i<5;i++)rect(f.x-37+i*15,f.y-63,7,10,'#fff5cf');
+   }
+ }
+ if(f.kind==='school'&&state.pol.school<.15){rect(f.x-32,f.y-46,63,5,'#8a9c8a');}
+ if(f.kind==='clinic'&&state.infrastructure<.3){rect(f.x+25,f.y-44,8,10,'#737d76');}
+}
+function drawTownStalls(){
+ const n=state.firms.length;
+ if(n>=5){for(let j=0;j<Math.min(3,n-4);j++){
+  const x=828+j*42,y=526;
+  rect(x-16,y-24,34,17,'#ecd5aa');rect(x-20,y-31,40,9,j%2?'#8dabaa':'#e39a7b');rect(x-16,y-7,34,5,'#957f65');
+  rect(x-10,y-24,9,8,'#9fbc99');rect(x+4,y-24,10,8,'#ddc191');
+ }}
+ if(state.infrastructure<.4){
+  for(const [x,y] of [[198,168],[500,304],[760,476]]){rect(x-8,y+3,16,2,'#998c7a');rect(x-2,y+1,10,2,'#9c9283');rect(x+7,y-2,2,6,'#a69586');}
+ }
+}
+function initV06(){
+ document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>openV06Tab(b.dataset.tab)));
+ document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>openV06Tab(b.dataset.jump)));
+ for(const key of ['market','safety','school','freedom','concentration','scarcity'])$(key).addEventListener('input',renderV06HUD);
+ // Slightly richer contextual UI without interrupting the simulation.
+ document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',renderV06HUD));
+ window.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeV06Tab!=='town')openV06Tab('town');});
+}
+
+// TILE ART (canvas only, no external files)
+const canvas=$('world'),g=canvas.getContext('2d');g.imageSmoothingEnabled=false;
+function rect(x,y,w,h,col){g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));}
+function circle(x,y,r,col){g.fillStyle=col;g.beginPath();g.arc(x,y,r,0,6.283);g.fill();}
+function worldBackground(){rect(0,0,960,570,'#a9d18c');for(let i=0;i<280;i++){const x=hash(7,i,'x')*960,y=hash(7,i,'y')*570;rect(x,y,4+hash(7,i,'w')*7,3,'#a1cb83');}for(let i=0;i<78;i++){const x=hash(15,i,'fx')*960,y=hash(15,i,'fy')*570;rect(x,y,3,3,i%5===0?'#fff6d4':'#c8df9d');rect(x+2,y-2,2,2,i%4===0?'#ffa2a6':'#ffedd9');}
+// cobblestone roads
+for(const y of [165,305,473]){rect(0,y-14,960,38,'#e1cda0');rect(0,y-9,960,28,'#e9dab8');for(let x=3;x<960;x+=25)rect(x+((y*3)%17),y+1,9,2,'#d1bfa1');}
+for(const x of [193,499,762]){rect(x-17,0,43,570,'#dcc89e');rect(x-12,0,33,570,'#e6d5ad');for(let y=15;y<570;y+=34)rect(x-1,y,3,13,'#c9ba9b');}
+// flower patches, trimmed hedges
+for(let i=0;i<17;i++){const x=hash(8,i,'tree')*950,y=hash(8,i,'ty')*560;drawTree(x,y,1.1+hash(8,i,'scale')*.55);}for(let x=4;x<960;x+=70){if(x%3!==0){drawBush(x,18);drawBush(x,546);}}}
+function drawTree(x,y,k=1){g.save();g.translate(Math.round(x),Math.round(y));g.scale(k,k);rect(-4,5,8,14,'#8e7655');circle(-8,-1,12,'#3e8758');circle(8,-2,13,'#3f9462');circle(0,-10,14,'#4ca56b');circle(-3,-12,7,'#65b478');g.restore();}
+function drawBush(x,y){circle(x,y,11,'#5ca870');circle(x+8,y-2,8,'#64aa78');circle(x-5,y-3,8,'#418d59');}
+function building(x,y,type,num=0,scale=1){g.save();g.translate(x,y);g.scale(scale,scale);const palettes={house:['#f6dbad','#c77b6c','#fff4d7'],office:['#cedbd2','#568e91','#ecf5d7'],school:['#f7d3ad','#d78b5a','#fff0bb'],clinic:['#f8f6e9','#7bb6ad','#f8fcfc'],market:['#e7c3a7','#b88579','#fcf0d8'],park:['#b8cf8b','#558e6c','#f4dd9b'],factory:['#d6c5ab','#8a8eaa','#f9ebce']};const p=palettes[type]||palettes.house;rect(-36,-4,76,9,'#79996a');rect(-34,-50,68,46,p[0]);rect(-38,-56,76,11,p[1]);rect(-30,-65,60,11,p[1]);rect(-27,-42,17,16,'#74afbb');rect(-25,-40,12,11,'#badfe0');rect(10,-42,17,16,'#74afbb');rect(12,-40,12,11,'#badfe0');rect(-7,-27,17,23,'#a97857');rect(-3,-24,9,20,'#d39c70');rect(6,-14,2,3,'#614b39');if(type==='school'){rect(-14,-65,28,8,'#e9f6dd');rect(-2,-70,4,18,'#537d5a');}if(type==='clinic'){rect(-4,-67,9,26,'#e68880');rect(-12,-58,25,9,'#e68880');}if(type==='market'){for(let i=0;i<6;i++)rect(-34+i*11,-56,10,10,i%2?'#fff0df':'#d89173');}if(type==='office'){for(let i=0;i<4;i++)rect(-31+i*17,-65,12,11,'#9bc5c2');}if(type==='factory'){rect(20,-82,13,30,'#8b8d9c');}if(type==='park'){drawTree(-20,-34,1);drawTree(18,-31,.8);rect(-24,-8,50,7,'#977b53');}if(type==='house'){rect(-30,-52,9,9,num%3===0?'#ffeab4':'#c57867');}g.fillStyle='#355c47';g.font='bold 12px sans-serif';g.textAlign='center';g.fillText(type==='house'?`家${num+1}`:({school:'がっこう',clinic:'びょういん',market:'おみせ',office:'しごと',park:'こうえん',factory:'こうぼう'})[type],0,10);g.restore();}
+function drawAvatar(x,y,a,selected,t){const age=a.age;const walk=Math.sin(t*3+a.id*3)*1.8;const s=age<13?.75:1;g.save();g.translate(Math.round(x),Math.round(y+walk));g.scale(s,s);circle(0,8,7,'#6b916d88');rect(-6,-7,12,14,SHIRTS[a.id%SHIRTS.length]);rect(-5,6,4,7,'#514f4d');rect(1,6,4,7,'#514f4d');rect(-5,-18,11,12,'#f5ca9d');rect(-7,-19,14,5,HAIR[a.id%HAIR.length]);if(a.severe){rect(-8,-31,16,6,'#bf5454');rect(-2,-40,4,9,'#bf5454');}else if(a.unmet){circle(0,-29,5,'#edbd5c');}rect(-5,-17,4,5,HAIR[a.id%HAIR.length]);rect(-3,-10,2,2,'#463d3a');rect(3,-10,2,2,'#463d3a');if(selected){g.strokeStyle='#fff6a0';g.lineWidth=3;g.strokeRect(-10,-23,21,40);g.fillStyle='#2d674b';g.font='bold 15px sans-serif';g.textAlign='center';g.fillText(a.name,0,-31);g.fillStyle='#fff9e7';g.fillRect(-15,-30,30,4);}g.restore();}
+function personPosition(a,t){const h=HOME[a.family%HOME.length];const targets=[FACILITIES[a.job].x,FACILITIES[a.job].y];if(a.age<18){targets[0]=FACILITIES[1].x;targets[1]=FACILITIES[1].y;}if(a.age>=65){targets[0]=FACILITIES[4].x;targets[1]=FACILITIES[4].y;}const phase=(t*.16 +a.id*.13)%1;let ratio=.5-.5*Math.cos(phase*Math.PI*2);const px=h[0]+(targets[0]-h[0])*ratio+Math.sin(t*.35+a.id)*17;const py=h[1]+(targets[1]-h[1])*ratio+Math.cos(t*.3+a.id)*11;return [clamp(px,24,938),clamp(py,55,544)];}
+function renderWorld(ts){frame=ts/1000;worldBackground();for(let i=0;i<HOME.length;i++){building(HOME[i][0],HOME[i][1], 'house',i,.91);drawHomeCondition(i);if(!state.people.some(a=>a.alive&&a.family===i)){rect(HOME[i][0]-29,HOME[i][1]-54,59,44,'#525a6388');g.fillStyle='#fff7e7';g.textAlign='center';g.font='bold 14px sans-serif';g.fillText('空き家',HOME[i][0],HOME[i][1]-31);}}for(const f of FACILITIES){building(f.x,f.y,f.kind,0,1.16);drawFacilityCondition(f);}drawTownStalls();personPositions=[];const live=state.people.filter(a=>a.alive);live.sort((a,b)=>personPosition(a,frame)[1]-personPosition(b,frame)[1]);for(const a of live){const [x,y]=personPosition(a,frame);personPositions.push({x,y,id:a.id});drawAvatar(x,y,a,a.id===state.selected,frame);}if(state.infrastructure<.4){rect(0,0,960,570,`rgba(78,72,71,${(.4-state.infrastructure)*.37})`);}
+ if(state.foodSupply<.65){rect(0,0,960,570,`rgba(166,110,58,${(.65-state.foodSupply)*.20})`);g.font='bold 22px sans-serif';g.fillStyle='#8a3524';g.textAlign='left';g.fillText('🍞 物資不足',18,56);}
+ if(state.firms.length===0&&state.year>0){g.font='bold 18px sans-serif';g.fillStyle='#783b36';g.textAlign='left';g.fillText('🏚️ 会社が消えた',20,85);}if(!live.length){rect(0,0,960,570,'#272e2a77');g.fillStyle='#fffbe6';g.font='bold 37px sans-serif';g.textAlign='center';g.fillText('🏚️ 住人のいない町',480,265);g.font='22px sans-serif';g.fillText(`${state.extinctAt}年目に無人化`,480,304);}if(active('recession')){rect(0,0,960,570,'#3c607017');}if(active('ai')){g.fillStyle='#fff6de';g.font='bold 20px sans-serif';g.textAlign='left';g.fillText('🤖 AIのあるまち',20,33);}requestAnimationFrame(renderWorld);}
+canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*canvas.width,y=(e.clientY-r.top)/r.height*canvas.height;let best=null,dist=1e7;for(const p of personPositions){const d=(p.x-x)**2+(p.y-y)**2;if(d<dist){dist=d;best=p;}}if(best&&dist<58**2){state.selected=best.id;renderPeople();focusV06Resident();$('worldNotice').textContent='👀 '+state.people.find(a=>a.id===best.id).name+' の暮らしを観察中';}});
+$('stepBtn').onclick=()=>advance(1);
+$('fiveBtn').onclick=()=>advance(10);
+$('fiftyBtn').onclick=()=>advance(50);
+$('endBtn').onclick=()=>advance(MAX_YEARS-state.year);
+$('autoBtn').onclick=auto;
+$('resetBtn').onclick=()=>newWorld(Number($('seed').value));
+$('newSeedBtn').onclick=()=>newWorld(Math.floor(Math.random()*999999998)+1);
+$('saveBtn').onclick=saveState;
+$('clearSaves').onclick=()=>{saved=[];try{localStorage.removeItem('botmachi_comparisons_v3')}catch(e){}renderCompare()};
+document.querySelectorAll('[data-event]').forEach(el=>el.onclick=()=>eventStart(el.dataset.event));
+document.querySelectorAll('[data-preset]').forEach(el=>el.onclick=()=>applyPolicy(el.dataset.preset));
+for(const key of ['market','safety','school','freedom','concentration','scarcity']){
+ $(key).addEventListener('input',()=>{$(key+'Value').textContent=$(key).value;state.pol=readPolicy();document.querySelectorAll('.preset').forEach(b=>b.classList.remove('selected'));$('worldName').textContent='自分で決めたまち';updateStats();renderStats();renderV06HUD();});
+}
+$('seed').addEventListener('change',()=>{const s=round(clamp(Number($('seed').value)||1,1,999999999));$('seed').value=s;});
+initV06();applyPolicy('balance');prepareCompare();newWorld();requestAnimationFrame(renderWorld);
+})();
+
+</script>
+</body></html>
