@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f7f5">
+<title>DIARY｜☀️ はてな日和</title>
+<meta name="description" content="なんでもない日記。昔の個人ホームページに残された、管理人の記録。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/dareka-diary.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{color-scheme:light;--ink:#302f31;--muted:#6f7177;--line:#d9d9dc;--paper:#fff;--bg:#f7f7f5;--blue:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,"Yu Gothic UI",sans-serif;line-height:1.78}
+a{color:#1754bf;text-underline-offset:3px}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #88b1ff;outline-offset:3px}
+.wrap{max-width:810px;padding:24px 18px 48px;margin:auto}
+.paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4.5vw,36px);box-shadow:0 5px 18px #1e293b06}
+.head{text-align:center;border-bottom:1px solid #ececef;padding-bottom:22px}
+.eyebrow{font-size:.73rem;letter-spacing:.13em;color:#777b84;margin:0 0 12px}
+h1{font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.28;letter-spacing:.03em;margin:0 0 6px}
+.sub{margin:0;color:#666a70;font-weight:700;font-size:clamp(1.06rem,3vw,1.33rem)}
+.intro{font-size:.92rem;color:#535b63;margin:23px 0 25px}
+.diary-entry{padding:0 1px 23px;min-height:268px;border-bottom:1px solid #ececef}
+.date{color:#2563eb;font-size:.88rem;font-weight:750;letter-spacing:.07em;margin:0 0 13px}
+.body{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font-size:.99rem;line-height:1.97}
+.nav{margin:18px 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nav a{display:inline-block;text-decoration:none;border:1px solid #d1d9e6;border-radius:10px;padding:9px 12px;font-size:.9rem;font-weight:650;background:#fff}
+.nav a:hover{background:#f2f6fd}
+.nav .disabled{color:#b3b7bd;border:1px solid #eceef1;pointer-events:none;background:#fff}
+.back-number{margin:32px 0 0;border-top:1px solid #ececef;padding-top:20px}
+.back-number summary{cursor:pointer;font-weight:700;font-size:.91rem;color:#535b63}
+.log-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 12px;padding:14px 0 0}
+.log-grid a{font-size:.87rem;text-decoration:none;white-space:nowrap}.log-grid a:hover{text-decoration:underline}
+.archive-note{font-size:.8rem;color:#7a7a7a;margin-top:8px}
+.return{display:inline-block;margin-top:27px;text-decoration:none;font-weight:700;color:#1754bf;padding:8px 12px;border:1px solid #c8d7ee;border-radius:9px}
+.return:hover{background:#edf4ff}
+.footer{text-align:center;font-size:.73rem;color:#85858a;padding:18px 0;line-height:1.85}
+.fiction-note{font-size:.71rem;color:#8d9197;margin:7px 0}
+#oldlog{background:#fffdfa;border:1px solid #e7e1d6;border-radius:12px;padding:17px;margin:22px 0 8px}
+#oldlog[hidden]{display:none}
+#oldlog h2{font-size:1rem;margin:0 0 12px}
+#oldlog p{font-size:.88rem;margin:0;line-height:1.9;white-space:pre-wrap}
+#oldlog button{margin-top:10px;padding:6px 10px;color:#1754bf;background:#fff;border:1px solid #c8d7ee;border-radius:7px;cursor:pointer}
+@media(max-width:540px){.wrap{padding:14px 12px 30px}.paper{padding:20px 16px}.diary-entry{min-height:285px}.nav a{font-size:.83rem;padding:9px 9px}.log-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="wrap"><main class="paper">
+<header class="head"><p class="eyebrow">MY LITTLE HOMEPAGE · DIARY</p><h1>📖 DIARY</h1><p class="sub">管理人の日記帳</p></header>
+<p class="intro">今日あったこととか、どうでもいいこととか。<br>気が向いたときに書いてます (*'▽')</p>
+<article id="entry" class="diary-entry" aria-live="polite">
+  <h2 id="entryDate" class="date"></h2>
+  <p id="entryText" class="body"></p>
+</article>
+<nav class="nav" aria-label="日記を移動">
+  <a id="prev" href="#">← 前の日</a>
+  <a id="next" href="#">次の日 →</a>
+</nav>
+<div id="oldlog" hidden>
+  <h2>古い更新履歴（2006年）</h2>
+  <p>5/14　TOPを改装。担当：くるみ
+5/16　ABOUT MEを追加。担当：ゆき
+5/19　日記の共同更新を開始。
+
+※管理人は二人います。お返事が遅いときはのんびり待ってねｗ</p>
+  <button id="closeOld" type="button">閉じる</button>
+</div>
+<section class="back-number">
+  <details id="archive"><summary>過去ログを見る</summary><div id="logGrid" class="log-grid"></div><p class="archive-note">読みたい日付を選べます。</p></details>
+</section>
+<a class="return" href="index.html">← 玄関へ戻る</a>
+</main><div class="footer">☀️ はてな日和 〜 もしもの箱庭 〜<div class="fiction-note">※このページは創作日記です。実際の管理人の日記とは別です。</div></div></div>
+<script>
+(function(){
+'use strict';
+const entries=[{"date": "2026-09-16", "text": "久しぶりに日記を作ったｗ\n\n昔は何でもホムペに置いてたよなー。\nABOUT MEとか、キリ番とか。懐かしすぎる。\n\nとりあえず、気が向いたら書くことにする。"}, {"date": "2026-09-17", "text": "今日はカレー。\n\n作りすぎたので明日もカレー確定ｗ\n\nそれだけ。"}, {"date": "2026-09-18", "text": "眠い。\n\n昨日のカレーは無事なくなりました。\n夜、昔の素材屋さん探してたら２時間たってた。\nあの小さいアイコンかわいいんだよな。"}, {"date": "2026-09-19", "text": "コンビニでプリン買った。\n\n明日食べようと思って冷蔵庫に入れた。\nなんかこういうの、日記に書く意味あるのかなｗ\nまあ日記だからいいか。"}, {"date": "2026-09-20", "text": "プリンがないｗｗｗ\n\nたぶん家の誰かが食べた。\n聞くほどのことでもないけど、楽しみにしてたのにー。\n\n今日はずっと雨。"}, {"date": "2026-09-21", "text": "ページの背景、ちょっとだけ変えた。\n\n自分しか違いが分からないくらいｗ\nあとは洗濯して買い物行って、普通の一日。\n\n明日は晴れるかな。"}, {"date": "2026-09-22", "text": "過去ログを整理してた。\n\nまだ１週間くらいしか書いてないのに、昨日の日記の下に知らない一文が増えてた。\n「赤いマグカップ、まだ使ってる？」\n\nえ、なにこれ。\n自分で書いたっけ。眠すぎたのかなｗ"}, {"date": "2026-09-23", "text": "今日は晴れ。\n\n昨日の日記を見直したら、例の一文なくなってた。\n見間違い？\n\nブラウザのタブを何個も開きっぱなしにしてたから、そのせいかもしれん。\nパソコン難しい。"}, {"date": "2026-09-24", "text": "日記にコメントがついた。\n\n「おかえりなさい」って。\nただいまーｗ\n\nでも、なんで「また二人でやってるの？」って書いてあったんだろ。\nいや一人なんだが。"}, {"date": "2026-09-25", "text": "コメントに返事しようと思ったら、もう返事があった。\n\nしかも投稿者名が「管理人」。\n文章も私っぽい。\n\n「そうだね、懐かしいね」\n\n……私はまだ何も返してない。\nパスワード変えたほうがいいかな。"}, {"date": "2026-09-26", "text": "昔のフォルダを掘ってたら、サイトのタイトル画像が出てきた。\n\n裏に小さく「くるみ＋ゆき」って書いてある。\nそうだった。これ、最初は二人で作ったサイトだった。\n\n一人で管理してた期間のほうが長すぎて、すっかり忘れてた。"}, {"date": "2026-09-27", "text": "ゆきの連絡先、もう残ってないと思ってた。\n\n最後に話したの何年前だっけ。\n喧嘩したとかじゃなくて、なんとなく連絡しなくなっただけ。\n\n昨日の「管理人」の返事、もしかして。"}, {"date": "2026-09-28", "text": "ログイン履歴を見た。\n\n私じゃないほうの更新が、何日も前からある。\n昔の共同パスワード、変えてなかったからなあ。\n\nただ、よく考えたら変なのよ。\n最初に私がここへ戻ってきたの、16日でしょ。\n\nもう一人の更新は、その前の日から始まっている。"}, {"date": "2026-09-29", "text": "古いメールを探した。\n\n「また一緒にホムペやろうね」\n昔の自分が送ったやつ。返信は来てなかった。\n\nでも、今ある下書きの最後にこう書いてあった。\n「返事、ずっと遅くなってごめん」\n\nあの子なのかな。"}, {"date": "2026-09-30", "text": "今日は日記を書こうと思って開いたら、もう今日の日記があった。\n\n「カレー食べた。眠いｗ」\n\n……これ、私が16日に書いた日記と、ほとんど同じ。\n\nゆきなら、こんな文章書くかな。\n\nそもそも、あの子がどうして私の今日を知ってるんだろ。"}];
+const dateEl=document.getElementById('entryDate');
+const textEl=document.getElementById('entryText');
+const prevEl=document.getElementById('prev');
+const nextEl=document.getElementById('next');
+const grid=document.getElementById('logGrid');
+const old=document.getElementById('oldlog');
+let dayIndex=0;
+const toParam=d=>d.replaceAll('-','');
+function render(idx,updateUrl){
+  dayIndex=Math.min(entries.length-1,Math.max(0,idx));
+  const e=entries[dayIndex];
+  dateEl.textContent=e.date.replaceAll('-','.');
+  textEl.textContent=e.text;
+  prevEl.className=dayIndex===0?'disabled':'';
+  nextEl.className=dayIndex===entries.length-1?'disabled':'';
+  prevEl.setAttribute('aria-disabled',dayIndex===0?'true':'false');
+  nextEl.setAttribute('aria-disabled',dayIndex===entries.length-1?'true':'false');
+  prevEl.href=dayIndex>0?'?date='+toParam(entries[dayIndex-1].date):'#';
+  nextEl.href=dayIndex<entries.length-1?'?date='+toParam(entries[dayIndex+1].date):'#';
+  document.querySelectorAll('[data-idx]').forEach(a=>a.setAttribute('aria-current',Number(a.dataset.idx)===dayIndex?'date':'false'));
+  old.hidden=true;
+  if(updateUrl){const u=new URL(location.href);u.searchParams.set('date',toParam(e.date));history.pushState({date:e.date},'',u)}
+}
+function openDate(idx){render(idx,true);window.scrollTo({top:0,behavior:'instant'})}
+prevEl.addEventListener('click',e=>{e.preventDefault();if(dayIndex>0)openDate(dayIndex-1)});
+nextEl.addEventListener('click',e=>{e.preventDefault();if(dayIndex<entries.length-1)openDate(dayIndex+1)});
+entries.forEach((e,i)=>{const a=document.createElement('a');a.href='?date='+toParam(e.date);a.dataset.idx=i;a.textContent=e.date.replaceAll('-','.');a.addEventListener('click',evt=>{evt.preventDefault();openDate(i);document.getElementById('archive').open=false});grid.appendChild(a)});
+const current=()=>{const date=new URLSearchParams(location.search).get('date');const index=entries.findIndex(e=>toParam(e.date)===date);return index<0?0:index};
+window.addEventListener('popstate',()=>render(current(),false));
+// On the final day's entry, an innocuous archive link surfaces, without any game UI.
+function addLink(){
+  const found=document.getElementById('oldlogLink');if(found)found.remove();
+  if(dayIndex===entries.length-1){
+    const a=document.createElement('a');a.href='#oldlog';a.id='oldlogLink';a.textContent='→ そういえば昔の更新履歴が残ってた';
+    a.style.cssText='display:inline-block;margin-top:16px;font-size:.88rem';
+    a.addEventListener('click',evt=>{evt.preventDefault();old.hidden=false;old.scrollIntoView({block:'nearest',behavior:'smooth'})});
+    document.getElementById('entry').appendChild(a);
+  }
+}
+const oldRender=render;
+render=function(idx,updateUrl){oldRender(idx,updateUrl);addLink()};
+render(current(),false);
+document.getElementById('closeOld').addEventListener('click',()=>{old.hidden=true;document.getElementById('entry').scrollIntoView({behavior:'smooth'})});
+})();
+</script>
+</body>
+</html>

@@ -1,16 +1,14 @@
-はてな日和／CONTENTSジャンプ修正（2026-10-12）
+☀️ はてな日和 / DIARYを物語にする入口パッチ
 
-対象：現在のGitHub公開版 index.html / contents.html を基準
+GitHubの最新版 index.html (SHA: 22a031137f31c407287933cd72b7478cbfe085f0) を確認して作成。
 
-1) index.html のCONTENTSボタンのリンク先を
-   contents.html#themes → contents.html#entrance-contents に修正。
-2) contents.html の entrance-contents アンカーを
-   冒頭紹介文の段落から、ページ冒頭のセクション全体に移動。
-   → タイトル「はてなシミュレーション」から表示されるように調整。
+アップロードするファイル（shozai-lab のルートへ）
+・index.html：上書き（玄関のDIARYボタンのリンク先だけを変更）
+・dareka-diary.html：新規追加（架空の管理人のミステリー日記 v0.2）
 
-その他は変更していません。DIARY、OGP画像、ボタンなども維持。
+既存の diary.html / diary.txt、contents.html、24実験・2ゲーム、OGP、
+CONTENTSジャンプ位置などは変更していません。
 
-【反映方法】
-GitHub の shozai-lab リポジトリ直下に index.html と contents.html を上書きアップロード。
-反映後に玄関のCONTENTSをクリックして、コンテンツ冒頭が表示されるか確認。
-※ブラウザの古いキャッシュが残るときは Ctrl+F5 で再読み込み。
+※このZIPをアップロードするまで、公開サイトは変化しません。
+※物語は試作の15日分。DIARYを日常として読ませるため、
+  玄関には「ゲーム」「ミステリー」の表記を追加していません。
