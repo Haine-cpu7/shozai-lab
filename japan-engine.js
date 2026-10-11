@@ -10,6 +10,19 @@ function at(year,key='medium'){
  out.lossFromStart=1-out.total/START.total;out.workLossFromStart=1-out.work/START.work;out.childLossFromStart=1-out.child/START.child;out.elderChangeFromStart=out.elder/START.elder-1;
  return out;
 }
-function miniDots(d){const c=Math.max(0,Math.round(d.miniChild)),w=Math.max(0,Math.round(d.miniWork)),e=Math.max(0,Math.round(d.miniElder));return{child:c,work:w,elder:e,total:c+w+e}}
+function miniDots(d){
+ // 表示専用：年齢3区分を合計人数に正規化し、最大剰余法で端数を配分する。
+ // 国勢調査の年齢不詳や推計表の丸め差で、ドットが総人数を超えないようにする。
+ const total=Math.max(0,Math.round(d.miniTotal));
+ const raw=[d.miniChild,d.miniWork,d.miniElder].map(x=>Math.max(0,Number(x)||0));
+ const sum=raw.reduce((a,b)=>a+b,0);
+ if(!total||!sum)return{child:0,work:0,elder:0,total:0};
+ const scaled=raw.map(x=>x/sum*total);
+ const counts=scaled.map(Math.floor);
+ let remain=total-counts.reduce((a,b)=>a+b,0);
+ const order=[0,1,2].sort((a,b)=>(scaled[b]-Math.floor(scaled[b]))-(scaled[a]-Math.floor(scaled[a]))||a-b);
+ for(let i=0;i<remain;i++)counts[order[i]]++;
+ return{child:counts[0],work:counts[1],elder:counts[2],total};
+}
 window.JapanMiniLab={START_YEAR,END_YEAR,MINI_BASE,START,SCENARIOS,at,miniDots,clamp,populationMethod:P.method,selfCheck:P.selfCheck};
 })();
