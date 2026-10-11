@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f7f5">
+<title>DIARY｜☀️ はてな日和</title>
+<meta name="description" content="はてな日和の管理人の日記帳。日付と本文だけ。思いついたことを、気が向いたときに。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://haine-cpu7.github.io/shozai-lab/diary.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{color-scheme:light;--ink:#302f31;--muted:#6f7177;--line:#d9d9dc;--paper:#fff;--bg:#f7f7f5;--blue:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,"Yu Gothic UI",sans-serif;line-height:1.78}
+.wrap{max-width:810px;padding:24px 18px 48px;margin:auto}
+.paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4.5vw,36px);box-shadow:0 5px 18px #1e293b06}
+.head{text-align:center;border-bottom:1px solid #ececef;padding-bottom:22px}
+.eyebrow{font-size:.73rem;letter-spacing:.13em;color:#777b84;margin:0 0 12px}
+h1{font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.28;letter-spacing:.03em;margin:0 0 6px}
+.sub{margin:0;color:#666a70;font-weight:700;font-size:clamp(1.06rem,3vw,1.33rem)}
+.intro{margin:24px 0 26px;color:#535b63;font-size:.94rem}
+.entries{display:grid;gap:0}
+.diary-item{padding:20px 2px 25px;border-bottom:1px solid #e8e8eb}
+.diary-item:first-child{padding-top:6px}
+.diary-item:last-child{border-bottom:0}
+.diary-date{margin:0 0 11px;color:#2563eb;font-size:.87rem;font-weight:750;letter-spacing:.05em}
+.diary-body{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font-size:.96rem}
+.empty{background:#f4f4f5;border-radius:12px;padding:24px 18px;color:#686e77;text-align:center;font-size:.91rem}
+.return{display:inline-block;margin-top:29px;text-decoration:none;font-weight:700;color:#1754bf;padding:8px 12px;border:1px solid #c8d7ee;border-radius:9px}
+.return:hover,.return:focus-visible{background:#edf4ff}
+.footer{text-align:center;font-size:.73rem;color:#85858a;padding:18px 0}
+@media(max-width:540px){.wrap{padding:14px 12px 30px}.paper{padding:20px 16px}.diary-item{padding:19px 1px 23px}}
+</style>
+</head>
+<body>
+<div class="wrap"><main class="paper">
+<header class="head"><p class="eyebrow">MY LITTLE HOMEPAGE · SINCE 2026.10.04</p><h1>📖 DIARY</h1><p class="sub">管理人の日記帳</p></header>
+<p class="intro">今日のこととか、どうでもいいこととか。<br>気が向いたときに、適当に書く場所です (*'▽')</p>
+<section id="diary-entries" class="entries" aria-label="日記の記録" aria-live="polite"><p class="empty">日記を読み込んでいます…</p></section>
+<a class="return" href="index.html">← 玄関へ戻る</a>
+</main><div class="footer">☀️ はてな日和 〜 もしもの箱庭 〜</div></div>
+<script>
+(function () {
+  'use strict';
+  var list = document.getElementById('diary-entries');
+  function empty(message) {
+    list.replaceChildren();
+    var p = document.createElement('p');
+    p.className = 'empty';
+    p.textContent = message;
+    list.appendChild(p);
+  }
+  function parseDiary(raw) {
+    var parts = raw.replace(/\r\n?/g, '\n').split(/^\s*---\s*$/m);
+    var entries = [];
+    parts.forEach(function (part, ordinal) {
+      var lines = part.trim().split('\n');
+      var date = (lines.shift() || '').trim();
+      var body = lines.join('\n').trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(date) && body) {
+        entries.push({date: date, body: body, ordinal: ordinal});
+      }
+    });
+    entries.sort(function (a, b) {
+      return b.date.localeCompare(a.date) || a.ordinal - b.ordinal;
+    });
+    return entries;
+  }
+  function show(entries) {
+    if (!entries.length) {
+      empty('まだ日記はありません。気が向いたら書く予定ｗ');
+      return;
+    }
+    list.replaceChildren();
+    entries.forEach(function (entry) {
+      var article = document.createElement('article');
+      article.className = 'diary-item';
+      var time = document.createElement('time');
+      time.className = 'diary-date';
+      time.dateTime = entry.date;
+      time.textContent = entry.date.replace(/-/g, '.');
+      var body = document.createElement('p');
+      body.className = 'diary-body';
+      body.textContent = entry.body;
+      article.append(time, body);
+      list.appendChild(article);
+    });
+  }
+  fetch('diary.txt', {cache:'no-store'})
+    .then(function (response) {
+      if (!response.ok) throw new Error('load failed');
+      return response.text();
+    })
+    .then(function (raw) {show(parseDiary(raw));})
+    .catch(function () {empty('日記を読み込めませんでした。少し時間をおいて試してね。');});
+}());
+</script>
+</body>
+</html>
