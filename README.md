@@ -962,3 +962,27 @@ No.06へ通常モデルとは別のストレステストを追加。
 - `sitemap.xml`: `kurashi.html` を追加。
 - `kurashi.html`: 独自 title / description / canonical / OGP / Twitter / VideoGame の構造化データ、関連研究リンク、任意のOFUSE（既存と同一URL）を追加。
 - 既存 No.01〜No.23 および `bot-machi.html` の計算・表示は変更していない。独立した架空ゲームであり、現実の家計の予測や因果推論を意味しない。
+
+
+## v2.14（2026-10-11）— 特別ゲーム「その500円、何を買った？」追加
+
+- `trust-bot.html` に、単体版 v0.2.1 の8体購買BOT実験を統合。計算JavaScript・ゲーム操作・動的要約は変更していません。
+- `trust-bot-preview.png` はゲーム本体の実画面から作成した紹介画像です。
+- `index.html` に3本目の SPECIAL GAME カードとページ内ジャンプを追加。既存23研究と2本のゲームは維持。
+- `sitemap.xml` に新ゲームURLを追加。タイトル・説明・canonical・OGP・VideoGame構造化データを設定。
+- ゲーム内には既存No.20・No.21へのリンクと、ページ下部に任意の研究費（OFUSE）を設置。支援によるゲーム機能の差はありません。
+- ガチ研究編は未制作。No.24には数えていません。既存の実証研究と混同しないよう、ゲームの仮定と限界を示しています。
+- v2.14 PATCH の変更ファイルは `index.html`, `trust-bot.html`, `trust-bot-preview.png`, `sitemap.xml`, `README.md` の5つ。
+- GitHub Pagesへの公開はZIP作成とは別。公開するときはリポジトリ直下に差分の5ファイルをアップロードしてください。
+
+
+## v2.15（2026-10-11）— No.24「その500円、何を買った？」正式研究に分類変更
+
+- 番外ゲーム／特別シミュレーションではなく、**No.24の正式研究**。23→24研究。特別ゲームは「BOTのまち。」「同じニュース、ちがう暮らし。」の2本。
+- `trust-bot.html`：No.24シミュレーション。既存v0.2.1の8体の性格、判定式、Seed、実行操作、結果要約を変更しない。研究編へのリンクを追加。
+- `trust-bot-research.html`：No.24研究。5仮説を同じBOTで100 Seed確認し、価格100〜2,000円の感度分析を行う。社会の実測データではなくモデル内部の検証と明記。
+- `index.html`：No.24正式カードを「お金・情報・市場」へ追加。トップの案内・JSON-LDの実験数・ItemListを24に修正。
+- `sitemap.xml`：No.24研究ページを追加。SEOタイトル・canonical・OGP・構造化データ整備。
+- `trust-bot-preview.png`は実画面を使った従来の紹介画像を維持。
+- 変更／追加は`index.html`, `trust-bot.html`, `trust-bot-research.html`, `sitemap.xml`, `README.md`。PATCHにはv2.13からの更新でも使えるよう紹介画像`trust-bot-preview.png`を同梱。以前のv2.14と異なり、研究ナンバーで管理する。
+- ZIPの作成と公開は別。GitHub Pagesへのアップロードはまだ行っていません。
