@@ -1,11 +1,16 @@
-【はてな日和 OGP修正パッチ】
+はてな日和／CONTENTSジャンプ修正（2026-10-12）
 
-入っているもの
-- index.html（OGP / Twitterカード設定を追加済み）
-- og-card-home.png（共有用画像 1200x630）
-- hatenyan.png（元画像の参照用）
+対象：現在のGitHub公開版 index.html / contents.html を基準
 
-やること
-1. GitHub Pages の shozai-lab ルートに index.html を上書き
-2. 同じ場所に og-card-home.png をアップロード
-3. 公開後、note側で古いカードが残る場合は、少し時間を置いてリンクを貼り直す
+1) index.html のCONTENTSボタンのリンク先を
+   contents.html#themes → contents.html#entrance-contents に修正。
+2) contents.html の entrance-contents アンカーを
+   冒頭紹介文の段落から、ページ冒頭のセクション全体に移動。
+   → タイトル「はてなシミュレーション」から表示されるように調整。
+
+その他は変更していません。DIARY、OGP画像、ボタンなども維持。
+
+【反映方法】
+GitHub の shozai-lab リポジトリ直下に index.html と contents.html を上書きアップロード。
+反映後に玄関のCONTENTSをクリックして、コンテンツ冒頭が表示されるか確認。
+※ブラウザの古いキャッシュが残るときは Ctrl+F5 で再読み込み。
