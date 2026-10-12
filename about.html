@@ -9,4 +9,22 @@ a{color:inherit}.wrap{max-width:810px;padding:24px 18px 48px;margin:auto}.paper{
 .room-title{font-size:1.7rem;margin:0 0 8px}.room-lead{margin:0 0 15px;color:#555b64}.return{display:inline-block;margin-top:16px;text-decoration:none;font-weight:700;color:#1754bf;padding:8px 12px;border:1px solid #c8d7ee;border-radius:9px}.return:hover{background:#edf4ff}.line{border-top:1px solid #e8e8e8;margin:18px 0}.link-list{list-style:none;margin:12px 0;padding:0}.link-list li{padding:10px 0;border-bottom:1px solid #ebedf0}.link-list a{color:#1458c9;text-underline-offset:3px}.cat-large{max-width:min(100%,290px);display:block;margin:6px auto 12px}
 @media(max-width:540px){.wrap{padding:14px 12px 30px}.paper{padding:20px 16px}.welcome{gap:10px;padding:18px 0 13px}.welcome p{font-size:.88rem}.hatenyan{width:86px}.nav-grid{gap:8px}.tile{min-height:83px;padding:10px 3px;border-radius:11px}.tile b{font-size:.78rem}.tile .emoji{font-size:1.28rem}.tile small{font-size:.62rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
-</style></head><body><div class="wrap"><main class="paper"><p class="eyebrow">MY LITTLE HOMEPAGE</p><h1 class="room-title">🐱 ABOUT ME</h1><p class="room-lead">管理人の自己紹介ページ。</p><div class="line"></div><p>ここには、管理人のことを少しずつ書いていく予定です。</p><p>気になったことをBOTで実験するのが、最近の遊び。</p><p>詳しい自己紹介は、またそのうち。工事中です (*'▽')</p><a class="return" href="index.html">← HOME（玄関）に戻る</a></main><div class="footer">☀️ はてな日和 〜 もしもの箱庭 〜<br>Since 2026.10.04</div></div></body></html>
+
+/* ABOUT ME のプロフィール欄だけに適用 */
+.profile{margin:22px 0 10px;border-top:1px solid #e8e8eb}
+.profile-row{display:grid;grid-template-columns:148px minmax(0,1fr);gap:18px;padding:17px 3px;border-bottom:1px solid #e8e8eb}
+.profile dt{margin:0;color:#737780;font-weight:700;font-size:.9rem}
+.profile dd{margin:0;overflow-wrap:anywhere}
+.profile a{color:#1754bf;text-underline-offset:3px}
+.profile .profile-name{font-size:1.13rem;font-weight:700}
+.about-message{font-size:.88rem;color:#747780;margin:23px 0 14px}
+@media(max-width:540px){.profile-row{grid-template-columns:110px minmax(0,1fr);gap:12px;padding:16px 1px}.profile dt{font-size:.84rem}}
+</style></head><body><div class="wrap"><main class="paper"><p class="eyebrow">MY LITTLE HOMEPAGE</p><h1 class="room-title">🐱 ABOUT ME</h1><p class="room-lead">管理人のこと、ちょっとだけ。</p>
+<dl class="profile" aria-label="管理人のプロフィール">
+  <div class="profile-row"><dt>名前</dt><dd class="profile-name">管理人・N</dd></div>
+  <div class="profile-row"><dt>日記</dt><dd><a href="https://note.com/_haine" target="_blank" rel="noopener noreferrer">noteの日記 ↗</a></dd></div>
+  <div class="profile-row"><dt>好きなこと</dt><dd>ホームページをいじること。<br>BOTでいろいろ実験すること。<br>ゲームを作ったり、箱庭を眺めたりｗ</dd></div>
+  <div class="profile-row"><dt>好きな食べ物</dt><dd>あとで書くｗ</dd></div>
+</dl>
+<p class="about-message">気が向いたら、また項目が増えるかもしれない (*'▽')</p>
+<a class="return" href="index.html">← HOME（玄関）に戻る</a></main><div class="footer">☀️ はてな日和 〜 もしもの箱庭 〜<br>Since 2026.10.04</div></div></body></html>
