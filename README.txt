@@ -1,14 +1,15 @@
-☀️ はてな日和 ABOUT ME 追加パッチ
+はてな日和・管理人にお茶をあげるボタン復元パッチ
 
-GitHubの最新版（about.html）を元に作成。
+GitHubリポジトリ haine-cpu7/shozai-lab のルートにある index.html だけを上書きしてください。
 
-【変更するファイル】
-about.html だけです。
+変更点:
+- HOME の末尾（更新のあゆみを見る・No.01から遊ぶ の下）に、以前あったお茶代ボタンを元のデザインで復元
+- リンク先 https://ofuse.me/10da80e3
 
-【反映方法】
-GitHub の Haine-cpu7/shozai-lab にある about.html を、このファイルで上書きしてください。
-既存の index.html、DIARYミステリー、CONTENTSなどは変更していません。
+変更していないもの:
+- DIARY → dareka-diary.html（ミステリー日記）
+- CONTENTS → contents.html#entrance-contents
+- OGPや他の全メニュー・文章・ページ・ゲーム
 
-【項目】
-管理人・N／noteの日記リンク／好きなこと／好きな食べ物
-※好きな食べ物だけ「あとで書くｗ」にしてあります。好きな料理が決まったら差し替え可能です。
+作業基準: GitHubの最新 index.html、Git Blob SHA 0930a05a570b8fb9228ef711bffbf0074e4191a6。
+公開サイトはまだ更新していません。
