@@ -110,7 +110,7 @@ window.addEventListener('popstate',()=>render(current(),false));
 // On the final day's entry, an innocuous archive link surfaces, without any game UI.
 function addLink(){
   const found=document.getElementById('oldlogLink');if(found)found.remove();
-  if(dayIndex>=25){
+  if(dayIndex===25){
     const a=document.createElement('a');a.href='#oldlog';a.id='oldlogLink';a.textContent='→ そういえば昔の更新履歴が残ってた';
     a.style.cssText='display:inline-block;margin-top:16px;font-size:.88rem';
     a.addEventListener('click',evt=>{evt.preventDefault();old.hidden=false;old.scrollIntoView({block:'nearest',behavior:'smooth'})});
