@@ -1,15 +1,10 @@
-はてな日和・管理人にお茶をあげるボタン復元パッチ
+はてな日和 ABOUT ME 趣味・好きなこと 修正パッチ
 
-GitHubリポジトリ haine-cpu7/shozai-lab のルートにある index.html だけを上書きしてください。
+GitHubの shozai-lab ルートに about.html だけ上書きしてください。
 
-変更点:
-- HOME の末尾（更新のあゆみを見る・No.01から遊ぶ の下）に、以前あったお茶代ボタンを元のデザインで復元
-- リンク先 https://ofuse.me/10da80e3
+変更内容：
+・「好きなこと」の文章を指定どおり更新
+・「趣味」の項目を1件追加
 
-変更していないもの:
-- DIARY → dareka-diary.html（ミステリー日記）
-- CONTENTS → contents.html#entrance-contents
-- OGPや他の全メニュー・文章・ページ・ゲーム
-
-作業基準: GitHubの最新 index.html、Git Blob SHA 0930a05a570b8fb9228ef711bffbf0074e4191a6。
-公開サイトはまだ更新していません。
+基準：2026-10-12 取得GitHub版 about.html (Git blob SHA: e0e76bda1215af70bdcbdd88b6b1bc1ede5c7cdf)
+他ページは変更していません。
