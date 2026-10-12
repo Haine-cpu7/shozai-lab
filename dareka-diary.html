@@ -85,6 +85,9 @@ let dayIndex=0;
 const toParam=d=>d.replaceAll('-','');
 function render(idx,updateUrl){
   dayIndex=Math.min(entries.length-1,Math.max(0,idx));
+  // 最初の日は過去の日記がないので、過去ログを表示しない。
+  document.querySelector('.back-number').hidden = dayIndex === 0;
+  if (dayIndex === 0) document.getElementById('archive').open = false;
   const e=entries[dayIndex];
   dateEl.textContent=e.date.replaceAll('-','.');
   textEl.textContent=e.text;
